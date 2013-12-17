@@ -1,6 +1,6 @@
 {
   "name": "lodash-contrib",
-  "version": "241.0.0",
+  "version": "241.1.0",
   "main": "index.js",
   "devDependencies": {
     "lodash": "~2.4.1",
@@ -23,10 +23,12 @@
     "email": "me@fogus.me",
     "url": "http://www.fogus.me"
   },
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Refael Ackermann",
       "email": "refael@empeeric.com",
       "url": "http://www.empeeric.com/"
-  }],
+    }
+  ],
   "homepage": "https://github.com/Empeeric/lodash-contrib"
 }
