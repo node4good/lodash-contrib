@@ -1,11 +1,9 @@
 {
-  "name": "underscore-contrib",
-  "version": "0.2.0",
+  "name": "lodash-contrib",
+  "version": "2.4.1",
   "main": "index.js",
-  "dependencies": {
-    "underscore": "*"
-  },
   "devDependencies": {
+    "lodash": "~2.4.1",
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "0.3.0",
     "grunt-contrib-uglify": "0.2.0",
@@ -17,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/documentcloud/underscore-contrib.git"
+    "url": "https://github.com/Empeeric/lodash-contrib.git"
   },
   "license": "MIT",
   "author": {
@@ -25,5 +23,10 @@
     "email": "me@fogus.me",
     "url": "http://www.fogus.me"
   },
-  "homepage": "https://github.com/documentcloud/underscore-contrib"
+  "contributors": [{
+      "name": "Refael Ackermann",
+      "email": "refael@empeeric.com",
+      "url": "http://www.empeeric.com/"
+  }],
+  "homepage": "https://github.com/Empeeric/lodash-contrib"
 }
