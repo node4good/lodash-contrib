@@ -1,6 +1,6 @@
-// Underscore-contrib (underscore.array.builders.js 0.0.1)
+// lodash-contrib (lodash.array.builders.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -8,11 +8,11 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
-  
+
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
       concat  = Array.prototype.concat;
@@ -24,7 +24,7 @@
 
   _.mixin({
     // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result 
+    // scalars as arguments `cat` will plop them down in place in the result
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
@@ -94,7 +94,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice.call(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) {
         return _.cons(elem, [inter]);
       }), 0, -1);
     },
@@ -171,7 +171,7 @@
       return ret;
     },
 
-    // Runs its given function on the index of the elements rather than 
+    // Runs its given function on the index of the elements rather than
     // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {

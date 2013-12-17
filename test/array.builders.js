@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
-  module("underscore.array.builders");
+  module("_.array.builders");
 
   test("cat", function() {
     // no args
     deepEqual(_.cat(), [], 'should return an empty array when given no args');
-    
+
     // one arg
     deepEqual(_.cat([]), [], 'should concatenate one empty array');
     deepEqual(_.cat([1,2,3]), [1,2,3], 'should concatenate one homogenious array');

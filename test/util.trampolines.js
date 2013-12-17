@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.util.trampolines");
+  module("lodash.util.trampolines");
 
   test("trampoline", function() {
     var oddOline = function(n) {

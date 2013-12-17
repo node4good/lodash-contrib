@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.function.predicates");
+  module("lodash.function.predicates");
 
   test("isInstanceOf", function() {
     equal(_.isInstanceOf([], Array),   true,  'should identify arrays');

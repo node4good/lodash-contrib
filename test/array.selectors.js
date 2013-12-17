@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.array.selectors");
+  module("lodash.array.selectors");
 
   test("second", function() {
     var a = [1,2,3,4,5];

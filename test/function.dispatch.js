@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.function.dispatch");
+  module("lodash.function.dispatch");
 
   test('attempt', function() {
     var obj = {x: '', y: function() { return true; }, z: function() { return _.toArray(arguments).join(''); }};

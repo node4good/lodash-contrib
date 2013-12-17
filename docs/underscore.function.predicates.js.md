@@ -114,7 +114,7 @@ _.isIncreasing(5, 4);
 Checks whether the value is "indexed." An indexed value is one which accepts a
 numerical index to access its elements. (e.g. arrays and strings)
 
-**NOTE:** Underscore does not support cross-browser consistent use of strings as
+**NOTE:** lodash does not support cross-browser consistent use of strings as
 array-like values, so be wary in IE 8 when using string objects and in IE7 and
 earlier when using string literals & objects.
 
@@ -163,7 +163,7 @@ _.isInteger(2.5);
 
 _.isInteger(-1);
 // => true
-``` 
+```
 
 --------------------------------------------------------------------------------
 
@@ -323,4 +323,4 @@ _.isZero(0);
 
 _.isZero("Pythagoras");
 // => false
-```    
+```

@@ -1,6 +1,6 @@
-// Underscore-contrib (underscore.collections.walk.js 0.0.1)
+// lodash-contrib (lodash.collections.walk.js 0.0.1)
 // (c) 2013 Patrick Dubroy
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -8,7 +8,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -169,7 +169,7 @@
     }
   };
 
-  // Set up aliases to match those in underscore.js.
+  // Set up aliases to match those in lodash.js.
   exports.collect = exports.map;
   exports.detect = exports.find;
   exports.select = exports.filter;

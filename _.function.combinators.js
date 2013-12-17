@@ -1,6 +1,6 @@
-// Underscore-contrib (underscore.function.combinators.js 0.0.1)
+// lodash-contrib (lodash.function.combinators.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -8,7 +8,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -28,9 +28,9 @@
       else return fun(first, optionalLast);
     };
   };
-  
-  // n.b. depends on underscore.function.arity.js
-    
+
+  // n.b. depends on lodash.function.arity.js
+
   // Takes a target function and a mapping function. Returns a function
   // that applies the mapper to its arguments before evaluating the body.
   function baseMapArgs (fun, mapFun) {
@@ -38,7 +38,7 @@
       return fun.apply(this, __map.call(arguments, mapFun));
     });
   }
-  
+
   // Mixing in the combinator functions
   // ----------------------------------
 
@@ -50,7 +50,7 @@
     },
 
     // Takes some number of functions, either as an array or variadically
-    // and returns a function that takes some value as its first argument 
+    // and returns a function that takes some value as its first argument
     // and runs it through a pipeline of the original functions given.
     pipeline: function(/*, funs */){
       var funs = (_.isArray(arguments[0])) ? arguments[0] : arguments;
@@ -171,7 +171,7 @@
         };
       }
     },
-    
+
     // map the arguments of a function
     mapArgs: curry2(baseMapArgs),
 
@@ -247,17 +247,17 @@
         return func.apply(null, _.cons(this, arguments));
       };
     },
-    
+
     k: _.always,
     t: _.pipeline
   });
-  
+
   _.unsplatr = _.unsplat;
-    
+
   // map the arguments of a function, takes the mapping function
   // first so it can be used as a combinator
   _.mapArgsWith = curry2(_.flip(baseMapArgs));
-  
+
   // Returns function property of object by name, bound to object
   _.bound = function(obj, fname) {
     var fn = obj[fname];

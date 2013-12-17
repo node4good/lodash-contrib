@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-  module('underscore.util.strings');
+  module('lodash.util.strings');
 
   test('explode', function() {
     deepEqual(_.explode('Virgil'), ['V','i','r','g','i','l'], 'Should explode a string into an array of characters.');

@@ -15,19 +15,20 @@ module.exports = function(grunt) {
       "// =========================\n\n" +
       "// > <%= pkg.homepage %>\n" +
       "// > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors\n" +
+      "// > (c) 2013 Refael Ackermann, & Empeeric\n" +
       "// > <%= pkg.name %> may be freely distributed under the <%= pkg.license %> license.\n\n",
 
     concat: {
       all: {
-        src: "underscore.*.js",
-        dest: "dist/underscore-contrib.js",
+        src: "_.*.js",
+        dest: "dist/lodash-contrib.js",
         options: { banner: "<%= contribBanner %>" }
       }
     },
 
     uglify: {
       all: {
-        files: { "dist/underscore-contrib.min.js": "dist/underscore-contrib.js" },
+        files: { "dist/lodash-contrib.min.js": "dist/lodash-contrib.js" },
         options: { banner: "<%= contribBanner %>" }
       }
     },
@@ -46,7 +47,7 @@ module.exports = function(grunt) {
       options: {
         es3: true,       // Enforce ES3 compatibility
         indent: 2,       // Indent by 2 spaces
-        camelcase: true, // All vars must be camelCase or UPPER_WITH_UNDERSCORES
+        camelcase: true, // All vars must be camelCase or UPPER_WITH_lodashS
         eqnull: true,    // Allow 'x == null' convention
         forin: true,     // Require `for x in y` to filter with `hasOwnProperty`
         newcap: true,    // Require constructor names to be capitalized
@@ -57,7 +58,7 @@ module.exports = function(grunt) {
     watch: {
       test: {
         files: [
-          "underscore.*.js",
+          "_.*.js",
           "test/*.js"
         ],
         tasks: ["test"]

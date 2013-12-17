@@ -1,6 +1,6 @@
-// Underscore-contrib (underscore.function.predicates.js 0.0.1)
+// lodash-contrib (lodash.function.predicates.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -8,7 +8,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -26,7 +26,7 @@
     isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
 
     // An indexed object is anything that allows numerical index for
-    // accessing its elements (e.g. arrays and strings). NOTE: Underscore
+    // accessing its elements (e.g. arrays and strings). NOTE: lodash
     // does not support cross-browser consistent use of strings as array-like
     // objects, so be wary in IE 8 when using  String objects and IE<8.
     // on string literals & objects.
