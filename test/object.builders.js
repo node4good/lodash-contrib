@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.object.builders");
+  module("lodash.object.builders");
 
   test("merge", function() {
     var o = {'a': 1, 'b': 2};
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
     deepEqual(_.setPath(obj, 9, ['a', 'b', 'c']), {a: {b: {c: 9, d: 108}}}, '');
     deepEqual(_.setPath(ary, 9, [1, 1, 0]), ['a', ['b', [9, 'd'], 'e']], '');
-    deepEqual(_.setPath(nest, 9, [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], ''); 
+    deepEqual(_.setPath(nest, 9, [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], '');
 
     deepEqual(_.setPath(obj, 9, 'a'), {a: 9}, '');
     deepEqual(_.setPath(ary, 9, 1), ['a', 9], '');
@@ -69,7 +69,7 @@ $(document).ready(function() {
 
     deepEqual(_.updatePath(obj, _.always(9), ['a', 'b', 'c']), {a: {b: {c: 9, d: 108}}}, '');
     deepEqual(_.updatePath(ary, _.always(9), [1, 1, 0]), ['a', ['b', [9, 'd'], 'e']], '');
-    deepEqual(_.updatePath(nest, _.always(9), [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], ''); 
+    deepEqual(_.updatePath(nest, _.always(9), [1, 'b', 1]), [1, {a: 2, b: [3,9], c: 5}, 6], '');
 
     deepEqual(_.updatePath(obj, _.always(9), 'a'), {a: 9}, '');
     deepEqual(_.updatePath(ary, _.always(9), 1), ['a', 9], '');

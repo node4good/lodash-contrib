@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.function.arity");
+  module("lodash.function.arity");
 
   test("fix", function() {
     var over = function(t, m, b) { return t / m / b; };
@@ -9,8 +9,8 @@ $(document).ready(function() {
     equal(t(10, 2), 0.5, 'should return a function partially applied for some number of arbitrary args marked by _');
     equal(t(10, 5), 0.2, 'should return a function partially applied for some number of arbitrary args marked by _');
 
-    var f = function () { 
-      return _.map(arguments, function (arg) { 
+    var f = function () {
+      return _.map(arguments, function (arg) {
         return typeof arg;
       }).join(', ');
     };

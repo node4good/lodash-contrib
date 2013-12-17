@@ -1,8 +1,8 @@
 Examples for _.walk
 ===================
 
-The _.walk module (underscore.collections.walk.js) provides implementations of
-the [Underscore collection functions](http://underscorejs.org/#collections)
+The _.walk module (lodash.collections.walk.js) provides implementations of
+the [lodash collection functions](http://lodashjs.org/#collections)
 that are specialized for operating on nested JavaScript objects that form
 trees.
 
@@ -11,10 +11,10 @@ Basic Traversal
 
 The most basic operation on a tree is to iterate through all its nodes, which
 is provided by `_.walk.preorder` and `_.walk.postorder`. They can be used in
-much the same way as [Underscore's 'each' function][each]. For example, take
+much the same way as [lodash's 'each' function][each]. For example, take
 a simple tree:
 
-[each]: http://underscorejs.org/#each
+[each]: http://lodashjs.org/#each
 
     var tree = {
       'name': { 'first': 'Bucky', 'last': 'Fuller' },
@@ -46,7 +46,7 @@ Collection Functions
 --------------------
 
 The \_.walk module provides versions of most of the
-[Underscore collection functions](http://underscorejs.org/#collections), with
+[lodash collection functions](http://lodashjs.org/#collections), with
 some small differences that make them better suited for operating on trees. For
 example, you can use `_.walk.filter` to get a list of all the strings in a tree:
 

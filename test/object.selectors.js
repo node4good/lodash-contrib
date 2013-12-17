@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.object.selectors");
+  module("lodash.object.selectors");
 
   test("accessor", function() {
     var a = [{a: 1, b: 2}, {c: 3}];

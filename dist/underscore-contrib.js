@@ -1,13 +1,14 @@
-// underscore-contrib v0.1.4
+// lodash-contrib v241.2.0
 // =========================
 
-// > https://github.com/documentcloud/underscore-contrib
+// > https://github.com/Empeeric/lodash-contrib
 // > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// > underscore-contrib may be freely distributed under the MIT license.
+// > (c) 2013 Refael Ackermann & Empeeric
+// > lodash-contrib may be freely distributed under the MIT license.
 
-// Underscore-contrib (underscore.array.builders.js 0.0.1)
+// lodash-contrib (lodash.array.builders.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -15,11 +16,11 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
-  
+
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
       concat  = Array.prototype.concat;
@@ -31,7 +32,7 @@
 
   _.mixin({
     // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result 
+    // scalars as arguments `cat` will plop them down in place in the result
     // array.  If given an `arguments` object, `cat` will treat it like an array
     // and concatenate it likewise.
     cat: function() {
@@ -101,7 +102,7 @@
       if (sz === 0) return array;
       if (sz === 1) return array;
 
-      return slice.call(_.mapcat(array, function(elem) { 
+      return slice.call(_.mapcat(array, function(elem) {
         return _.cons(elem, [inter]);
       }), 0, -1);
     },
@@ -109,6 +110,7 @@
     // Weaves two or more arrays together
     weave: function(/* args */) {
       if (!_.some(arguments)) return [];
+      if (arguments.length == 1) return arguments[0];
 
       return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
         return elem != null;
@@ -178,21 +180,33 @@
       return ret;
     },
 
-    // Runs its given function on the index of the elements rather than 
+    // Runs its given function on the index of the elements rather than
     // the elements themselves, keeping all of the truthy values in the end.
     keepIndexed: function(array, pred) {
       return _.filter(_.map(_.range(_.size(array)), function(i) {
         return pred(i, array[i]);
       }),
       existy);
+    },
+
+    // Accepts an array-like object (other than strings) as an argument and
+    // returns an array whose elements are in the reverse order. Unlike the
+    // built-in `Array.prototype.reverse` method, this does not mutate the
+    // original object. Note: attempting to use this method on a string will
+    // result in a `TypeError`, as it cannot properly reverse unicode strings.
+
+    reverseOrder: function(obj) {
+      if (typeof obj == 'string')
+        throw new TypeError('Strings cannot be reversed by _.reverseOrder');
+      return slice.call(obj).reverse();
     }
   });
 
 })(this);
 
-// Underscore-contrib (underscore.array.selectors.js 0.0.1)
+// lodash-contrib (lodash.array.selectors.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -200,7 +214,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -225,11 +239,17 @@
       return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
     },
 
-    // A function to get at an index into an array
-    nth: function(array, index) {
-      if ((index < 0) || (index > array.length - 1)) throw Error("Attempting to index outside the bounds of the array.");
+    // Returns the third element of an array. Passing **n** will return all but
+    // the first two of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    third: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 2, n) : array[2];
+    },
 
-      return array[index];
+    // A function to get at an index into an array
+    nth: function(array, index, guard) {
+      if ((index != null) && !guard) return array[index];
     },
 
     // Takes all items in an array while a given predicate returns truthy.
@@ -265,7 +285,7 @@
     // taking an original array and spliting it at the index
     // where a given function goes falsey.
     splitWith: function(array, pred) {
-      return [_.takeWhile(pred, array), _.dropWhile(pred, array)];
+      return [_.takeWhile(array, pred), _.dropWhile(array, pred)];
     },
 
     // Takes an array and partitions it as the given predicate changes
@@ -302,9 +322,9 @@
 
 })(this);
 
-// Underscore-contrib (underscore.collections.walk.js 0.0.1)
+// lodash-contrib (lodash.collections.walk.js 0.0.1)
 // (c) 2013 Patrick Dubroy
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -312,66 +332,109 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
 
   // An internal object that can be returned from a visitor function to
   // prevent a top-down walk from walking subtrees of a node.
-  var breaker = {};
+  var stopRecursion = {};
+
+  // An internal object that can be returned from a visitor function to
+  // cause the walk to immediately stop.
+  var stopWalk = {};
 
   var notTreeError = 'Not a tree: same object found in two different branches';
 
+  // Implements the default traversal strategy: if `obj` is a DOM node, walk
+  // its DOM children; otherwise, walk all the objects it references.
+  function defaultTraversal(obj) {
+    return _.isElement(obj) ? obj.children : obj;
+  }
+
   // Walk the tree recursively beginning with `root`, calling `beforeFunc`
   // before visiting an objects descendents, and `afterFunc` afterwards.
-  function walk(root, beforeFunc, afterFunc, context) {
+  // If `collectResults` is true, the last argument to `afterFunc` will be a
+  // collection of the results of walking the node's subtrees.
+  function walkImpl(root, traversalStrategy, beforeFunc, afterFunc, context, collectResults) {
     var visited = [];
-    (function _walk(value, key, parent) {
-      if (beforeFunc && beforeFunc.call(context, value, key, parent) === breaker)
-        return;
-
-      if (_.isObject(value) || _.isArray(value)) {
-        // Keep track of objects that have been visited, and throw an exception
-        // when trying to visit the same object twice.
+    return (function _walk(value, key, parent) {
+      // Keep track of objects that have been visited, and throw an exception
+      // when trying to visit the same object twice.
+      if (_.isObject(value)) {
         if (visited.indexOf(value) >= 0) throw new TypeError(notTreeError);
         visited.push(value);
-
-        // Recursively walk this object's descendents. If it's a DOM node, walk
-        // its DOM children.
-        _.each(_.isElement(value) ? value.children : value, _walk, context);
       }
 
-      if (afterFunc) afterFunc.call(context, value, key, parent);
+      if (beforeFunc) {
+        var result = beforeFunc.call(context, value, key, parent);
+        if (result === stopWalk) return stopWalk;
+        if (result === stopRecursion) return;
+      }
+
+      var subResults;
+      var target = traversalStrategy(value);
+      if (_.isObject(target) && !_.isEmpty(target)) {
+        // If collecting results from subtrees, collect them in the same shape
+        // as the parent node.
+        if (collectResults) subResults = _.isArray(value) ? [] : {};
+
+        var stop = _.any(target, function(obj, key) {
+          var result = _walk(obj, key, value);
+          if (result === stopWalk) return true;
+          if (subResults) subResults[key] = result;
+        });
+        if (stop) return stopWalk;
+      }
+      if (afterFunc) return afterFunc.call(context, value, key, parent, subResults);
     })(root);
   }
 
+  // Internal helper providing the implementation for `pluck` and `pluckRec`.
   function pluck(obj, propertyName, recursive) {
     var results = [];
-    _.walk.preorder(obj, function(value, key) {
-      if (key === propertyName) {
-        results[results.length] = value;
-        if (!recursive) return breaker;
-      }
+    this.preorder(obj, function(value, key) {
+      if (!recursive && key == propertyName)
+        return stopRecursion;
+      if (_.has(value, propertyName))
+        results[results.length] = value[propertyName];
     });
     return results;
   }
 
-  // Add the `walk` namespace
-  // ------------------------
-
-  _.walk = walk;
-  _.extend(walk, {
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object only after traversing its children.
-    postorder: function(obj, visitor, context) {
-      walk(obj, null, visitor, context);
+  var exports = {
+    // Performs a preorder traversal of `obj` and returns the first value
+    // which passes a truth test.
+    find: function(obj, visitor, context) {
+      var result;
+      this.preorder(obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) {
+          result = value;
+          return stopWalk;
+        }
+      }, context);
+      return result;
     },
 
-    // Recursively traverses `obj` in a depth-first fashion, invoking the
-    // `visitor` function for each object before traversing its children.
-    preorder: function(obj, visitor, context) {
-      walk(obj, visitor, null, context)
+    // Recursively traverses `obj` and returns all the elements that pass a
+    // truth test. `strategy` is the traversal function to use, e.g. `preorder`
+    // or `postorder`.
+    filter: function(obj, strategy, visitor, context) {
+      var results = [];
+      if (obj == null) return results;
+      strategy(obj, function(value, key, parent) {
+        if (visitor.call(context, value, key, parent)) results.push(value);
+      }, null, this._traversalStrategy);
+      return results;
+    },
+
+    // Recursively traverses `obj` and returns all the elements for which a
+    // truth test fails.
+    reject: function(obj, strategy, visitor, context) {
+      return this.filter(obj, strategy, function(value, key, parent) {
+        return !visitor.call(context, value, key, parent);
+      });
     },
 
     // Produces a new array of values by recursively traversing `obj` and
@@ -380,9 +443,9 @@
     // `postorder`.
     map: function(obj, strategy, visitor, context) {
       var results = [];
-      strategy.call(null, obj, function(value, key, parent) {
+      strategy(obj, function(value, key, parent) {
         results[results.length] = visitor.call(context, value, key, parent);
-      });
+      }, null, this._traversalStrategy);
       return results;
     },
 
@@ -390,21 +453,75 @@
     // tree rooted at `obj`. Results are not recursively searched; use
     // `pluckRec` for that.
     pluck: function(obj, propertyName) {
-      return pluck(obj, propertyName, false);
+      return pluck.call(this, obj, propertyName, false);
     },
 
     // Version of `pluck` which recursively searches results for nested objects
     // with a property named `propertyName`.
     pluckRec: function(obj, propertyName) {
-      return pluck(obj, propertyName, true);
+      return pluck.call(this, obj, propertyName, true);
+    },
+
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object only after traversing its children.
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    postorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, null, visitor, context);
+    },
+
+    // Recursively traverses `obj` in a depth-first fashion, invoking the
+    // `visitor` function for each object before traversing its children.
+    // `traversalStrategy` is intended for internal callers, and is not part
+    // of the public API.
+    preorder: function(obj, visitor, context, traversalStrategy) {
+      traversalStrategy = traversalStrategy || this._traversalStrategy;
+      walkImpl(obj, traversalStrategy, visitor, null, context);
+    },
+
+    // Builds up a single value by doing a post-order traversal of `obj` and
+    // calling the `visitor` function on each object in the tree. For leaf
+    // objects, the `memo` argument to `visitor` is the value of the `leafMemo`
+    // argument to `reduce`. For non-leaf objects, `memo` is a collection of
+    // the results of calling `reduce` on the object's children.
+    reduce: function(obj, visitor, leafMemo, context) {
+      var reducer = function(value, key, parent, subResults) {
+        return visitor(subResults || leafMemo, value, key, parent);
+      };
+      return walkImpl(obj, this._traversalStrategy, null, reducer, context, true);
     }
-  });
-  _.walk.collect = _.walk.map;  // Alias `map` as `collect`.
+  };
+
+  // Set up aliases to match those in lodash.js.
+  exports.collect = exports.map;
+  exports.detect = exports.find;
+  exports.select = exports.filter;
+
+  // Returns an object containing the walk functions. If `traversalStrategy`
+  // is specified, it is a function determining how objects should be
+  // traversed. Given an object, it returns the object to be recursively
+  // walked. The default strategy is equivalent to `_.identity` for regular
+  // objects, and for DOM nodes it returns the node's DOM children.
+  _.walk = function(traversalStrategy) {
+    var walker = _.clone(exports);
+
+    // Bind all of the public functions in the walker to itself. This allows
+    // the traversal strategy to be dynamically scoped.
+    _.bindAll.apply(null, [walker].concat(_.keys(walker)));
+
+    walker._traversalStrategy = traversalStrategy || defaultTraversal;
+    return walker;
+  };
+
+  // Use `_.walk` as a namespace to hold versions of the walk functions which
+  // use the default traversal strategy.
+  _.extend(_.walk, _.walk());
 })(this);
 
-// Underscore-contrib (underscore.function.arity.js 0.0.1)
+// lodash-contrib (lodash.function.arity.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -412,7 +529,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -424,17 +541,17 @@
       }
       else throw new RangeError('Only a single argument may be accepted.');
 
-    }
+    };
   }
 
   // Curry
   // -------
   var curry = (function () {
     function collectArgs(func, that, argCount, args, newArg, reverse) {
-      if (reverse == true) {
-          args.unshift(newArg);
+      if (reverse === true) {
+        args.unshift(newArg);
       } else {
-          args.push(newArg);
+        args.push(newArg);
       }
       if (args.length == argCount) {
         return func.apply(that, args);
@@ -484,12 +601,13 @@
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
     fix: function(fun) {
-      var args = _.rest(arguments);
+      var fixArgs = _.rest(arguments);
 
       var f = function() {
+        var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < args.length && arg < arguments.length; i++ ) {
+        for ( var i = 0; i < args.length || arg < arguments.length; i++ ) {
           if ( args[i] === _ ) {
             args[i] = arguments[arg++];
           }
@@ -534,7 +652,7 @@
 
     // Flexible right to left curry with strict arity.
     rCurry: function (func) {
-        return curry.call(this, func, true);
+      return curry.call(this, func, true);
     },
 
 
@@ -543,7 +661,7 @@
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
-      })
+      });
     },
 
     curry3: function (fun) {
@@ -551,9 +669,9 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (last) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
 
       // reverse currying for functions taking two arguments.
@@ -561,8 +679,8 @@
       return enforcesUnary(function (last) {
         return enforcesUnary(function (first) {
           return fun.call(this, first, last);
-        })
-      })
+        });
+      });
     },
 
     rcurry3: function (fun) {
@@ -570,15 +688,18 @@
         return enforcesUnary(function (second) {
           return enforcesUnary(function (first) {
             return fun.call(this, first, second, last);
-          })
-        })
-      })
+          });
+        });
+      });
     },
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
 
   _.arity = (function () {
+    // Allow 'new Function', as that is currently the only reliable way
+    // to manipulate function.length
+    /* jshint -W054 */
     var FUNCTIONS = {};
     return function arity (numberOfArgs, fun) {
       if (FUNCTIONS[numberOfArgs] == null) {
@@ -599,9 +720,9 @@
 
 })(this);
 
-// Underscore-contrib (underscore.function.combinators.js 0.0.1)
+// lodash-contrib (lodash.function.combinators.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -609,7 +730,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -629,17 +750,17 @@
       else return fun(first, optionalLast);
     };
   };
-  
-  // n.b. depends on underscore.function.arity.js
-    
+
+  // n.b. depends on lodash.function.arity.js
+
   // Takes a target function and a mapping function. Returns a function
   // that applies the mapper to its arguments before evaluating the body.
   function baseMapArgs (fun, mapFun) {
     return _.arity(fun.length, function () {
       return fun.apply(this, __map.call(arguments, mapFun));
     });
-  };
-  
+  }
+
   // Mixing in the combinator functions
   // ----------------------------------
 
@@ -651,7 +772,7 @@
     },
 
     // Takes some number of functions, either as an array or variadically
-    // and returns a function that takes some value as its first argument 
+    // and returns a function that takes some value as its first argument
     // and runs it through a pipeline of the original functions given.
     pipeline: function(/*, funs */){
       var funs = (_.isArray(arguments[0])) ? arguments[0] : arguments;
@@ -759,7 +880,7 @@
       }
       else if (funLength === 1)  {
         return function () {
-          return fun.call(this, __slice.call(arguments, 0))
+          return fun.call(this, __slice.call(arguments, 0));
         };
       }
       else {
@@ -772,7 +893,7 @@
         };
       }
     },
-    
+
     // map the arguments of a function
     mapArgs: curry2(baseMapArgs),
 
@@ -812,11 +933,11 @@
     // Flips the first two args of a function
     flip2: function(fun) {
       return function(/* args */) {
-        var tmp = arguments[0];
-        arguments[0] = arguments[1];
-        arguments[1] = tmp;
+        var flipped = __slice.call(arguments);
+        flipped[0] = arguments[1];
+        flipped[1] = arguments[0];
 
-        return fun.apply(null, arguments);
+        return fun.apply(null, flipped);
       };
     },
 
@@ -828,17 +949,37 @@
         return fun.apply(null, reversed);
       };
     },
-    
+
+    // Takes a method-style function (one which uses `this`) and pushes
+    // `this` into the argument list. The returned function uses its first
+    // argument as the receiver/context of the original function, and the rest
+    // of the arguments are used as the original's entire argument list.
+    functionalize: function(method) {
+      return function(ctx /*, args */) {
+        return method.apply(ctx, _.rest(arguments));
+      };
+    },
+
+    // Takes a function and pulls the first argument out of the argument
+    // list and into `this` position. The returned function calls the original
+    // with its receiver (`this`) prepending the argument list. The original
+    // is called with a receiver of `null`.
+    methodize: function(func) {
+      return function(/* args */) {
+        return func.apply(null, _.cons(this, arguments));
+      };
+    },
+
     k: _.always,
     t: _.pipeline
   });
-  
+
   _.unsplatr = _.unsplat;
-    
+
   // map the arguments of a function, takes the mapping function
   // first so it can be used as a combinator
   _.mapArgsWith = curry2(_.flip(baseMapArgs));
-  
+
   // Returns function property of object by name, bound to object
   _.bound = function(obj, fname) {
     var fn = obj[fname];
@@ -849,9 +990,9 @@
 
 })(this);
 
-// Underscore-contrib (underscore.function.iterators.js 0.0.1)
-// (c) 2013 Michael Fogus and DocumentCloud Inc.
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib (lodash.function.dispatch.js 0.0.1)
+// (c) 2013 Justin Ridgewell
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -859,301 +1000,368 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
-  
+
+  // Create quick reference variable for speed.
+  var slice   = Array.prototype.slice;
+
+  // Mixing in the attempt function
+  // ------------------------
+
+  _.mixin({
+    // If object is not undefined or null then invoke the named `method` function
+    // with `object` as context and arguments; otherwise, return undefined.
+    attempt: function(object, method) {
+      if (object == null) return void 0;
+      var func = object[method];
+      var args = slice.call(arguments, 2);
+      return _.isFunction(func) ? func.apply(object, args) : void 0;
+    }
+  });
+
+})(this);
+
+// lodash-contrib (lodash.function.iterators.js 0.0.1)
+// (c) 2013 Michael Fogus and DocumentCloud Inc.
+// lodash-contrib may be freely distributed under the MIT license.
+
+(function(root, undefined) {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `global` on the server.
+  var _ = root._ || require('lodash');
+
+  // Helpers
+  // -------
+
   var HASNTBEENRUN = {};
-  
+
   function unary (fun) {
     return function (first) {
       return fun.call(this, first);
     };
   }
-  
+
   function binary (fun) {
     return function (first, second) {
       return fun.call(this, first, second);
     };
   }
-  
-  var undefined = void 0;
 
-  
   // Mixing in the iterator functions
   // --------------------------------
 
-     function foldl (iter, binaryFn, seed) {
-      var state, element;
-      if (seed !== void 0) {
-        state = seed;
-      }
-      else {
-        state = iter();
-      }
+  function foldl (iter, binaryFn, seed) {
+    var state, element;
+    if (seed !== void 0) {
+      state = seed;
+    }
+    else {
+      state = iter();
+    }
+    element = iter();
+    while (element != null) {
+      state = binaryFn.call(element, state, element);
       element = iter();
-      while (element != null) {
-        state = binaryFn.call(element, state, element);
-        element = iter();
+    }
+    return state;
+  }
+
+  function unfold (seed, unaryFn) {
+    var state = HASNTBEENRUN;
+    return function () {
+      if (state === HASNTBEENRUN) {
+        state = seed;
+      } else if (state != null) {
+        state = unaryFn.call(state, state);
       }
+
       return state;
     };
-  
-    function unfold (seed, unaryFn) {
-      var state = HASNTBEENRUN;
-      return function () {
-        if (state === HASNTBEENRUN) {
-          return (state = seed);
-        }
-        else if (state != null) {
-          return (state = unaryFn.call(state, state));
-        }
-        else return state;
-      };
-    };
-  
-    // note that the unfoldWithReturn behaves differently than
-    // unfold with respect to the first value returned
-    function unfoldWithReturn (seed, unaryFn) {
-      var state = seed,
-          pair,
-          value;
-      return function () {
-        if (state != null) {
-          pair = unaryFn.call(state, state);
-          value = pair[1];
-          state = value != null
-                  ? pair[0]
-                  : void 0;
-          return value;
-        }
-        else return void 0;
-      };
-    };
+  }
 
-    function accumulate (iter, binaryFn, initial) {
-      var state = initial;
-      return function () {
-        element = iter();
-        if (element == null) {
-          return element;
-        }
-        else {
-          if (state === void 0) {
-            return (state = element);
-          }
-          else return (state = binaryFn.call(element, state, element));
-        }
-      };
+  // note that the unfoldWithReturn behaves differently than
+  // unfold with respect to the first value returned
+  function unfoldWithReturn (seed, unaryFn) {
+    var state = seed,
+        pair,
+        value;
+    return function () {
+      if (state != null) {
+        pair = unaryFn.call(state, state);
+        value = pair[1];
+        state = value != null ? pair[0] : void 0;
+        return value;
+      }
+      else return void 0;
     };
-  
-    function accumulateWithReturn (iter, binaryFn, initial) {
-      var state = initial,
-          stateAndReturnValue;
-      return function () {
-        element = iter();
-        if (element == null) {
-          return element;
+  }
+
+  function accumulate (iter, binaryFn, initial) {
+    var state = initial;
+    return function () {
+      var element = iter();
+      if (element == null) {
+        return element;
+      }
+      else {
+        if (state === void 0) {
+          state = element;
+        } else {
+          state = binaryFn.call(element, state, element);
+        }
+
+        return state;
+      }
+    };
+  }
+
+  function accumulateWithReturn (iter, binaryFn, initial) {
+    var state = initial,
+        stateAndReturnValue,
+        element;
+    return function () {
+      element = iter();
+      if (element == null) {
+        return element;
+      }
+      else {
+        if (state === void 0) {
+          state = element;
+          return state;
         }
         else {
-          if (state === void 0) {
-            return (state = element);
+          stateAndReturnValue = binaryFn.call(element, state, element);
+          state = stateAndReturnValue[0];
+          return stateAndReturnValue[1];
+        }
+      }
+    };
+  }
+
+  function map (iter, unaryFn) {
+    return function() {
+      var element;
+      element = iter();
+      if (element != null) {
+        return unaryFn.call(element, element);
+      } else {
+        return void 0;
+      }
+    };
+  }
+
+  function mapcat(iter, unaryFn) {
+    var lastIter = null;
+    return function() {
+      var element;
+      var gen;
+      if (lastIter == null) {
+        gen = iter();
+        if (gen == null) {
+          lastIter = null;
+          return void 0;
+        }
+        lastIter = unaryFn.call(gen, gen);
+      }
+      while (element == null) {
+        element = lastIter();
+        if (element == null) {
+          gen = iter();
+          if (gen == null) {
+            lastIter = null;
+            return void 0;
           }
           else {
-            stateAndReturnValue = binaryFn.call(element, state, element);
-            state = stateAndReturnValue[0];
-            return stateAndReturnValue[1];
+            lastIter = unaryFn.call(gen, gen);
           }
         }
-      };
-    };
-  
-    function map (iter, unaryFn) {
-      return function() {
-        var element;
-        element = iter();
-        if (element != null) {
-          return unaryFn.call(element, element);
-        } else {
-          return void 0;
-        }
-      };
-    };
-
-    function select (iter, unaryPredicateFn) {
-      return function() {
-        var element;
-        element = iter();
-        while (element != null) {
-          if (unaryPredicateFn.call(element, element)) {
-            return element;
-          }
-          element = iter();
-        }
-        return void 0;
-      };
-    };
-  
-    function reject (iter, unaryPredicateFn) {
-      return select(iter, function (something) {
-        return !unaryPredicateFn(something);
-      });
-    };
-  
-    function find (iter, unaryPredicateFn) {
-      return select(iter, unaryPredicateFn)();
-    }
-
-    function slice (iter, numberToDrop, numberToTake) {
-      var count = 0;
-      while (numberToDrop-- > 0) {
-        iter();
       }
-      if (numberToTake != null) {
-        return function() {
-          if (++count <= numberToTake) {
-            return iter();
-          } else {
-            return void 0;
-          }
-        };
-      }
-      else return iter;
+      return element;
     };
-  
-    function drop (iter, numberToDrop) {
-      return slice(iter, numberToDrop == null ? 1 : numberToDrop);
-    }
-  
-    function take (iter, numberToTake) {
-      return slice(iter, 0, numberToTake == null ? 1 : numberToTake);
-    }
+  }
 
-    function List (array) {
-      var index = 0;
-      return function() {
-        return array[index++];
-      };
-    };
-  
-    function Tree (array) {
-      var index, myself, state;
-      index = 0;
-      state = [];
-      myself = function() {
-        var element, tempState;
-        element = array[index++];
-        if (element instanceof Array) {
-          state.push({
-            array: array,
-            index: index
-          });
-          array = element;
-          index = 0;
-          return myself();
-        } else if (element === void 0) {
-          if (state.length > 0) {
-            tempState = state.pop(), array = tempState.array, index = tempState.index;
-            return myself();
-          } else {
-            return void 0;
-          }
-        } else {
+  function select (iter, unaryPredicateFn) {
+    return function() {
+      var element;
+      element = iter();
+      while (element != null) {
+        if (unaryPredicateFn.call(element, element)) {
           return element;
         }
-      };
-      return myself;
+        element = iter();
+      }
+      return void 0;
     };
-  
-    function K (value) {
-      return function () {
-        return value;
-      };
-    };
+  }
 
-    function upRange (from, to, by) {
-      return function () {
-        var was;
-      
-        if (from > to) {
+  function reject (iter, unaryPredicateFn) {
+    return select(iter, function (something) {
+      return !unaryPredicateFn(something);
+    });
+  }
+
+  function find (iter, unaryPredicateFn) {
+    return select(iter, unaryPredicateFn)();
+  }
+
+  function slice (iter, numberToDrop, numberToTake) {
+    var count = 0;
+    while (numberToDrop-- > 0) {
+      iter();
+    }
+    if (numberToTake != null) {
+      return function() {
+        if (++count <= numberToTake) {
+          return iter();
+        } else {
           return void 0;
         }
-        else {
-          was = from;
-          from = from + by;
-          return was;
-        }
-      }
-    };
+      };
+    }
+    else return iter;
+  }
 
-    function downRange (from, to, by) {
-      return function () {
-        var was;
-      
-        if (from < to) {
+  function drop (iter, numberToDrop) {
+    return slice(iter, numberToDrop == null ? 1 : numberToDrop);
+  }
+
+  function take (iter, numberToTake) {
+    return slice(iter, 0, numberToTake == null ? 1 : numberToTake);
+  }
+
+  function List (array) {
+    var index = 0;
+    return function() {
+      return array[index++];
+    };
+  }
+
+  function Tree (array) {
+    var index, myself, state;
+    index = 0;
+    state = [];
+    myself = function() {
+      var element, tempState;
+      element = array[index++];
+      if (element instanceof Array) {
+        state.push({
+          array: array,
+          index: index
+        });
+        array = element;
+        index = 0;
+        return myself();
+      } else if (element === void 0) {
+        if (state.length > 0) {
+          tempState = state.pop();
+          array = tempState.array;
+          index = tempState.index;
+          return myself();
+        } else {
           return void 0;
         }
-        else {
-          was = from;
-          from = from - by;
-          return was;
-        }
-      };
+      } else {
+        return element;
+      }
     };
-  
-    function range (from, to, by) {
-      if (from == null) {
-        return upRange(1, Infinity, 1);
-      }
-      else if (to == null) {
-        return upRange(from, Infinity, 1);
-      }
-      else if (by == null) {
-        if (from <= to) {
-          return upRange(from, to, 1);
-        }
-        else return downRange(from, to, 1)
-      }
-      else if (by > 0) {
-        return upRange(from, to, by);
-      }
-      else if (by < 0) {
-        return downRange(from, to, Math.abs(by))
-      }
-      else return k(from);
+    return myself;
+  }
+
+  function K (value) {
+    return function () {
+      return value;
     };
-  
-    var numbers = unary(range);
+  }
 
-    _.iterators = {
-      accumulate: accumulate,
-      accumulateWithReturn: accumulateWithReturn,
-      foldl: foldl,
-      reduce: foldl,
-      unfold: unfold,
-      unfoldWithReturn: unfoldWithReturn,
-      map: map,
-      select: select,
-      reject: reject,
-      filter: select,
-      find: find,
-      slice: slice,
-      drop: drop,
-      take: take,
-      List: List,
-      Tree: Tree,
-      constant: K,
-      K: K,
-      numbers: numbers,
-      range: range
+  function upRange (from, to, by) {
+    return function () {
+      var was;
+
+      if (from > to) {
+        return void 0;
+      }
+      else {
+        was = from;
+        from = from + by;
+        return was;
+      }
     };
+  }
 
-})(this);
+  function downRange (from, to, by) {
+    return function () {
+      var was;
 
-// Underscore-contrib (underscore.function.predicates.js 0.0.1)
+      if (from < to) {
+        return void 0;
+      }
+      else {
+        was = from;
+        from = from - by;
+        return was;
+      }
+    };
+  }
+
+  function range (from, to, by) {
+    if (from == null) {
+      return upRange(1, Infinity, 1);
+    }
+    else if (to == null) {
+      return upRange(from, Infinity, 1);
+    }
+    else if (by == null) {
+      if (from <= to) {
+        return upRange(from, to, 1);
+      }
+      else return downRange(from, to, 1);
+    }
+    else if (by > 0) {
+      return upRange(from, to, by);
+    }
+    else if (by < 0) {
+      return downRange(from, to, Math.abs(by));
+    }
+    else return k(from);
+  }
+
+  var numbers = unary(range);
+
+  _.iterators = {
+    accumulate: accumulate,
+    accumulateWithReturn: accumulateWithReturn,
+    foldl: foldl,
+    reduce: foldl,
+    unfold: unfold,
+    unfoldWithReturn: unfoldWithReturn,
+    map: map,
+    mapcat: mapcat,
+    select: select,
+    reject: reject,
+    filter: select,
+    find: find,
+    slice: slice,
+    drop: drop,
+    take: take,
+    List: List,
+    Tree: Tree,
+    constant: K,
+    K: K,
+    numbers: numbers,
+    range: range
+  };
+
+})(this, void 0);
+
+// lodash-contrib (lodash.function.predicates.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1161,7 +1369,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -1179,7 +1387,7 @@
     isAssociative: function(x) { return _.isArray(x) || _.isObject(x) || _.isArguments(x); },
 
     // An indexed object is anything that allows numerical index for
-    // accessing its elements (e.g. arrays and strings). NOTE: Underscore
+    // accessing its elements (e.g. arrays and strings). NOTE: lodash
     // does not support cross-browser consistent use of strings as array-like
     // objects, so be wary in IE 8 when using  String objects and IE<8.
     // on string literals & objects.
@@ -1214,6 +1422,16 @@
     // A float is a numbr that is not an integer.
     isFloat: function(n) {
       return _.isNumeric(n) && !_.isInteger(n);
+    },
+
+    // checks if a string is a valid JSON
+    isJSON: function(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
     },
 
     // Returns true if its arguments are monotonically
@@ -1251,9 +1469,9 @@
 
 })(this);
 
-// Underscore-contrib (underscore.object.builders.js 0.0.1)
+// lodash-contrib (lodash.object.builders.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1261,7 +1479,7 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -1280,7 +1498,7 @@
       };
     };
   };
-  
+
   // Mixing in the object builders
   // ----------------------------
 
@@ -1323,7 +1541,9 @@
       var temp = new obj.constructor();
 
       for(var key in obj) {
-        temp[key] = _.snapshot(obj[key]);
+        if (obj.hasOwnProperty(key)) {
+          temp[key] = _.snapshot(obj[key]);
+        }
       }
 
       return temp;
@@ -1334,7 +1554,7 @@
     // the current value and is expected to return a value for use as the
     // new value.  If no keys are provided, then the object itself is presented
     // to the given function.
-    updatePath: function(obj, fun, ks) {
+    updatePath: function(obj, fun, ks, defaultValue) {
       if (!isAssociative(obj)) throw new TypeError("Attempted to update a non-associative object.");
       if (!existy(ks)) return fun(obj);
 
@@ -1345,6 +1565,9 @@
       var target   = ret;
 
       _.each(_.initial(keys), function(key) {
+        if (defaultValue && !_.has(target, key)) {
+          target[key] = _.clone(defaultValue);
+        }
         target = target[key];
       });
 
@@ -1354,10 +1577,10 @@
 
     // Sets the value at any depth in a nested object based on the
     // path described by the keys given.
-    setPath: function(obj, value, ks) {
+    setPath: function(obj, value, ks, defaultValue) {
       if (!existy(ks)) throw new TypeError("Attempted to set a property at a null path.");
 
-      return _.updatePath(obj, function() { return value; }, ks);
+      return _.updatePath(obj, function() { return value; }, ks, defaultValue);
     },
 
     // Returns an object where each element of an array is keyed to
@@ -1367,9 +1590,9 @@
 
 })(this);
 
-// Underscore-contrib (underscore.object.selectors.js 0.0.1)
+// lodash-contrib (lodash.object.selectors.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1377,13 +1600,15 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
 
   // Create quick reference variables for speed access to core prototypes.
   var concat  = Array.prototype.concat;
+  var ArrayProto = Array.prototype;
+  var slice = ArrayProto.slice;
 
   // Mixing in the object selectors
   // ------------------------------
@@ -1420,8 +1645,11 @@
     },
 
     // Gets the value at any depth in a nested object based on the
-    // path described by the keys given.
+    // path described by the keys given. Keys may be given as an array
+    // or as a dot-separated string.
     getPath: function getPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       // If we have reached an undefined property
       // then stop executing and return undefined
       if (obj === undefined) return void 0;
@@ -1440,6 +1668,8 @@
     // Returns a boolean indicating whether there is a property
     // at the path described by the keys given
     hasPath: function hasPath (obj, ks) {
+      if (typeof ks == "string") ks = ks.split(".");
+
       var numKeys = ks.length;
 
       if (obj == null && numKeys > 0) return false;
@@ -1449,14 +1679,29 @@
       if (numKeys === 1) return true;
 
       return hasPath(obj[_.first(ks)], _.rest(ks));
+    },
+
+    pickWhen: function(obj, pred) {
+      var copy = {};
+
+      _.each(obj, function(value, key) {
+        if (pred(obj[key])) copy[key] = obj[key];
+      });
+
+      return copy;
+    },
+
+    omitWhen: function(obj, pred) {
+      return _.pickWhen(obj, function(e) { return !pred(e); });
     }
+
   });
 
 })(this);
 
-// Underscore-contrib (underscore.util.existential.js 0.0.1)
+// lodash-contrib (lodash.util.existential.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1464,12 +1709,12 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
 
-  
+
   // Mixing in the truthiness
   // ------------------------
 
@@ -1477,14 +1722,19 @@
     exists: function(x) { return x != null; },
     truthy: function(x) { return (x !== false) && _.exists(x); },
     falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !b; }
+    not:    function(b) { return !b; },
+    firstExisting: function() {
+      for (var i = 0; i < arguments.length; i++) {
+        if (arguments[i] != null) return arguments[i];
+      }
+    }
   });
 
 })(this);
 
-// Underscore-contrib (underscore.function.arity.js 0.0.1)
+// lodash-contrib (lodash.function.arity.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1492,98 +1742,172 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
-  
+  var _ = root._ || require('lodash');
+
+  // Setup for variadic operators
+  // ----------------------------
+
+  // Turn a binary math operator into a variadic operator
+  function variadicMath(operator) {
+    return function() {
+      return _.reduce(arguments, operator);
+    };
+  }
+
+  // Turn a binary comparator into a variadic comparator
+  function variadicComparator(comparator) {
+    return function() {
+      var result;
+      for (var i = 0; i < arguments.length - 1; i++) {
+        result = comparator(arguments[i], arguments[i + 1]);
+        if (result === false) return result;
+      }
+      return result;
+    };
+  }
+
+  // Turn a boolean-returning function into one with the opposite meaning
+  function invert(fn) {
+    return function() {
+      return !fn.apply(this, arguments);
+    };
+  }
+
+  // Basic math operators
+  function add(x, y) {
+    return x + y;
+  }
+
+  function sub(x, y) {
+    return x - y;
+  }
+
+  function mul(x, y) {
+    return x * y;
+  }
+
+  function div(x, y) {
+    return x / y;
+  }
+
+  function mod(x, y) {
+    return x % y;
+  }
+
+  function inc(x) {
+    return ++x;
+  }
+
+  function dec(x) {
+    return --x;
+  }
+
+  function neg(x) {
+    return -x;
+  }
+
+  // Bitwise operators
+  function bitwiseAnd(x, y) {
+    return x & y;
+  }
+
+  function bitwiseOr(x, y) {
+    return x | y;
+  }
+
+  function bitwiseXor(x, y) {
+    return x ^ y;
+  }
+
+  function bitwiseLeft(x, y) {
+    return x << y;
+  }
+
+  function bitwiseRight(x, y) {
+    return x >> y;
+  }
+
+  function bitwiseZ(x, y) {
+    return x >>> y;
+  }
+
+  function bitwiseNot(x) {
+    return ~x;
+  }
+
+  // Basic comparators
+  function eq(x, y) {
+    return x == y;
+  }
+
+  function seq(x, y) {
+    return x === y;
+  }
+
+  // Not
+  function not(x) {
+    return !x;
+  }
+
+  // Relative comparators
+  function gt(x, y) {
+    return x > y;
+  }
+
+  function lt(x, y) {
+    return x < y;
+  }
+
+  function gte(x, y) {
+    return x >= y;
+  }
+
+  function lte(x, y) {
+    return x <= y;
+  }
+
   // Mixing in the operator functions
   // -----------------------------
 
   _.mixin({
-    add: function(x, y) {
-      return x + y;
-    },
-    sub: function(x, y) {
-      return x - y;
-    },
-    mul: function(x, y) {
-      return x * y;
-    },
-    div: function(x, y) {
-      return x / y;
-    },
-    mod: function(x, y) {
-      return x % y;
-    },
-    inc: function(x) {
-      return ++x;
-    },
-    dec: function(x) {
-      return --x;
-    },
-    neg: function(x) {
-      return -x;
-    },
-    eq: function(x, y) {
-      return x == y;
-    },
-    seq: function(x, y) {
-      return x === y;
-    },
-    neq: function(x, y) {
-      return x != y;
-    },
-    sneq: function(x, y) {
-      return x !== y;
-    },
-    not: function(x) {
-      return !x;
-    },
-    gt: function(x, y) {
-      return x > y;
-    },
-    lt: function(x, y) {
-      return x < y;
-    },
-    gte: function(x, y) {
-      return x >= y;
-    },
-    lte: function(x, y) {
-      return x <= y;
-    },
-    bitwiseAnd: function(x, y) {
-      return x & y;
-    },
-    bitwiseOr: function(x, y) {
-      return x | y;
-    },
-    bitwiseXor: function(x, y) {
-      return x ^ y;
-    },
-    bitwiseNot: function(x) {
-      return ~x;
-    },
-    bitwiseLeft: function(x, y) {
-      return x << y;
-    },
-    bitwiseRight: function(x, y) {
-      return x >> y;
-    },
-    bitwiseZ: function(x, y) {
-      return x >>> y;
-    }
+    add: variadicMath(add),
+    sub: variadicMath(sub),
+    mul: variadicMath(mul),
+    div: variadicMath(div),
+    mod: mod,
+    inc: inc,
+    dec: dec,
+    neg: neg,
+    eq: variadicComparator(eq),
+    seq: variadicComparator(seq),
+    neq: invert(variadicComparator(eq)),
+    sneq: invert(variadicComparator(seq)),
+    not: not,
+    gt: variadicComparator(gt),
+    lt: variadicComparator(lt),
+    gte: variadicComparator(gte),
+    lte: variadicComparator(lte),
+    bitwiseAnd: variadicMath(bitwiseAnd),
+    bitwiseOr: variadicMath(bitwiseOr),
+    bitwiseXor: variadicMath(bitwiseXor),
+    bitwiseNot: bitwiseNot,
+    bitwiseLeft: variadicMath(bitwiseLeft),
+    bitwiseRight: variadicMath(bitwiseRight),
+    bitwiseZ: variadicMath(bitwiseZ)
   });
 })(this);
 
-// Underscore-contrib (underscore.util.strings.js 0.0.1)
+// lodash-contrib (lodash.util.strings.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function (root) {
 
   // Baseline setup
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
@@ -1593,20 +1917,53 @@
 
   _.mixin({
     // Explodes a string into an array of chars
-    explode: function(s) {
+    explode: function (s) {
       return s.split('');
     },
 
     // Implodes and array of chars into a string
-    implode: function(a) {
+    implode: function (a) {
       return a.join('');
+    },
+
+    // Converts a string to camel case
+    camelCase: function (string) {
+      return  string.replace(/-([a-z])/g, function (g) {
+        return g[1].toUpperCase();
+      });
+    },
+
+    // Converts camel case to dashed (opposite of _.camelCase)
+    toDash: function (string) {
+      string = string.replace(/([A-Z])/g, function ($1) {
+        return "-" + $1.toLowerCase();
+      });
+      // remove first dash
+      return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Reports whether a string contains a search string.
+    strContains: function (str, search) {
+      if (typeof str != 'string') throw new TypeError;
+      return (str.indexOf(search) != -1);
+    },
+
+    // Reports whether a string contains a search string.
+    capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    },
+
+    // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
+    slugify: function (urlString) {
+      return urlString.replace(/ /g, '-').replace(/\./, '').toLowerCase();
     }
+
   });
 })(this);
 
-// Underscore-contrib (underscore.util.trampolines.js 0.0.1)
+// lodash-contrib (lodash.util.trampolines.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// Underscore-contrib may be freely distributed under the MIT license.
+// lodash-contrib may be freely distributed under the MIT license.
 
 (function(root) {
 
@@ -1614,12 +1971,12 @@
   // --------------
 
   // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('underscore');
+  var _ = root._ || require('lodash');
 
   // Helpers
   // -------
 
-  
+
   // Mixing in the truthiness
   // ------------------------
 

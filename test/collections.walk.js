@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.collections.walk");
+  module("lodash.collections.walk");
 
   var getSimpleTestTree = function() {
     return {
@@ -32,12 +32,12 @@ $(document).ready(function() {
     var tree = getSimpleTestTree();
     _.walk.postorder(tree, visitor);
     equal(tree.val, 16, 'should visit subtrees first');
-    
+
     tree = getSimpleTestTree();
     _.walk.preorder(tree, visitor);
     equal(tree.val, 5, 'should visit subtrees after the node itself');
   });
-  
+
   test("circularRefs", function() {
     var tree = getSimpleTestTree();
     tree.l.l.r = tree;

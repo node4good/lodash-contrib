@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  module("underscore.util.existential");
+  module("lodash.util.existential");
 
   test("exists", function() {
     equal(_.exists(null), false, 'should know that null is not existy');
