@@ -1,9 +1,9 @@
-// lodash-contrib v2.4.1
+// lodash-contrib v241.2.0
 // =========================
 
 // > https://github.com/Empeeric/lodash-contrib
 // > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// > (c) 2013 Refael Ackermann, & Empeeric
+// > (c) 2013 Refael Ackermann & Empeeric
 // > lodash-contrib may be freely distributed under the MIT license.
 
 // lodash-contrib (lodash.array.builders.js 0.0.1)
@@ -1396,9 +1396,6 @@
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
-    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
-    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
-
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
@@ -1904,7 +1901,7 @@
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // lodash-contrib may be freely distributed under the MIT license.
 
-(function(root) {
+(function (root) {
 
   // Baseline setup
   // --------------
@@ -1920,31 +1917,45 @@
 
   _.mixin({
     // Explodes a string into an array of chars
-    explode: function(s) {
+    explode: function (s) {
       return s.split('');
     },
 
     // Implodes and array of chars into a string
-    implode: function(a) {
+    implode: function (a) {
       return a.join('');
     },
 
     // Converts a string to camel case
-    camelCase : function( string ){
-      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    camelCase: function (string) {
+      return  string.replace(/-([a-z])/g, function (g) {
+        return g[1].toUpperCase();
+      });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
-    toDash : function( string ){
-      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    toDash: function (string) {
+      string = string.replace(/([A-Z])/g, function ($1) {
+        return "-" + $1.toLowerCase();
+      });
       // remove first dash
-      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+      return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
     },
 
     // Reports whether a string contains a search string.
-    strContains: function(str, search) {
+    strContains: function (str, search) {
       if (typeof str != 'string') throw new TypeError;
       return (str.indexOf(search) != -1);
+    },
+
+    // Reports whether a string contains a search string.
+    capitalize: function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    },
+
+    // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
+    slugify: function (urlString) {
+      return urlString.replace(/ /g, '-').replace(/\./, '').toLowerCase();
     }
 
   });
