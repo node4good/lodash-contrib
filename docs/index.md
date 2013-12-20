@@ -1,15 +1,14 @@
 # lodash-contrib
 
-> The brass buckles on lodash's utility belt - a contributors' library for [lodash](http://lodashjs.org/).
+> The brass buckles on lodash's utility belt - a contributors' library for [lodash](http://lodash.com/).
 
 ## Introduction
 
 ### Places
 
-  * [Documentation](http://documentcloud.github.io/lodash-contrib/)
-  * [Source repository](https://github.com/documentcloud/lodash-contrib)
-  * [Tickets and bug reports](https://github.com/documentcloud/lodash-contrib/issues?state=open)
-  * [Maintainer's website](http://www.fogus.me)
+  * [Documentation](http://empeeric.github.io/lodash-contrib/)
+  * [Source repository](https://github.com/empeeric/lodash-contrib)
+  * [Tickets and bug reports](https://github.com/empeeric/lodash-contrib/issues?state=open)
 
 ### Why lodash-contrib?
 
@@ -35,24 +34,24 @@ change in the future.
 
 ### License
 
-_.contrib is open sourced under the [MIT license](https://github.com/documentcloud/lodash-contrib/blob/master/LICENSE).
+lodash-contrib is open sourced under the [MIT license](https://github.com/Empeeric/lodash-contrib/blob/master/LICENSE).
 ## Sub-libraries
 
-The _.contrib library currently contains a number of related capabilities, aggregated into the following files.
+The lodash-contrib library currently contains a number of related capabilities, aggregated into the following files.
 
-  - [lodash.array.builders](docs/lodash.array.builders.html) - functions to build arrays
-  - [lodash.array.selectors](docs/lodash.array.selectors.html) - functions to take things from arrays
-  - [lodash.collections.walk](docs/lodash.collections.walk.html) - functions to walk and transform nested JavaScript objects
-  - [lodash.function.arity](docs/lodash.function.arity.html) - functions to manipulate and fix function argument arity
-  - [lodash.function.combinators](docs/lodash.function.combinators.html) - functions to combine functions to make new functions
-  - [lodash.function.iterators](docs/lodash.function.iterators.html) - functions to lazily produce, manipulate and consume sequence iterators
-  - [lodash.function.predicates](docs/lodash.function.predicates.html) - functions that return `true` or `false` based on some criteria
-  - [lodash.object.builders](docs/lodash.object.builders.html) - functions to build JavaScript objects
-  - [lodash.object.selectors](docs/lodash.object.selectors.html) - functions to pick things from JavaScript objects
-  - [lodash.util.existential](docs/lodash.util.existential.html) - functions that check for the existence or truthiness of JavaScript data types
-  - [lodash.util.operators](docs/lodash.util.operators.html) - functions that wrap common (or missing) JavaScript operators
-  - [lodash.util.strings](docs/lodash.util.strings.html) - functions to work with strings
-  - [lodash.util.trampolines](docs/lodash.util.trampolines.html) - functions to facilitate calling functions recursively without blowing the stack
+  - [_.array.builders](_.array.builders.js.html) - functions to build arrays
+  - [_.array.selectors](_.array.selectors.js.html) - functions to take things from arrays
+  - [_.collections.walk](_.collections.walk.js.html) - functions to walk and transform nested JavaScript objects
+  - [_.function.arity](_.function.arity.js.html) - functions to manipulate and fix function argument arity
+  - [_.function.combinators](_.function.combinators.js.html) - functions to combine functions to make new functions
+  - [_.function.iterators](_.function.iterators.js.html) - functions to lazily produce, manipulate and consume sequence iterators
+  - [_.function.predicates](_.function.predicates.js.html) - functions that return `true` or `false` based on some criteria
+  - [_.object.builders](_.object.builders.js.html) - functions to build JavaScript objects
+  - [_.object.selectors](_.object.selectors.js.html) - functions to pick things from JavaScript objects
+  - [_.util.existential](_.util.existential.js.html) - functions that check for the existence or truthiness of JavaScript data types
+  - [_.util.operators](_.util.operators.js.html) - functions that wrap common (or missing) JavaScript operators
+  - [_.util.strings](_.util.strings.js.html) - functions to work with strings
+  - [_.util.trampolines](_.util.trampolines.js.html) - functions to facilitate calling functions recursively without blowing the stack
 
 The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.
 

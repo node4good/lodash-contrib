@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       "// =========================\n\n" +
       "// > <%= pkg.homepage %>\n" +
       "// > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors\n" +
-      "// > (c) 2013 Refael Ackermann, & Empeeric\n" +
+      "// > (c) 2013 Refael Ackermann & Empeeric\n" +
       "// > <%= pkg.name %> may be freely distributed under the <%= pkg.license %> license.\n\n",
 
     concat: {
@@ -77,13 +77,13 @@ module.exports = function(grunt) {
       docs: {
         src: ['docs/*.md'],
         options: {
-          output: 'docs/'
+          output: 'gh-pages/'
         }
       },
       examples: {
         src: ['examples/*.md'],
         options: {
-          output: 'examples/'
+          output: 'gh-pages/examples/'
         }
       }
     }
