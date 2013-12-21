@@ -1,23 +1,24 @@
 {
-  "name": "underscore-contrib",
-  "version": "0.2.1",
+  "name": "lodash-contrib",
+  "version": "241.2.2",
   "main": "index.js",
   "dependencies": {
-    "underscore": "*"
+    "lodash": "2.4.1"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-concat": "0.3.0",
-    "grunt-contrib-uglify": "0.2.0",
-    "grunt-contrib-qunit": "~0.2.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-docco": "~0.3.0",
-    "grunt-tocdoc": "~0.1.0"
+    "grunt": "",
+    "grunt-contrib-concat": "",
+    "grunt-contrib-uglify": "",
+    "grunt-contrib-qunit": "",
+    "grunt-contrib-watch": "",
+    "grunt-contrib-jshint": "",
+    "grunt-docco": "",
+    "grunt-tocdoc": "",
+    "grunt-cli": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/documentcloud/underscore-contrib.git"
+    "url": "https://github.com/Empeeric/lodash-contrib.git"
   },
   "license": "MIT",
   "author": {
@@ -25,5 +26,15 @@
     "email": "me@fogus.me",
     "url": "http://www.fogus.me"
   },
-  "homepage": "https://github.com/documentcloud/underscore-contrib"
+  "contributors": [
+    {
+      "name": "Refael Ackermann",
+      "email": "refael@empeeric.com",
+      "url": "http://www.empeeric.com/"
+    }
+  ],
+  "scripts": {
+    "test": "node ./node_modules/grunt-cli/bin/grunt test"
+  },
+  "homepage": "https://github.com/Empeeric/lodash-contrib"
 }

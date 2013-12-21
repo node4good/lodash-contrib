@@ -1,15 +1,15 @@
 lodash-contrib
-==================
+==============
+The brass buckles on lodash's utility belt -- a contributors' library for [lodash](http://lodash.com/). 
 
-The brass buckles on lodash's utility belt -- a contributors' library for [lodash](http://lodashjs.org/).
+[![Build Status](https://travis-ci.org/Empeeric/lodash-contrib.png?branch=master)](https://travis-ci.org/Empeeric/lodash-contrib)
 
 Links
 -----
 
-  * [Documentation](http://documentcloud.github.io/lodash-contrib/)
-  * [Source repository](https://github.com/documentcloud/lodash-contrib)
-  * [Tickets and bug reports](https://github.com/documentcloud/lodash-contrib/issues?state=open)
-  * [Maintainer's website](http://www.fogus.me)
+  * [Documentation](http://empeeric.github.io/lodash-contrib/)
+  * [Source repository](https://github.com/Empeeric/lodash-contrib)
+  * [Tickets and bug reports](https://github.com/Empeeric/lodash-contrib/issues?state=open)
 
 Why lodash-contrib?
 -----------------------
@@ -39,7 +39,7 @@ Contributing
 ------------
 
 There is still a lot of work to do around perf, documentation, examples, testing and distribution so any help
-in those areas is welcomed. Pull requests are accepted, but please search the [issues](https://github.com/documentcloud/lodash-contrib/issues)
+in those areas is welcomed. Pull requests are accepted, but please search the [issues](https://github.com/empeeric/lodash-contrib/issues)
 before proposing a new sub-contrib or addition. Additionally, all patches and proposals should have strong
 documentation, motivating cases and tests. It would be nice if we could not only provide useful tools built on
 lodash, but also provide an educational experience for why and how one might use them.
