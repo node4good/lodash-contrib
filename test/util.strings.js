@@ -27,4 +27,11 @@ $(document).ready(function() {
     var thrower = function() { _.strContains([], ''); };
     throws(thrower, TypeError, 'Throws TypeError if first argument is not a string.');
   });
+
+  var preRegex1 = '/__value__/i.test(this.email)||/__value__/i.test(this.fb_uniq)||/__value__/i';
+  var postRegex1 = '\\/__value__\\/i\\.test\\(this\\.email\\)\\|\\|\\/__value__\\/i\\.test\\(this\\.fb_uniq\\)\\|\\|\\/__value__\\/i';
+  test('strContains', function() {
+    equal(_.regexEscape('Metaphysics'), 'Metaphysics', 'Should not change strings without special chars.');
+    equal(_.regexEscape(preRegex1), postRegex1, 'Should escape a string wirh char that have special meaning within a Regex.');
+  });
 });

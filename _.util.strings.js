@@ -57,6 +57,11 @@
     // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
     slugify: function (urlString) {
       return urlString.replace(/ /g, '-').replace(/\./, '').toLowerCase();
+    },
+
+    // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
+    regexEscape: function (regexCandidate) {
+      return regexCandidate.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     }
 
   });
