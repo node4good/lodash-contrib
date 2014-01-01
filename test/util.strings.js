@@ -34,4 +34,15 @@ $(document).ready(function() {
     equal(_.regexEscape('Metaphysics'), 'Metaphysics', 'Should not change strings without special chars.');
     equal(_.regexEscape(preRegex1), postRegex1, 'Should escape a string wirh char that have special meaning within a Regex.');
   });
+
+  test('humanize', function() {
+    equal(_.humanize("lowercase"), "Lowercase");
+    equal(_.humanize("Class"), "Class");
+    equal(_.humanize("MyClass"), "My Class");
+    equal(_.humanize("HTML"), "HTML");
+    equal(_.humanize("PDFLoader"), "PDF Loader");
+    equal(_.humanize("AString"), "A String");
+    equal(_.humanize("SimpleXMLParser"), "Simple XML Parser");
+    equal(_.humanize("LastUpdateDateInt"), "Last Update Date Int");
+  });
 });
