@@ -1,7 +1,7 @@
+This is basically a [`lodash`](http://lodash.com/) compatible fork of [`underscore-contrib`](https://github.com/documentcloud/underscore-contrib)
+
 lodash-contrib
 ==============
-The brass buckles on lodash's utility belt -- a contributors' library for [lodash](http://lodash.com/). 
-
 [![Build Status](https://travis-ci.org/Empeeric/lodash-contrib.png?branch=master)](https://travis-ci.org/Empeeric/lodash-contrib)
 
 Links
