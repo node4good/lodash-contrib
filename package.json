@@ -1,6 +1,6 @@
 {
   "name": "lodash-contrib",
-  "version": "241.3.0",
+  "version": "241.3.1",
   "main": "index.js",
   "dependencies": {
     "lodash": "2.4.1"
