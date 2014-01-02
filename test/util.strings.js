@@ -44,5 +44,6 @@ $(document).ready(function() {
     equal(_.humanize("AString"), "A String");
     equal(_.humanize("SimpleXMLParser"), "Simple XML Parser");
     equal(_.humanize("LastUpdateDateInt"), "Last Update Date Int");
+    equal(_.humanize("LastUpdate_date_IntHTML"), "Last Update date Int HTML");
   });
 });

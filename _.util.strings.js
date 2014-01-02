@@ -66,6 +66,8 @@
 
     humanize: function (slugish) {
       return slugish
+        // Replace _ with a space
+        .replace(/_/g, ' ')
         // insert a space between lower & upper
         .replace(/([a-z])([A-Z])/g, '$1 $2')
         // space before last upper in a sequence followed by lower
