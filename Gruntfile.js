@@ -47,7 +47,7 @@ module.exports = function(grunt) {
       options: {
         es3: true,       // Enforce ES3 compatibility
         indent: 2,       // Indent by 2 spaces
-        camelcase: true, // All vars must be camelCase or UPPER_WITH_lodashS
+        camelcase: true, // All vars must be camelCase or UPPER_WITH_UNDERSCORES
         eqnull: true,    // Allow 'x == null' convention
         forin: true,     // Require `for x in y` to filter with `hasOwnProperty`
         newcap: true,    // Require constructor names to be capitalized
