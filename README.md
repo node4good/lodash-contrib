@@ -58,3 +58,7 @@ Other (potentially) useful sub-contribs include the following:
   * Multimethods
 
 What do these mean? Well, that’s up for discussion. :-)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Empeeric/lodash-contrib/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
