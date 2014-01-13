@@ -1,4 +1,6 @@
-This is basically a [`lodash`](http://lodash.com/) compatible fork of [`underscore-contrib`](https://github.com/documentcloud/underscore-contrib)
+The brass buckles on lodash's utility belt 
+
+Basically a [`lodash`](http://lodash.com/) compatible fork of [`underscore-contrib`](https://github.com/documentcloud/underscore-contrib)
 
 lodash-contrib
 ==============
