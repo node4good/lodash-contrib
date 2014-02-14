@@ -1,5 +1,6 @@
 {
   "name": "lodash-contrib",
+  "description": "The brass buckles on lodash's utility belt",
   "version": "241.3.1",
   "main": "index.js",
   "dependencies": {
@@ -16,10 +17,7 @@
     "grunt-tocdoc": "",
     "grunt-cli": ""
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Empeeric/lodash-contrib.git"
-  },
+  "repository": "Empeeric/lodash-contrib",
   "license": "MIT",
   "author": {
     "name": "Fogus",
@@ -35,6 +33,5 @@
   ],
   "scripts": {
     "test": "node ./node_modules/grunt-cli/bin/grunt test"
-  },
-  "homepage": "https://github.com/Empeeric/lodash-contrib"
+  }
 }
