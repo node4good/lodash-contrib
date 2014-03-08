@@ -16,7 +16,7 @@
   // No reason to create regex more than once
   var plusRegex = /\+/g;
 
-  var URLDecode = function(s) {
+  var urlDecode = function (s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
 
@@ -31,11 +31,13 @@
 
     // Parses a query string into a hash
     fromQuery: function(str) {
-      var parameters = str.split('&'), obj = {}, parameter;
-      for (var index in parameters) {
-        parameter = parameters[index].split('=');
-        obj[URLDecode(parameter[0])] = URLDecode(parameter[1]);
-      }
+      var obj = str.split('&').reduce(function (seed, param) {
+        var pair = param.split('=');
+        var key = urlDecode(pair[0]);
+        var val = urlDecode(pair[1]);
+        seed[key] = val;
+        return seed;
+      }, {});
       return obj;
     },
 
@@ -62,10 +64,9 @@
 
     // Creates a query string from a hash
     toQuery: function(obj) {
-      var parameters = []
-      for (var key in obj) {
-        parameters.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
-      }
+      var parameters = _.map(obj, function (k, v) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+      });
       return parameters.join('&');
     },
 
