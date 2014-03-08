@@ -607,7 +607,7 @@
         var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < args.length || arg < arguments.length; i++ ) {
+        for ( var i = 0; i < (args.length || arg < arguments.length); i++ ) {
           if ( args[i] === _ ) {
             args[i] = arguments[arg++];
           }
@@ -947,6 +947,26 @@
         var reversed = __reverse.call(arguments);
 
         return fun.apply(null, reversed);
+      };
+    },
+
+    // Takes a method-style function (one which uses `this`) and pushes
+    // `this` into the argument list. The returned function uses its first
+    // argument as the receiver/context of the original function, and the rest
+    // of the arguments are used as the original's entire argument list.
+    functionalize: function(method) {
+      return function(ctx /*, args */) {
+        return method.apply(ctx, _.rest(arguments));
+      };
+    },
+
+    // Takes a function and pulls the first argument out of the argument
+    // list and into `this` position. The returned function calls the original
+    // with its receiver (`this`) prepending the argument list. The original
+    // is called with a receiver of `null`.
+    methodize: function(func) {
+      return function(/* args */) {
+        return func.apply(null, _.cons(this, arguments));
       };
     },
 
@@ -1396,6 +1416,9 @@
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
+    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
+    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
+
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
@@ -1422,6 +1445,16 @@
     // A float is a numbr that is not an integer.
     isFloat: function(n) {
       return _.isNumeric(n) && !_.isInteger(n);
+    },
+
+    // checks if a string is a valid JSON
+    isJSON: function(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
     },
 
     // checks if a string is a valid JSON
