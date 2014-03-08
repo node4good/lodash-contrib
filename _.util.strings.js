@@ -64,7 +64,7 @@
 
     // Creates a query string from a hash
     toQuery: function(obj) {
-      var parameters = _.map(obj, function (k, v) {
+      var parameters = _.map(obj, function (v, k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(v);
       });
       return parameters.join('&');
