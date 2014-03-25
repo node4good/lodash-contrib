@@ -101,6 +101,11 @@
         .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
         // uppercase the first character
         .replace(/^./, function(str){ return str.toUpperCase(); });
+    },
+
+    stripTags: function (suspectString) {
+      var str = suspectString.replace(/<\/?[^<>]*>/gi, '');
+      return str;
     }
 
   });
