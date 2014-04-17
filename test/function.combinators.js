@@ -43,6 +43,39 @@ $(document).ready(function() {
 
     equal(notOdd(2), true, 'should return a function that is the opposite of the function given');
     equal(notOdd(3), false, 'should return a function that is the opposite of the function given');
+
+    var obj = {
+      num: 1,
+      numIsPositive: function () { return this.num > 0; }
+    };
+    obj.numIsNotPositive = _.complement(obj.numIsPositive);
+
+    equal(obj.numIsNotPositive(), false, 'should function as a method combinator');
+  });
+
+  test('splat', function() {
+    var sumArgs = function () {
+      return _.reduce(arguments, function (a, b) { return a + b; }, 0);
+    };
+
+    var sumArray = _.splat(sumArgs);
+
+    equal(sumArray([1, 2, 3]), 6, 'should return a function that takes array elements as the arguments for the original function');
+
+    var obj = {
+      a: 1,
+      b: 2,
+      getPropsByName: function () {
+        var props = [];
+        for (var i = 0; i < arguments.length; i++) {
+          props.push(this[arguments[i]]);
+        }
+        return props;
+      }
+    };
+    obj.getPropsByNameArray = _.splat(obj.getPropsByName);
+
+    deepEqual(obj.getPropsByNameArray(['a', 'b']), [1, 2], 'should function as a method combinator');
   });
 
   test("unsplat", function() {
@@ -109,12 +142,30 @@ $(document).ready(function() {
     var div = function(n, d) { return n/d; };
 
     equal(_.flip2(div)(10,2), 0.2, 'should return a function that flips the first two args to a function');
+
+    var obj = {
+      num: 5,
+      addToNum: function (a, b) { return [a + this.num, b + this.num]; }
+    };
+
+    obj.reversedAddToNum = _.flip2(obj.addToNum);
+
+    deepEqual(obj.reversedAddToNum(1, 2), [7, 6], 'should function as a method combinator.');
   });
 
   test("flip", function() {
     var echo = function() { return Array.prototype.slice.call(arguments, 0); };
 
     deepEqual(_.flip(echo)(1, 2, 3, 4), [4, 3, 2, 1], 'should return a function that flips the first three or more args to a function');
+
+    var obj = {
+      num: 5,
+      addToNum: function (a, b) { return [a + this.num, b + this.num]; }
+    };
+
+    obj.reversedAddToNum = _.flip(obj.addToNum);
+
+    deepEqual(obj.reversedAddToNum(1, 2), [7, 6], 'should function as a method combinator.');
   });
 
   test("fnull", function() {
@@ -125,12 +176,32 @@ $(document).ready(function() {
     equal(_.reduce([1,2,3,5], safeMult), 30, 'should not fill in defaults when not needed');
     equal(_.reduce(a, safeMult), 30, 'should fill in defaults for null');
     equal(_.reduce(b, safeMult), 30, 'should fill in defaults for undefined');
+
+    var obj = {
+      a: 1,
+      fallback: "fallback value",
+      getPropByName: function (name) { return this[name]; }
+    };
+
+    obj.getPropByNameOrDefault = _.fnull(obj.getPropByName, "fallback");
+
+    equal(obj.getPropByNameOrDefault(), "fallback value", 'should function as a method combinator.');
   });
 
   test("juxt", function() {
     var run = _.juxt(function(s, n) { return s.length + n; }, parseInt, _.always(108));
 
     deepEqual(run('42', 10), [12, 42, 108], 'should return a function that returns an array of the originally supplied functions called');
+
+    var obj = {
+      name: "Elizabeth 1",
+      firstChar: function () { return this.name[0]; },
+      lastChar: function () { return this.name[this.name.length - 1]; }
+    };
+
+    obj.firstAndLastChars = _.juxt(obj.firstChar, obj.lastChar);
+
+    deepEqual(obj.firstAndLastChars(), ['E', '1'], 'should function as a method combinator.');
   });
 
   test("accessor", function() {

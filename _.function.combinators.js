@@ -43,11 +43,8 @@
   // ----------------------------------
 
   _.mixin({
-    // Takes a value and returns a function that always returns
-    // said value.
-    always: function(value) {
-      return function() { return value; };
-    },
+    // Provide "always" alias for backwards compatibility
+    always: _.constant,
 
     // Takes some number of functions, either as an array or variadically
     // and returns a function that takes some value as its first argument
@@ -107,7 +104,7 @@
     // Returns a function that reverses the sense of a given predicate-like.
     complement: function(pred) {
       return function() {
-        return !pred.apply(null, arguments);
+        return !pred.apply(this, arguments);
       };
     },
 
@@ -117,7 +114,7 @@
     // function
     splat: function(fun) {
       return function(array) {
-        return fun.apply(null, array);
+        return fun.apply(this, array);
       };
     },
 
@@ -183,8 +180,8 @@
       return function(/* args */) {
         var args = arguments;
         return _.map(funs, function(f) {
-          return f.apply(null, args);
-        });
+          return f.apply(this, args);
+        }, this);
       };
     },
 
@@ -204,7 +201,7 @@
             args[i] = defaults[i];
         }
 
-        return fun.apply(null, args);
+        return fun.apply(this, args);
       };
     },
 
@@ -215,7 +212,7 @@
         flipped[0] = arguments[1];
         flipped[1] = arguments[0];
 
-        return fun.apply(null, flipped);
+        return fun.apply(this, flipped);
       };
     },
 
@@ -224,7 +221,7 @@
       return function(/* args */) {
         var reversed = __reverse.call(arguments);
 
-        return fun.apply(null, reversed);
+        return fun.apply(this, reversed);
       };
     },
 
