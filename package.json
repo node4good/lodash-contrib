@@ -25,11 +25,8 @@
     "url": "http://www.fogus.me"
   },
   "contributors": [
-    {
-      "name": "Refael Ackermann",
-      "email": "refael@empeeric.com",
-      "url": "http://www.empeeric.com/"
-    }
+    "Refael Ackermann <refael@empeeric.com> (http://www.empeeric.com)",
+    "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)"
   ],
   "scripts": {
     "test": "node ./node_modules/grunt-cli/bin/grunt test"

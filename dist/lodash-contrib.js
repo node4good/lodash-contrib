@@ -51,11 +51,11 @@
       return _.cat([head], tail);
     },
 
-    // Takes an array and parititions it some number of times into
+    // Takes an array and chunks it some number of times into
     // sub-arrays of size n.  Allows and optional padding array as
-    // the third argument to fill in the tail partition when n is
-    // not sufficient to build paritions of the same size.
-    partition: function(array, n, pad) {
+    // the third argument to fill in the tail chunk when n is
+    // not sufficient to build chunks of the same size.
+    chunk: function(array, n, pad) {
       var p = function(array) {
         if (array == null) return [];
 
@@ -72,11 +72,11 @@
       return p(array);
     },
 
-    // Takes an array and parititions it some number of times into
+    // Takes an array and chunks it some number of times into
     // sub-arrays of size n.  If the array given cannot fill the size
-    // needs of the final partition then a smaller partition is used
+    // needs of the final chunk then a smaller chunk is used
     // for the last.
-    partitionAll: function(array, n, step) {
+    chunkAll: function(array, n, step) {
       step = (step != null) ? step : n;
 
       var p = function(array, n, step) {
@@ -765,11 +765,8 @@
   // ----------------------------------
 
   _.mixin({
-    // Takes a value and returns a function that always returns
-    // said value.
-    always: function(value) {
-      return function() { return value; };
-    },
+    // Provide "always" alias for backwards compatibility
+    always: _.constant,
 
     // Takes some number of functions, either as an array or variadically
     // and returns a function that takes some value as its first argument
@@ -829,7 +826,7 @@
     // Returns a function that reverses the sense of a given predicate-like.
     complement: function(pred) {
       return function() {
-        return !pred.apply(null, arguments);
+        return !pred.apply(this, arguments);
       };
     },
 
@@ -839,7 +836,7 @@
     // function
     splat: function(fun) {
       return function(array) {
-        return fun.apply(null, array);
+        return fun.apply(this, array);
       };
     },
 
@@ -905,8 +902,8 @@
       return function(/* args */) {
         var args = arguments;
         return _.map(funs, function(f) {
-          return f.apply(null, args);
-        });
+          return f.apply(this, args);
+        }, this);
       };
     },
 
@@ -926,7 +923,7 @@
             args[i] = defaults[i];
         }
 
-        return fun.apply(null, args);
+        return fun.apply(this, args);
       };
     },
 
@@ -937,7 +934,7 @@
         flipped[0] = arguments[1];
         flipped[1] = arguments[0];
 
-        return fun.apply(null, flipped);
+        return fun.apply(this, flipped);
       };
     },
 
@@ -946,7 +943,7 @@
       return function(/* args */) {
         var reversed = __reverse.call(arguments);
 
-        return fun.apply(null, reversed);
+        return fun.apply(this, reversed);
       };
     },
 
@@ -1945,6 +1942,33 @@
   // Helpers
   // -------
 
+  // No reason to create regex more than once
+  var plusRegex = /\+/g;
+  var spaceRegex = /\%20/g;
+  var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
+
+  var urlDecode = function(s) {
+    return decodeURIComponent(s.replace(plusRegex, '%20'));
+  };
+  var urlEncode = function(s) {
+    return encodeURIComponent(s).replace(spaceRegex, '+');
+  };
+
+  var buildParams = function(prefix, val, top) {
+    if (_.isUndefined(top)) top = true;
+    if (_.isArray(val)) {
+      return _.map(val, function(value, key) {
+        return buildParams(top ? key : prefix + '[]', value, false);
+      }).join('&');
+    } else if (_.isObject(val)) {
+      return _.map(val, function(value, key) {
+        return buildParams(top ? key : prefix + '[' + key + ']', value, false);
+      }).join('&');
+    } else {
+      return urlEncode(prefix) + '=' + urlEncode(val);
+    }
+  };
+
   // Mixing in the string utils
   // ----------------------------
 
@@ -1952,6 +1976,54 @@
     // Explodes a string into an array of chars
     explode: function (s) {
       return s.split('');
+    },
+
+    // Parses a query string into a hash
+    fromQuery: function(str) {
+      var parameters = str.split('&'),
+          obj = {},
+          parameter,
+          key,
+          match,
+          lastKey,
+          subKey,
+          depth;
+
+      // Iterate over key/value pairs
+      _.each(parameters, function(parameter) {
+        parameter = parameter.split('=');
+        key = urlDecode(parameter[0]);
+        lastKey = key;
+        depth = obj;
+
+        // Reset so we don't have issues when matching the same string
+        bracketRegex.lastIndex = 0;
+
+        // Attempt to extract nested values
+        while ((match = bracketRegex.exec(key)) !== null) {
+          if (!_.isUndefined(match[1])) {
+
+            // If we're at the top nested level, no new object needed
+            subKey = match[1];
+
+          } else {
+
+            // If we're at a lower nested level, we need to step down, and make
+            // sure that there is an object to place the value into
+            subKey = match[2];
+            depth[lastKey] = depth[lastKey] || (subKey ? {} : []);
+            depth = depth[lastKey];
+          }
+
+          // Save the correct key as a hash or an array
+          lastKey = subKey || _.size(depth);
+        }
+
+        // Assign value to nested object
+        depth[lastKey] = urlDecode(parameter[1]);
+      });
+
+      return obj;
     },
 
     // Implodes and array of chars into a string
@@ -1975,8 +2047,13 @@
       return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
     },
 
+    // Creates a query string from a hash
+    toQuery: function(obj) {
+      return buildParams('', obj);
+    },
+
     // Reports whether a string contains a search string.
-    strContains: function (str, search) {
+    strContains: function(str, search) {
       if (typeof str != 'string') throw new TypeError;
       return (str.indexOf(search) != -1);
     },
