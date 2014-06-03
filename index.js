@@ -1,16 +1,13 @@
-require('./_.array.builders');
-require('./_.array.selectors');
-require('./_.collections.walk');
-require('./_.function.arity');
-require('./_.function.combinators');
-require('./_.function.dispatch');
-require('./_.function.iterators');
-require('./_.function.predicates');
-require('./_.object.builders');
-require('./_.object.selectors');
-require('./_.util.existential');
-require('./_.util.operators');
-require('./_.util.strings');
-require('./_.util.trampolines');
+var fs = require('fs');
+var vm = require('vm');
+var _ = require('lodash').runInContext();
 
-module.exports = require('lodash');
+var isAddOnRegEx = _.bindAll(/^_\..+/, 'test');
+var context = vm.createContext({_:_});
+var rightCurryVm = _.partialRight(vm.runInNewContext, context);
+function simpleReadFile(filename) { return fs.readFileSync(filename); }
+_(fs.readdirSync(__dirname)).filter(isAddOnRegEx.test).map(simpleReadFile).each(function (code) {
+  rightCurryVm(code);
+});
+
+module.exports = _;
