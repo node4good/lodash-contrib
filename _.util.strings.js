@@ -130,7 +130,7 @@
 
     // Upper case first letter.
     capitalize: function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+      return string.charAt(0).toUpperCase() + string.slice(1);
     },
 
     // Upper case first letter in every word.
@@ -149,7 +149,7 @@
     },
 
     humanize: function (slugish) {
-      return capitalize(slugish
+      return _.capitalize(slugish
           // Replace _ with a space
           .replace(/_/g, ' ')
           // insert a space between lower & upper

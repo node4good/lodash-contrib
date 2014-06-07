@@ -1,7 +1,7 @@
-// lodash-contrib v241.2.0
+// lodash-contrib v241.4.7
 // =========================
 
-// > https://github.com/Empeeric/lodash-contrib
+// > 
 // > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // > (c) 2013 Refael Ackermann & Empeeric
 // > lodash-contrib may be freely distributed under the MIT license.
@@ -23,7 +23,8 @@
 
   // Create quick reference variables for speed access to core prototypes.
   var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
+      concat  = Array.prototype.concat,
+      sort    = Array.prototype.sort;
 
   var existy = function(x) { return x != null; };
 
@@ -199,6 +200,36 @@
       if (typeof obj == 'string')
         throw new TypeError('Strings cannot be reversed by _.reverseOrder');
       return slice.call(obj).reverse();
+    },
+
+
+    // Returns copy or array sorted according to arbitrary ordering
+    // order must be an array of values; defines the custom sort
+    // key must be one of: missing/null, a string, or a function;
+    collate: function(array, order, key) {
+      if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
+      if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
+
+      return sort.call(array, function (a, b) {
+        if(_.isFunction(key)) {
+          valA = key.call(a);
+          valB = key.call(b);
+        } else if(existy(key)) {
+          valA = a[key];
+          valB = b[key];
+        } else {
+          valA = a;
+          valB = b;
+        }
+
+        var rankA = _.indexOf(order, valA);
+        var rankB = _.indexOf(order, valB);
+
+        if(rankA === -1) return 1;
+        if(rankB === -1) return -1;
+
+        return rankA - rankB;
+      });
     }
   });
 
@@ -967,26 +998,6 @@
       };
     },
 
-    // Takes a method-style function (one which uses `this`) and pushes
-    // `this` into the argument list. The returned function uses its first
-    // argument as the receiver/context of the original function, and the rest
-    // of the arguments are used as the original's entire argument list.
-    functionalize: function(method) {
-      return function(ctx /*, args */) {
-        return method.apply(ctx, _.rest(arguments));
-      };
-    },
-
-    // Takes a function and pulls the first argument out of the argument
-    // list and into `this` position. The returned function calls the original
-    // with its receiver (`this`) prepending the argument list. The original
-    // is called with a receiver of `null`.
-    methodize: function(func) {
-      return function(/* args */) {
-        return func.apply(null, _.cons(this, arguments));
-      };
-    },
-
     k: _.always,
     t: _.pipeline
   });
@@ -1413,9 +1424,6 @@
     // A seq is something considered a sequential composite type (i.e. arrays and `arguments`).
     isSequential: function(x) { return (_.isArray(x)) || (_.isArguments(x)); },
 
-    // Check if an object is an object literal, since _.isObject(function() {}) === _.isObject([]) === true
-    isPlainObject: function(x) { return _.isObject(x) && x.constructor === root.Object; },
-
     // These do what you think that they do
     isZero: function(x) { return 0 === x; },
     isEven: function(x) { return _.isFinite(x) && (x & 1) === 0; },
@@ -1442,16 +1450,6 @@
     // A float is a numbr that is not an integer.
     isFloat: function(n) {
       return _.isNumeric(n) && !_.isInteger(n);
-    },
-
-    // checks if a string is a valid JSON
-    isJSON: function(str) {
-      try {
-        JSON.parse(str);
-      } catch (e) {
-        return false;
-      }
-      return true;
     },
 
     // checks if a string is a valid JSON
@@ -1944,28 +1942,24 @@
 
   // No reason to create regex more than once
   var plusRegex = /\+/g;
-  var spaceRegex = /\%20/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
-  var urlDecode = function(s) {
+  var urlDecode = function (s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
-  var urlEncode = function(s) {
-    return encodeURIComponent(s).replace(spaceRegex, '+');
-  };
 
-  var buildParams = function(prefix, val, top) {
+  var buildParams = function (prefix, val, top) {
     if (_.isUndefined(top)) top = true;
     if (_.isArray(val)) {
-      return _.map(val, function(value, key) {
+      return _.map(val, function (value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
       }).join('&');
     } else if (_.isObject(val)) {
-      return _.map(val, function(value, key) {
+      return _.map(val, function (value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
       }).join('&');
     } else {
-      return urlEncode(prefix) + '=' + urlEncode(val);
+      return encodeURIComponent(prefix) + '=' + encodeURIComponent(val);
     }
   };
 
@@ -1979,18 +1973,18 @@
     },
 
     // Parses a query string into a hash
-    fromQuery: function(str) {
+    fromQuery: function (str) {
       var parameters = str.split('&'),
-          obj = {},
-          parameter,
-          key,
-          match,
-          lastKey,
-          subKey,
-          depth;
+        obj = {},
+        parameter,
+        key,
+        match,
+        lastKey,
+        subKey,
+        depth;
 
       // Iterate over key/value pairs
-      _.each(parameters, function(parameter) {
+      _.each(parameters, function (parameter) {
         parameter = parameter.split('=');
         key = urlDecode(parameter[0]);
         lastKey = key;
@@ -2033,43 +2027,73 @@
 
     // Converts a string to camel case
     camelCase: function (string) {
-      return  string.replace(/-([a-z])/g, function (g) {
-        return g[1].toUpperCase();
-      });
+      return  string.replace(/[-_\s](\w)/g, function ($1) { return $1[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
     toDash: function (string) {
-      string = string.replace(/([A-Z])/g, function ($1) {
-        return "-" + $1.toLowerCase();
-      });
+      string = string.replace(/([A-Z])/g, function ($1) {return "-" + $1.toLowerCase();});
       // remove first dash
       return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
     },
 
+    // Converts camel case to snake_case
+    snakeCase: function (string) {
+      string = string.replace(/([A-Z])/g, function ($1) {return "_" + $1.toLowerCase();});
+      // remove first underscore
+      return  ( string.charAt(0) == '_' ) ? string.substr(1) : string;
+    },
+
     // Creates a query string from a hash
-    toQuery: function(obj) {
+    toQuery: function (obj) {
       return buildParams('', obj);
     },
 
     // Reports whether a string contains a search string.
-    strContains: function(str, search) {
+    strContains: function (str, search) {
       if (typeof str != 'string') throw new TypeError;
       return (str.indexOf(search) != -1);
     },
 
-    // Reports whether a string contains a search string.
+    // Upper case first letter.
     capitalize: function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+
+    // Upper case first letter in every word.
+    titleCase: function capitalize(string) {
+      return string.replace(/(\b.)/g, function ($1) {return $1.toUpperCase();});
     },
 
     // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
     slugify: function (urlString) {
       return urlString.replace(/ /g, '-').replace(/\./, '').toLowerCase();
+    },
+
+    // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
+    regexEscape: function (regexCandidate) {
+      return regexCandidate.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    },
+
+    humanize: function (slugish) {
+      return _.capitalize(slugish
+          // Replace _ with a space
+          .replace(/_/g, ' ')
+          // insert a space between lower & upper
+          .replace(/([a-z])([A-Z])/g, '$1 $2')
+          // space before last upper in a sequence followed by lower
+          .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+      );
+    },
+
+    stripTags: function (suspectString) {
+      var str = suspectString.replace(/<\/?[^<>]*>/gi, '');
+      return str;
     }
 
   });
 })(this);
+
 
 // lodash-contrib (lodash.util.trampolines.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors

@@ -8,27 +8,25 @@
   },
   "devDependencies": {
     "grunt": "",
+    "grunt-cli": "",
     "grunt-contrib-concat": "",
-    "grunt-contrib-uglify": "",
-    "grunt-contrib-qunit": "",
-    "grunt-contrib-watch": "",
     "grunt-contrib-jshint": "",
+    "grunt-contrib-qunit": "",
+    "grunt-contrib-uglify": "",
+    "grunt-contrib-watch": "",
     "grunt-docco": "",
-    "grunt-tocdoc": "",
-    "grunt-cli": ""
+    "grunt-mocha-test": "",
+    "grunt-tocdoc": ""
   },
   "repository": "Empeeric/lodash-contrib",
   "license": "MIT",
-  "author": {
-    "name": "Fogus",
-    "email": "me@fogus.me",
-    "url": "http://www.fogus.me"
-  },
+  "author": "Refael Ackermann <refael@empeeric.com> (http://www.empeeric.com)",
   "contributors": [
-    "Refael Ackermann <refael@empeeric.com> (http://www.empeeric.com)",
+    "Fogus <me@fogus.me> (http://www.fogus.me)",
     "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)"
   ],
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "dist": "grunt dist"
   }
 }
