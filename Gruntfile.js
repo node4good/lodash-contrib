@@ -187,7 +187,7 @@ module.exports = function (grunt) {
   grunt.registerTask('webGen', ['webScaffold', 'browserify:dist']);
   grunt.registerTask('nodeGen', ['sandboxCode', 'wrapForNode']);
   grunt.registerTask('gen', ['webGen', 'nodeGen']);
-  grunt.registerTask('test', ['gen', 'jshint', 'qunit:main', 'mochaTest']);
-  grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min', 'browserify:test', 'qunit:browserified']);
+  grunt.registerTask('test', ['gen', 'jshint', 'qunit:main', 'mochaTest', 'browserify:test', 'qunit:browserified']);
+  grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
   grunt.registerTask('default', ['dist']);
 };
