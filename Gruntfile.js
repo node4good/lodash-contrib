@@ -47,7 +47,8 @@ module.exports = function (grunt) {
     qunit: {
       main: ['test/index.html'],
       concat: ['test/dist-concat.html'],
-      min: ['test/dist-min.html']
+      min: ['test/dist-min.html'],
+      browserified: ['test/browserified.html']
     },
 
     jshint: {
@@ -105,6 +106,12 @@ module.exports = function (grunt) {
         files: {
           'gen/browserified.js': 'gen/webScaffold.js'
         }
+      },
+      test: {
+        files: {
+          'gen/double.browserified.js' : 'index.js'
+        },
+        browserifyOptions: { debug: true }
       }
     },
 
@@ -146,11 +153,21 @@ module.exports = function (grunt) {
     grunt.log.writeln('Generating the sandbox scaffold');
     var setup = this.files.pop();
     var code = 'function sandbox(inNewContext) {\n';
-    code += '\tvar lodashModule = require.cache[require.resolve("lodash")];\n';
-    code += '\tvar original_ = lodashModule.exports;\n';
-    code += '\tlodashModule.exports = inNewContext;\n';
-    code += setup.src.reduce(function (seed, val) { return seed + '\trequire("./' + val + '");\n'; }, '');
-    code += '\tlodashModule.exports = original_;\n';
+    code += '    var lodashModule = {}, original_;\n';
+    code += '    try {\n';
+    code += '        lodashModule = require.cache[require.resolve("lodash")];\n';
+    code += '    } catch (e) {\n';
+    code += '        if (typeof(window) == "undefined")\n';
+    code += '            window = {};\n';
+    code += '        if (!window._)\n';
+    code += '            window._ = require("lodash");\n';
+    code += '        inNewContext = window._;\n';
+    code += '    }\n';
+    code += '    original_ = lodashModule.exports;\n';
+    code += '    lodashModule.exports = inNewContext;\n';
+    code += setup.src.reduce(function (seed, val) { return seed + '    require("./' + val + '");\n'; }, '');
+    code += '    lodashModule.exports = original_;\n';
+    code += '    return inNewContext;\n';
     code += '}';
     sandboxCode = code;
   });
@@ -160,17 +177,17 @@ module.exports = function (grunt) {
     grunt.log.writeln('Generating index.js');
     var setup = this.files.pop();
     var code = 'var inNewContext = require("lodash").runInContext();\n';
-    code += '(' + sandboxCode + ')(inNewContext);\n';
+    code += 'inNewContext = (' + sandboxCode + ')(inNewContext);\n';
     code += setup.src.reduce(function (seed, val) { return seed + 'require("./' + val + '")(inNewContext);\n'; }, '');
     code += 'module.exports = inNewContext;\n';
     grunt.file.write('index.js', code);
   });
 
 
-  grunt.registerTask('webGen', ['webScaffold', 'browserify']);
+  grunt.registerTask('webGen', ['webScaffold', 'browserify:dist']);
   grunt.registerTask('nodeGen', ['sandboxCode', 'wrapForNode']);
   grunt.registerTask('gen', ['webGen', 'nodeGen']);
   grunt.registerTask('test', ['gen', 'jshint', 'qunit:main', 'mochaTest']);
-  grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
+  grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min', 'browserify:test', 'qunit:browserified']);
   grunt.registerTask('default', ['dist']);
 };
