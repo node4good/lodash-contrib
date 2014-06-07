@@ -17,18 +17,18 @@
   var plusRegex = /\+/g;
   var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
 
-  var urlDecode = function(s) {
+  var urlDecode = function (s) {
     return decodeURIComponent(s.replace(plusRegex, '%20'));
   };
 
-  var buildParams = function(prefix, val, top) {
+  var buildParams = function (prefix, val, top) {
     if (_.isUndefined(top)) top = true;
     if (_.isArray(val)) {
-      return _.map(val, function(value, key) {
+      return _.map(val, function (value, key) {
         return buildParams(top ? key : prefix + '[]', value, false);
       }).join('&');
     } else if (_.isObject(val)) {
-      return _.map(val, function(value, key) {
+      return _.map(val, function (value, key) {
         return buildParams(top ? key : prefix + '[' + key + ']', value, false);
       }).join('&');
     } else {
@@ -41,23 +41,23 @@
 
   _.mixin({
     // Explodes a string into an array of chars
-    explode: function(s) {
+    explode: function (s) {
       return s.split('');
     },
 
     // Parses a query string into a hash
-    fromQuery: function(str) {
+    fromQuery: function (str) {
       var parameters = str.split('&'),
-          obj = {},
-          parameter,
-          key,
-          match,
-          lastKey,
-          subKey,
-          depth;
+        obj = {},
+        parameter,
+        key,
+        match,
+        lastKey,
+        subKey,
+        depth;
 
       // Iterate over key/value pairs
-      _.each(parameters, function(parameter) {
+      _.each(parameters, function (parameter) {
         parameter = parameter.split('=');
         key = urlDecode(parameter[0]);
         lastKey = key;
@@ -94,36 +94,48 @@
     },
 
     // Implodes and array of chars into a string
-    implode: function(a) {
+    implode: function (a) {
       return a.join('');
     },
 
     // Converts a string to camel case
-    camelCase : function( string ){
-      return  string.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    camelCase: function (string) {
+      return  string.replace(/[-_\s](\w)/g, function ($1) { return $1[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
-    toDash : function( string ){
-      string = string.replace(/([A-Z])/g, function($1){return "-"+$1.toLowerCase();});
+    toDash: function (string) {
+      string = string.replace(/([A-Z])/g, function ($1) {return "-" + $1.toLowerCase();});
       // remove first dash
-      return  ( string.charAt( 0 ) == '-' ) ? string.substr(1) : string;
+      return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
+    },
+
+    // Converts camel case to snake_case
+    snakeCase: function (string) {
+      string = string.replace(/([A-Z])/g, function ($1) {return "_" + $1.toLowerCase();});
+      // remove first underscore
+      return  ( string.charAt(0) == '_' ) ? string.substr(1) : string;
     },
 
     // Creates a query string from a hash
-    toQuery: function(obj) {
+    toQuery: function (obj) {
       return buildParams('', obj);
     },
 
     // Reports whether a string contains a search string.
-    strContains: function(str, search) {
+    strContains: function (str, search) {
       if (typeof str != 'string') throw new TypeError;
       return (str.indexOf(search) != -1);
     },
 
-    // Reports whether a string contains a search string.
+    // Upper case first letter.
     capitalize: function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    },
+
+    // Upper case first letter in every word.
+    titleCase: function capitalize(string) {
+      return string.replace(/(\b.)/g, function ($1) {return $1.toUpperCase();});
     },
 
     // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
@@ -137,15 +149,14 @@
     },
 
     humanize: function (slugish) {
-      return slugish
-        // Replace _ with a space
-        .replace(/_/g, ' ')
-        // insert a space between lower & upper
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        // space before last upper in a sequence followed by lower
-        .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
-        // uppercase the first character
-        .replace(/^./, function(str){ return str.toUpperCase(); });
+      return capitalize(slugish
+          // Replace _ with a space
+          .replace(/_/g, ' ')
+          // insert a space between lower & upper
+          .replace(/([a-z])([A-Z])/g, '$1 $2')
+          // space before last upper in a sequence followed by lower
+          .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+      );
     },
 
     stripTags: function (suspectString) {
