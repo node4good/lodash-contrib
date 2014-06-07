@@ -1,16 +1,22 @@
-var fs = require('fs');
-var vm = require('vm');
-var path = require('path');
-var _ = require('lodash').runInContext();
-
-var isAddOnRegEx = _.bindAll(/^_\..+/, 'test');
-var context = vm.createContext({_: _});
-var rightCurryVm = _.partialRight(vm.runInNewContext, context);
-function simpleReadFile(filename) {
-  return fs.readFileSync(path.join(__dirname, filename));
-}
-_(fs.readdirSync(__dirname)).filter(isAddOnRegEx.test).map(simpleReadFile).each(function (code) {
-  rightCurryVm(code);
-});
-
-module.exports = _;
+var inNewContext = require("lodash").runInContext();
+(function sandbox(inNewContext) {
+	var lodashModule = require.cache[require.resolve("lodash")];
+	var original_ = lodashModule.exports;
+	lodashModule.exports = inNewContext;
+	require("./_.collections.walk.js");
+	require("./_.function.arity.js");
+	require("./_.function.combinators.js");
+	require("./_.function.dispatch.js");
+	require("./_.function.iterators.js");
+	require("./_.function.predicates.js");
+	require("./_.object.builders.js");
+	require("./_.object.selectors.js");
+	require("./_.util.existential.js");
+	require("./_.util.operators.js");
+	require("./_.util.strings.js");
+	require("./_.util.trampolines.js");
+	lodashModule.exports = original_;
+})(inNewContext);
+require("./common-js/_.array.builders.js")(inNewContext);
+require("./common-js/_.array.selectors.js")(inNewContext);
+module.exports = inNewContext;

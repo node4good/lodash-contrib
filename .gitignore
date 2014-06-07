@@ -1,4 +1,5 @@
 /.idea
+/gen/
 raw
 node_modules
 .DS_Store

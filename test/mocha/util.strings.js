@@ -1,7 +1,7 @@
 var _ = require('../..');
 var assert = require('assert');
 
-describe("array.builders", function () {
+describe("util.string", function () {
   describe("fromQuery", function () {
     it("can convert a query string to a hash", function (done) {
       var query = 'foo%26bar=baz&test=total+utter+success';

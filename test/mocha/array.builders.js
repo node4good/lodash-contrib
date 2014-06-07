@@ -1,5 +1,4 @@
-var _ = require('lodash');
-require('../../_.array.builders');
+var _ = require('../..');
 var assert = require('assert');
 
 describe("array.builders", function () {
