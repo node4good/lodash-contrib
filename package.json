@@ -7,7 +7,9 @@
     "lodash": "2.4.1"
   },
   "devDependencies": {
+    "browserify": "^4.1.8",
     "grunt": "",
+    "grunt-browserify": "^2.1.0",
     "grunt-cli": "",
     "grunt-contrib-concat": "",
     "grunt-contrib-jshint": "",

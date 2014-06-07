@@ -1,357 +1,10 @@
-// lodash-contrib v241.4.7
+// lodash-contrib v241.4.8
 // =========================
 
 // > 
 // > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
 // > (c) 2013 Refael Ackermann & Empeeric
 // > lodash-contrib may be freely distributed under the MIT license.
-
-// lodash-contrib (lodash.array.builders.js 0.0.1)
-// (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// lodash-contrib may be freely distributed under the MIT license.
-
-(function(root) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('lodash');
-
-  // Helpers
-  // -------
-
-  // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat,
-      sort    = Array.prototype.sort;
-
-  var existy = function(x) { return x != null; };
-
-  // Mixing in the array builders
-  // ----------------------------
-
-  _.mixin({
-    // Concatenates one or more arrays given as arguments.  If given objects and
-    // scalars as arguments `cat` will plop them down in place in the result
-    // array.  If given an `arguments` object, `cat` will treat it like an array
-    // and concatenate it likewise.
-    cat: function() {
-      return _.reduce(arguments, function(acc, elem) {
-        if (_.isArguments(elem)) {
-          return concat.call(acc, slice.call(elem));
-        }
-        else {
-          return concat.call(acc, elem);
-        }
-      }, []);
-    },
-
-    // 'Constructs' an array by putting an element at its front
-    cons: function(head, tail) {
-      return _.cat([head], tail);
-    },
-
-    // Takes an array and chunks it some number of times into
-    // sub-arrays of size n.  Allows and optional padding array as
-    // the third argument to fill in the tail chunk when n is
-    // not sufficient to build chunks of the same size.
-    chunk: function(array, n, pad) {
-      var p = function(array) {
-        if (array == null) return [];
-
-        var part = _.take(array, n);
-
-        if (n === _.size(part)) {
-          return _.cons(part, p(_.drop(array, n)));
-        }
-        else {
-          return pad ? [_.take(_.cat(part, pad), n)] : [];
-        }
-      };
-
-      return p(array);
-    },
-
-    // Takes an array and chunks it some number of times into
-    // sub-arrays of size n.  If the array given cannot fill the size
-    // needs of the final chunk then a smaller chunk is used
-    // for the last.
-    chunkAll: function(array, n, step) {
-      step = (step != null) ? step : n;
-
-      var p = function(array, n, step) {
-        if (_.isEmpty(array)) return [];
-
-        return _.cons(_.take(array, n),
-                      p(_.drop(array, step), n, step));
-      };
-
-      return p(array, n, step);
-    },
-
-    // Maps a function over an array and concatenates all of the results.
-    mapcat: function(array, fun) {
-      return _.cat.apply(null, _.map(array, fun));
-    },
-
-    // Returns an array with some item between each element
-    // of a given array.
-    interpose: function(array, inter) {
-      if (!_.isArray(array)) throw new TypeError;
-      var sz = _.size(array);
-      if (sz === 0) return array;
-      if (sz === 1) return array;
-
-      return slice.call(_.mapcat(array, function(elem) {
-        return _.cons(elem, [inter]);
-      }), 0, -1);
-    },
-
-    // Weaves two or more arrays together
-    weave: function(/* args */) {
-      if (!_.some(arguments)) return [];
-      if (arguments.length == 1) return arguments[0];
-
-      return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
-        return elem != null;
-      });
-    },
-    interleave: _.weave,
-
-    // Returns an array of a value repeated a certain number of
-    // times.
-    repeat: function(t, elem) {
-      return _.times(t, function() { return elem; });
-    },
-
-    // Returns an array built from the contents of a given array repeated
-    // a certain number of times.
-    cycle: function(t, elems) {
-      return _.flatten(_.times(t, function() { return elems; }), true);
-    },
-
-    // Returns an array with two internal arrays built from
-    // taking an original array and spliting it at an index.
-    splitAt: function(array, index) {
-      return [_.take(array, index), _.drop(array, index)];
-    },
-
-    // Call a function recursively f(f(f(args))) until a second
-    // given function goes falsey.  Expects a seed value to start.
-    iterateUntil: function(doit, checkit, seed) {
-      var ret = [];
-      var result = doit(seed);
-
-      while (checkit(result)) {
-        ret.push(result);
-        result = doit(result);
-      }
-
-      return ret;
-    },
-
-    // Takes every nth item from an array, returning an array of
-    // the results.
-    takeSkipping: function(array, n) {
-      var ret = [];
-      var sz = _.size(array);
-
-      if (n <= 0) return [];
-      if (n === 1) return array;
-
-      for(var index = 0; index < sz; index += n) {
-        ret.push(array[index]);
-      }
-
-      return ret;
-    },
-
-    // Returns an array of each intermediate stage of a call to
-    // a `reduce`-like function.
-    reductions: function(array, fun, init) {
-      var ret = [];
-      var acc = init;
-
-      _.each(array, function(v,k) {
-        acc = fun(acc, array[k]);
-        ret.push(acc);
-      });
-
-      return ret;
-    },
-
-    // Runs its given function on the index of the elements rather than
-    // the elements themselves, keeping all of the truthy values in the end.
-    keepIndexed: function(array, pred) {
-      return _.filter(_.map(_.range(_.size(array)), function(i) {
-        return pred(i, array[i]);
-      }),
-      existy);
-    },
-
-    // Accepts an array-like object (other than strings) as an argument and
-    // returns an array whose elements are in the reverse order. Unlike the
-    // built-in `Array.prototype.reverse` method, this does not mutate the
-    // original object. Note: attempting to use this method on a string will
-    // result in a `TypeError`, as it cannot properly reverse unicode strings.
-
-    reverseOrder: function(obj) {
-      if (typeof obj == 'string')
-        throw new TypeError('Strings cannot be reversed by _.reverseOrder');
-      return slice.call(obj).reverse();
-    },
-
-
-    // Returns copy or array sorted according to arbitrary ordering
-    // order must be an array of values; defines the custom sort
-    // key must be one of: missing/null, a string, or a function;
-    collate: function(array, order, key) {
-      if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
-      if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
-
-      return sort.call(array, function (a, b) {
-        if(_.isFunction(key)) {
-          valA = key.call(a);
-          valB = key.call(b);
-        } else if(existy(key)) {
-          valA = a[key];
-          valB = b[key];
-        } else {
-          valA = a;
-          valB = b;
-        }
-
-        var rankA = _.indexOf(order, valA);
-        var rankB = _.indexOf(order, valB);
-
-        if(rankA === -1) return 1;
-        if(rankB === -1) return -1;
-
-        return rankA - rankB;
-      });
-    }
-  });
-
-})(this);
-
-// lodash-contrib (lodash.array.selectors.js 0.0.1)
-// (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// lodash-contrib may be freely distributed under the MIT license.
-
-(function(root) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('lodash');
-
-  // Helpers
-  // -------
-
-  // Create quick reference variables for speed access to core prototypes.
-  var slice   = Array.prototype.slice,
-      concat  = Array.prototype.concat;
-
-  var existy = function(x) { return x != null; };
-  var truthy = function(x) { return (x !== false) && existy(x); };
-  var isSeq = function(x) { return (_.isArray(x)) || (_.isArguments(x)); };
-
-  // Mixing in the array selectors
-  // ----------------------------
-
-  _.mixin({
-    // Returns the second element of an array. Passing **n** will return all but
-    // the first of the head N values in the array.  The **guard** check allows it
-    // to work with `_.map`.
-    second: function(array, n, guard) {
-      if (array == null) return void 0;
-      return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
-    },
-
-    // Returns the third element of an array. Passing **n** will return all but
-    // the first two of the head N values in the array.  The **guard** check allows it
-    // to work with `_.map`.
-    third: function(array, n, guard) {
-      if (array == null) return void 0;
-      return (n != null) && !guard ? slice.call(array, 2, n) : array[2];
-    },
-
-    // A function to get at an index into an array
-    nth: function(array, index, guard) {
-      if ((index != null) && !guard) return array[index];
-    },
-
-    // Takes all items in an array while a given predicate returns truthy.
-    takeWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index]))) {
-          break;
-        }
-      }
-
-      return _.take(array, index);
-    },
-
-    // Drops all items from an array while a given predicate returns truthy.
-    dropWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index])))
-          break;
-      }
-
-      return _.drop(array, index);
-    },
-
-    // Returns an array with two internal arrays built from
-    // taking an original array and spliting it at the index
-    // where a given function goes falsey.
-    splitWith: function(array, pred) {
-      return [_.takeWhile(array, pred), _.dropWhile(array, pred)];
-    },
-
-    // Takes an array and partitions it as the given predicate changes
-    // truth sense.
-    partitionBy: function(array, fun){
-      if (_.isEmpty(array) || !existy(array)) return [];
-
-      var fst    = _.first(array);
-      var fstVal = fun(fst);
-      var run    = concat.call([fst], _.takeWhile(_.rest(array), function(e) {
-        return _.isEqual(fstVal, fun(e));
-      }));
-
-      return concat.call([run], _.partitionBy(_.drop(array, _.size(run)), fun));
-    },
-
-    // Returns the 'best' value in an array based on the result of a
-    // given function.
-    best: function(array, fun) {
-      return _.reduce(array, function(x, y) {
-        return fun(x, y) ? x : y;
-      });
-    },
-
-    // Returns an array of existy results of a function over an source array.
-    keep: function(array, fun) {
-      if (!isSeq(array)) throw new TypeError("expected an array as the first argument");
-
-      return _.filter(_.map(array, function(e) {
-        return fun(e);
-      }), existy);
-    }
-  });
-
-})(this);
 
 // lodash-contrib (lodash.collections.walk.js 0.0.1)
 // (c) 2013 Patrick Dubroy
@@ -2134,3 +1787,331 @@
   });
 
 })(this);
+
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+module.exports = function(_) {
+  // Create quick reference variables for speed access to core prototypes.
+  var slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat,
+      sort    = Array.prototype.sort;
+
+  var existy = function(x) { return x != null; };
+
+  // Mixing in the array builders
+  // ----------------------------
+
+  _.mixin({
+    // Concatenates one or more arrays given as arguments.  If given objects and
+    // scalars as arguments `cat` will plop them down in place in the result
+    // array.  If given an `arguments` object, `cat` will treat it like an array
+    // and concatenate it likewise.
+    cat: function() {
+      return _.reduce(arguments, function(acc, elem) {
+        if (_.isArguments(elem)) {
+          return concat.call(acc, slice.call(elem));
+        }
+        else {
+          return concat.call(acc, elem);
+        }
+      }, []);
+    },
+
+    // 'Constructs' an array by putting an element at its front
+    cons: function(head, tail) {
+      return _.cat([head], tail);
+    },
+
+    // Takes an array and chunks it some number of times into
+    // sub-arrays of size n.  Allows and optional padding array as
+    // the third argument to fill in the tail chunk when n is
+    // not sufficient to build chunks of the same size.
+    chunk: function(array, n, pad) {
+      var p = function(array) {
+        if (array == null) return [];
+
+        var part = _.take(array, n);
+
+        if (n === _.size(part)) {
+          return _.cons(part, p(_.drop(array, n)));
+        }
+        else {
+          return pad ? [_.take(_.cat(part, pad), n)] : [];
+        }
+      };
+
+      return p(array);
+    },
+
+    // Takes an array and chunks it some number of times into
+    // sub-arrays of size n.  If the array given cannot fill the size
+    // needs of the final chunk then a smaller chunk is used
+    // for the last.
+    chunkAll: function(array, n, step) {
+      step = (step != null) ? step : n;
+
+      var p = function(array, n, step) {
+        if (_.isEmpty(array)) return [];
+
+        return _.cons(_.take(array, n),
+                      p(_.drop(array, step), n, step));
+      };
+
+      return p(array, n, step);
+    },
+
+    // Maps a function over an array and concatenates all of the results.
+    mapcat: function(array, fun) {
+      return _.cat.apply(null, _.map(array, fun));
+    },
+
+    // Returns an array with some item between each element
+    // of a given array.
+    interpose: function(array, inter) {
+      if (!_.isArray(array)) throw new TypeError;
+      var sz = _.size(array);
+      if (sz === 0) return array;
+      if (sz === 1) return array;
+
+      return slice.call(_.mapcat(array, function(elem) {
+        return _.cons(elem, [inter]);
+      }), 0, -1);
+    },
+
+    // Weaves two or more arrays together
+    weave: function(/* args */) {
+      if (!_.some(arguments)) return [];
+      if (arguments.length == 1) return arguments[0];
+
+      return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
+        return elem != null;
+      });
+    },
+    interleave: _.weave,
+
+    // Returns an array of a value repeated a certain number of
+    // times.
+    repeat: function(t, elem) {
+      return _.times(t, function() { return elem; });
+    },
+
+    // Returns an array built from the contents of a given array repeated
+    // a certain number of times.
+    cycle: function(t, elems) {
+      return _.flatten(_.times(t, function() { return elems; }), true);
+    },
+
+    // Returns an array with two internal arrays built from
+    // taking an original array and spliting it at an index.
+    splitAt: function(array, index) {
+      return [_.take(array, index), _.drop(array, index)];
+    },
+
+    // Call a function recursively f(f(f(args))) until a second
+    // given function goes falsey.  Expects a seed value to start.
+    iterateUntil: function(doit, checkit, seed) {
+      var ret = [];
+      var result = doit(seed);
+
+      while (checkit(result)) {
+        ret.push(result);
+        result = doit(result);
+      }
+
+      return ret;
+    },
+
+    // Takes every nth item from an array, returning an array of
+    // the results.
+    takeSkipping: function(array, n) {
+      var ret = [];
+      var sz = _.size(array);
+
+      if (n <= 0) return [];
+      if (n === 1) return array;
+
+      for(var index = 0; index < sz; index += n) {
+        ret.push(array[index]);
+      }
+
+      return ret;
+    },
+
+    // Returns an array of each intermediate stage of a call to
+    // a `reduce`-like function.
+    reductions: function(array, fun, init) {
+      var ret = [];
+      var acc = init;
+
+      _.each(array, function(v,k) {
+        acc = fun(acc, array[k]);
+        ret.push(acc);
+      });
+
+      return ret;
+    },
+
+    // Runs its given function on the index of the elements rather than
+    // the elements themselves, keeping all of the truthy values in the end.
+    keepIndexed: function(array, pred) {
+      return _.filter(_.map(_.range(_.size(array)), function(i) {
+        return pred(i, array[i]);
+      }),
+      existy);
+    },
+
+    // Accepts an array-like object (other than strings) as an argument and
+    // returns an array whose elements are in the reverse order. Unlike the
+    // built-in `Array.prototype.reverse` method, this does not mutate the
+    // original object. Note: attempting to use this method on a string will
+    // result in a `TypeError`, as it cannot properly reverse unicode strings.
+
+    reverseOrder: function(obj) {
+      if (typeof obj == 'string')
+        throw new TypeError('Strings cannot be reversed by _.reverseOrder');
+      return slice.call(obj).reverse();
+    },
+
+
+    // Returns copy or array sorted according to arbitrary ordering
+    // order must be an array of values; defines the custom sort
+    // key must be one of: missing/null, a string, or a function;
+    collate: function(array, order, key) {
+      if (!_.isArray(array)) throw new TypeError("expected an array as the first argument");
+      if (!_.isArray(order)) throw new TypeError("expected an array as the second argument");
+
+      return sort.call(array, function (a, b) {
+        if(_.isFunction(key)) {
+          valA = key.call(a);
+          valB = key.call(b);
+        } else if(existy(key)) {
+          valA = a[key];
+          valB = b[key];
+        } else {
+          valA = a;
+          valB = b;
+        }
+
+        var rankA = _.indexOf(order, valA);
+        var rankB = _.indexOf(order, valB);
+
+        if(rankA === -1) return 1;
+        if(rankB === -1) return -1;
+
+        return rankA - rankB;
+      });
+    }
+  });
+
+};
+
+},{}],2:[function(require,module,exports){
+module.exports = function(_) {
+  // Create quick reference variables for speed access to core prototypes.
+  var slice   = Array.prototype.slice,
+      concat  = Array.prototype.concat;
+
+  var existy = function(x) { return x != null; };
+  var truthy = function(x) { return (x !== false) && existy(x); };
+  var isSeq = function(x) { return (_.isArray(x)) || (_.isArguments(x)); };
+
+  // Mixing in the array selectors
+  // ----------------------------
+
+  _.mixin({
+    // Returns the second element of an array. Passing **n** will return all but
+    // the first of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    second: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 1, n) : array[1];
+    },
+
+    // Returns the third element of an array. Passing **n** will return all but
+    // the first two of the head N values in the array.  The **guard** check allows it
+    // to work with `_.map`.
+    third: function(array, n, guard) {
+      if (array == null) return void 0;
+      return (n != null) && !guard ? slice.call(array, 2, n) : array[2];
+    },
+
+    // A function to get at an index into an array
+    nth: function(array, index, guard) {
+      if ((index != null) && !guard) return array[index];
+    },
+
+    // Takes all items in an array while a given predicate returns truthy.
+    takeWhile: function(array, pred) {
+      if (!isSeq(array)) throw new TypeError;
+
+      var sz = _.size(array);
+
+      for (var index = 0; index < sz; index++) {
+        if(!truthy(pred(array[index]))) {
+          break;
+        }
+      }
+
+      return _.take(array, index);
+    },
+
+    // Drops all items from an array while a given predicate returns truthy.
+    dropWhile: function(array, pred) {
+      if (!isSeq(array)) throw new TypeError;
+
+      var sz = _.size(array);
+
+      for (var index = 0; index < sz; index++) {
+        if(!truthy(pred(array[index])))
+          break;
+      }
+
+      return _.drop(array, index);
+    },
+
+    // Returns an array with two internal arrays built from
+    // taking an original array and spliting it at the index
+    // where a given function goes falsey.
+    splitWith: function(array, pred) {
+      return [_.takeWhile(array, pred), _.dropWhile(array, pred)];
+    },
+
+    // Takes an array and partitions it as the given predicate changes
+    // truth sense.
+    partitionBy: function(array, fun){
+      if (_.isEmpty(array) || !existy(array)) return [];
+
+      var fst    = _.first(array);
+      var fstVal = fun(fst);
+      var run    = concat.call([fst], _.takeWhile(_.rest(array), function(e) {
+        return _.isEqual(fstVal, fun(e));
+      }));
+
+      return concat.call([run], _.partitionBy(_.drop(array, _.size(run)), fun));
+    },
+
+    // Returns the 'best' value in an array based on the result of a
+    // given function.
+    best: function(array, fun) {
+      return _.reduce(array, function(x, y) {
+        return fun(x, y) ? x : y;
+      });
+    },
+
+    // Returns an array of existy results of a function over an source array.
+    keep: function(array, fun) {
+      if (!isSeq(array)) throw new TypeError("expected an array as the first argument");
+
+      return _.filter(_.map(array, function(e) {
+        return fun(e);
+      }), existy);
+    }
+  });
+
+};
+
+},{}],3:[function(require,module,exports){
+require("../common-js/_.array.builders.js")(_);
+require("../common-js/_.array.selectors.js")(_);
+module.exports = _;
+
+},{"../common-js/_.array.builders.js":1,"../common-js/_.array.selectors.js":2}]},{},[3])

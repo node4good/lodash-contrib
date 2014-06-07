@@ -1,12 +1,14 @@
 module.exports = function (grunt) {
+  var sandboxCode;
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-docco");
-  grunt.loadNpmTasks("grunt-tocdoc");
   grunt.loadNpmTasks("grunt-mocha-test");
+  grunt.loadNpmTasks("grunt-tocdoc");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -20,7 +22,7 @@ module.exports = function (grunt) {
 
     concat: {
       all: {
-        src: "_.*.js",
+        src: ["_.*.js", 'gen/browserified.js'],
         dest: "dist/lodash-contrib.js",
         options: { banner: "<%= contribBanner %>" }
       }
@@ -74,6 +76,38 @@ module.exports = function (grunt) {
       }
     },
 
+    webScaffold: {
+      all: {
+        files: {
+          'gen/webScaffold.js': 'common-js/*.*'
+        }
+      }
+    },
+
+    sandboxCode: {
+      all: {
+        files: [
+          { src: ['_.*.js'] }
+        ]
+      }
+    },
+
+    wrapForNode: {
+      all: {
+        files: [
+          { src: ['common-js/*.*'] }
+        ]
+      }
+    },
+
+    browserify: {
+      dist: {
+        files: {
+          'gen/browserified.js': 'gen/webScaffold.js'
+        }
+      }
+    },
+
     tocdoc: {
       api: {
         files: {
@@ -98,8 +132,45 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask("test", ["jshint", "qunit:main", "mochaTest"]);
-  grunt.registerTask("dist", ["concat", "uglify"]);
-  grunt.registerTask('default', ['test']);
+
+  grunt.registerMultiTask('webScaffold', 'web scaffolding task.', function () {
+    grunt.log.writeln('Generating the web-scaffold');
+    var setup = this.files.pop();
+    var code = setup.src.reduce(function (seed, val) { return seed + 'require("../' + val + '")(_);\n'; }, '');
+    code += 'module.exports = _;\n';
+    grunt.file.write(setup.dest, code);
+  });
+
+
+  grunt.registerMultiTask('sandboxCode', 'sandbox scaffolding task.', function () {
+    grunt.log.writeln('Generating the sandbox scaffold');
+    var setup = this.files.pop();
+    var code = 'function sandbox(inNewContext) {\n';
+    code += '\tvar lodashModule = require.cache[require.resolve("lodash")];\n';
+    code += '\tvar original_ = lodashModule.exports;\n';
+    code += '\tlodashModule.exports = inNewContext;\n';
+    code += setup.src.reduce(function (seed, val) { return seed + '\trequire("./' + val + '");\n'; }, '');
+    code += '\tlodashModule.exports = original_;\n';
+    code += '}';
+    sandboxCode = code;
+  });
+
+
+  grunt.registerMultiTask('wrapForNode', 'index.js scaffolding task.', function () {
+    grunt.log.writeln('Generating index.js');
+    var setup = this.files.pop();
+    var code = 'var inNewContext = require("lodash").runInContext();\n';
+    code += '(' + sandboxCode + ')(inNewContext);\n';
+    code += setup.src.reduce(function (seed, val) { return seed + 'require("./' + val + '")(inNewContext);\n'; }, '');
+    code += 'module.exports = inNewContext;\n';
+    grunt.file.write('index.js', code);
+  });
+
+
+  grunt.registerTask('webGen', ['webScaffold', 'browserify']);
+  grunt.registerTask('nodeGen', ['sandboxCode', 'wrapForNode']);
+  grunt.registerTask('gen', ['webGen', 'nodeGen']);
+  grunt.registerTask('test', ['gen', 'jshint', 'qunit:main', 'mochaTest']);
   grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
+  grunt.registerTask('default', ['dist']);
 };
