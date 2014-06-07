@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-qunit');
@@ -6,12 +6,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks("grunt-docco");
   grunt.loadNpmTasks("grunt-tocdoc");
+  grunt.loadNpmTasks("grunt-mocha-test");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    contribBanner:
-      "// <%= pkg.name %> v<%= pkg.version %>\n" +
+    contribBanner: "// <%= pkg.name %> v<%= pkg.version %>\n" +
       "// =========================\n\n" +
       "// > <%= pkg.homepage %>\n" +
       "// > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors\n" +
@@ -30,6 +30,15 @@ module.exports = function(grunt) {
       all: {
         files: { "dist/lodash-contrib.min.js": "dist/lodash-contrib.js" },
         options: { banner: "<%= contribBanner %>" }
+      }
+    },
+
+    mochaTest: {
+      test: {
+        src: ['test/mocha/*.*'],
+        options: {
+          reporter: "spec"
+        }
       }
     },
 
@@ -89,7 +98,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask("test", ["jshint", "qunit:main"]);
+  grunt.registerTask("test", ["jshint", "qunit:main", "mochaTest"]);
   grunt.registerTask("dist", ["concat", "uglify"]);
   grunt.registerTask('default', ['test']);
   grunt.registerTask('dist', ['test', 'concat', 'qunit:concat', 'uglify', 'qunit:min']);
