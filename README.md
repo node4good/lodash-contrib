@@ -30,9 +30,10 @@ Use
 First, you’ll need lodash. Then you can grab the relevant lodash-contrib libraries and simply add
 something
 like the following to your pages:
-
-    <script src="lodash.js"></script>
-    <script src="lodash.object.builders.js"></script>
+```html
+<script src="lodash.js"></script>
+<script src="lodash.object.builders.js"></script>
+```
 
 At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
 change in the future.
