@@ -31,8 +31,8 @@ First, you’ll need lodash. Then you can grab the relevant lodash-contrib libra
 something
 like the following to your pages:
 
-    <script type="text/javascript" src="lodash.js"></script>
-    <script type="text/javascript" src="lodash.object.builders.js"></script>
+    <script src="lodash.js"></script>
+    <script src="lodash.object.builders.js"></script>
 
 At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
 change in the future.
@@ -60,7 +60,3 @@ Other (potentially) useful sub-contribs include the following:
   * Multimethods
 
 What do these mean? Well, that’s up for discussion. :-)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Empeeric/lodash-contrib/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
