@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+  var _ = require('lodash');
   var sandboxCode;
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks("grunt-contrib-concat");
@@ -96,7 +97,10 @@ module.exports = function (grunt) {
     wrapForNode: {
       all: {
         files: [
-          { src: ['common-js/*.*'] }
+          {
+            src: ['common-js/*.*'],
+            dst: 'lodash-contrib.js'
+          }
         ]
       }
     },
@@ -109,7 +113,7 @@ module.exports = function (grunt) {
       },
       test: {
         files: {
-          'gen/double.browserified.js' : 'index.js'
+          'gen/double.browserified.js': 'lodash-contrib.js'
         },
         browserifyOptions: { debug: true }
       }
@@ -168,19 +172,28 @@ module.exports = function (grunt) {
     code += setup.src.reduce(function (seed, val) { return seed + '    require("./' + val + '");\n'; }, '');
     code += '    lodashModule.exports = original_;\n';
     code += '    return inNewContext;\n';
-    code += '}';
-    sandboxCode = code;
+    code += '}\n';
+    sandboxCode = {code: code, name: 'sandbox'};
   });
 
 
   grunt.registerMultiTask('wrapForNode', 'index.js scaffolding task.', function () {
-    grunt.log.writeln('Generating index.js');
+    grunt.log.writeln('Generating first pass index.js');
     var setup = this.files.pop();
-    var code = 'var inNewContext = require("lodash").runInContext();\n';
-    code += 'inNewContext = (' + sandboxCode + ')(inNewContext);\n';
+    var code = sandboxCode.code;
+    code += 'var inNewContext = ' + sandboxCode.name + '(require("lodash").runInContext());\n\n';
     code += setup.src.reduce(function (seed, val) { return seed + 'require("./' + val + '")(inNewContext);\n'; }, '');
-    code += 'module.exports = inNewContext;\n';
-    grunt.file.write('index.js', code);
+    code += '\n\nmodule.exports                     = inNewContext;\n';
+    grunt.file.write(setup.dst, code);
+    grunt.log.writeln('Adding explicit method names in index.js');
+    var ctrb1 = require('./' + setup.dst);
+    Object.keys(ctrb1).forEach(function (name) {
+      var len = Math.max(20 - name.length, 2);
+      var arr = new Array(len);
+      var aligner = arr.join(' ');
+      code += 'module.exports.' + name + aligner + ' = inNewContext.' + name + ';\n';
+    });
+    grunt.file.write(setup.dst, code);
   });
 
 

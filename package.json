@@ -2,14 +2,14 @@
   "name": "lodash-contrib",
   "description": "The brass buckles on lodash's utility belt",
   "version": "241.4.10",
-  "main": "index.js",
+  "main": "lodash-contrib.js",
   "dependencies": {
     "lodash": "2.4.1"
   },
   "devDependencies": {
-    "browserify": "^4.1.8",
+    "browserify": "",
     "grunt": "",
-    "grunt-browserify": "^2.1.0",
+    "grunt-browserify": "",
     "grunt-cli": "",
     "grunt-contrib-concat": "",
     "grunt-contrib-jshint": "",
