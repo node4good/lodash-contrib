@@ -9,3 +9,4 @@ docs/public
 examples/*.css
 examples/*.html
 examples/public
+*.log
