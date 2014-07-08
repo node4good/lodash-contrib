@@ -13,20 +13,33 @@
   // Helpers
   // -------
 
+  function existance(arg) { return arg != null; }
 
   // Mixing in the truthiness
   // ------------------------
 
   _.mixin({
-    exists: function(x) { return x != null; },
-    truthy: function(x) { return (x !== false) && _.exists(x); },
-    falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !b; },
+    exists: function() {
+      return _.every(arguments, existance);
+    },
+    truthy: function() {
+      return _.every(arguments, function(arg) {
+        return arg !== false && existance(arg);
+      });
+    },
+    not: function(b) { return !b; },
     firstExisting: function() {
       for (var i = 0; i < arguments.length; i++) {
-        if (arguments[i] != null) return arguments[i];
+        if (existance(arguments[i])) return arguments[i];
       }
     }
   });
 
+  _.mixin({
+    // needs to be separated to allow reuse of _.truthy
+    falsey: function() { 
+      return !_.truthy.apply(null, arguments); }
+  });
+
 })(this);
+
