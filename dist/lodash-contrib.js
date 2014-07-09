@@ -1,4 +1,4 @@
-// lodash-contrib v241.4.9
+// lodash-contrib v241.4.12
 // =========================
 
 // > 
@@ -1395,23 +1395,36 @@
   // Helpers
   // -------
 
+  function existance(arg) { return arg != null; }
 
   // Mixing in the truthiness
   // ------------------------
 
   _.mixin({
-    exists: function(x) { return x != null; },
-    truthy: function(x) { return (x !== false) && _.exists(x); },
-    falsey: function(x) { return !_.truthy(x); },
-    not:    function(b) { return !b; },
+    exists: function() {
+      return _.every(arguments, existance);
+    },
+    truthy: function() {
+      return _.every(arguments, function(arg) {
+        return arg !== false && existance(arg);
+      });
+    },
+    not: function(b) { return !b; },
     firstExisting: function() {
       for (var i = 0; i < arguments.length; i++) {
-        if (arguments[i] != null) return arguments[i];
+        if (existance(arguments[i])) return arguments[i];
       }
     }
   });
 
+  _.mixin({
+    // needs to be separated to allow reuse of _.truthy
+    falsey: function() { 
+      return !_.truthy.apply(null, arguments); }
+  });
+
 })(this);
+
 
 // lodash-contrib (lodash.function.arity.js 0.0.1)
 // (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
@@ -2114,4 +2127,4 @@ require("../common-js/_.array.builders.js")(_);
 require("../common-js/_.array.selectors.js")(_);
 module.exports = _;
 
-},{"../common-js/_.array.builders.js":1,"../common-js/_.array.selectors.js":2}]},{},[3])
+},{"../common-js/_.array.builders.js":1,"../common-js/_.array.selectors.js":2}]},{},[3]);
