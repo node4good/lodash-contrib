@@ -19,7 +19,6 @@ function sandbox(inNewContext) {
     require("./_.function.predicates.js");
     require("./_.object.builders.js");
     require("./_.object.selectors.js");
-    require("./_.util.existential.js");
     require("./_.util.operators.js");
     require("./_.util.strings.js");
     require("./_.util.trampolines.js");
@@ -30,6 +29,7 @@ var inNewContext = sandbox(require("lodash").runInContext());
 
 require("./common-js/_.array.builders.js")(inNewContext);
 require("./common-js/_.array.selectors.js")(inNewContext);
+require("./common-js/_.util.existential.js")(inNewContext);
 
 
 module.exports                     = inNewContext;
@@ -241,11 +241,6 @@ module.exports.kv                  = inNewContext.kv;
 module.exports.omitWhen            = inNewContext.omitWhen;
 module.exports.pickWhen            = inNewContext.pickWhen;
 module.exports.selectKeys          = inNewContext.selectKeys;
-module.exports.exists              = inNewContext.exists;
-module.exports.firstExisting       = inNewContext.firstExisting;
-module.exports.not                 = inNewContext.not;
-module.exports.truthy              = inNewContext.truthy;
-module.exports.falsey              = inNewContext.falsey;
 module.exports.add                 = inNewContext.add;
 module.exports.bitwiseAnd          = inNewContext.bitwiseAnd;
 module.exports.bitwiseLeft         = inNewContext.bitwiseLeft;
@@ -266,6 +261,7 @@ module.exports.mod                 = inNewContext.mod;
 module.exports.mul                 = inNewContext.mul;
 module.exports.neg                 = inNewContext.neg;
 module.exports.neq                 = inNewContext.neq;
+module.exports.not                 = inNewContext.not;
 module.exports.seq                 = inNewContext.seq;
 module.exports.sneq                = inNewContext.sneq;
 module.exports.sub                 = inNewContext.sub;
@@ -310,3 +306,10 @@ module.exports.second              = inNewContext.second;
 module.exports.splitWith           = inNewContext.splitWith;
 module.exports.takeWhile           = inNewContext.takeWhile;
 module.exports.third               = inNewContext.third;
+module.exports.exists              = inNewContext.exists;
+module.exports.existsAll           = inNewContext.existsAll;
+module.exports.falsey              = inNewContext.falsey;
+module.exports.falseyAll           = inNewContext.falseyAll;
+module.exports.firstExisting       = inNewContext.firstExisting;
+module.exports.truthy              = inNewContext.truthy;
+module.exports.truthyAll           = inNewContext.truthyAll;
