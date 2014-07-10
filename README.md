@@ -4,12 +4,12 @@ Basically a [`lodash`](http://lodash.com/) compatible fork of [`underscore-contr
 
 lodash-contrib
 ==============
-[![Build Status](https://travis-ci.org/Empeeric/lodash-contrib.png?branch=master)](https://travis-ci.org/Empeeric/lodash-contrib)
+[![Build Status](https://travis-ci.org/TheNodeILs/lodash-contrib.png?branch=master)](https://travis-ci.org/TheNodeILs/lodash-contrib)
 
 Links
 -----
 
-  * [Documentation](http://empeeric.github.io/lodash-contrib/)
+  * [Documentation](https://github.com/TheNodeILs/lodash-contrib/blob/master/docs/index.md)
   * [Source repository](https://github.com/Empeeric/lodash-contrib)
   * [Tickets and bug reports](https://github.com/Empeeric/lodash-contrib/issues?state=open)
 
