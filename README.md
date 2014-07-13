@@ -27,6 +27,8 @@ various reasons, don't belong in lodash proper. In particular, it aims to be:
 Use
 ---
 
+####Web
+
 First, you’ll need lodash. Then you can grab the relevant lodash-contrib libraries and simply add
 something
 like the following to your pages:
@@ -34,6 +36,10 @@ like the following to your pages:
 <script src="lodash.js"></script>
 <script src="lodash.object.builders.js"></script>
 ```
+
+####Node
+
+Just run `npm install lodash-contrib`, you don't need to have lodash as it will be grabbed as a dependency.
 
 At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
 change in the future.
