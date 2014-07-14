@@ -37,6 +37,19 @@ like the following to your pages:
 <script src="lodash.object.builders.js"></script>
 ```
 
+You could also use [browserify](http://browserify.org/) to bundle your code into a JavaScript
+file that you can include in a web page. 
+Given a simple file called `test.js` which contains:
+
+```javascript
+var _ = require('lodash-contrib');
+
+console.log(_.truthyAll(0, 1, 2, 'lodash-contrib!'));
+```
+
+and a local installation of `lodash-contrib`, you could run `browserify test.js -o browserified.js` to
+have `lodash` itself, `lodash-contrib` and your code into `browserified.js`.
+    
 ####Node
 
 Just run `npm install lodash-contrib`, you don't need to have lodash as it will be grabbed as a dependency.
