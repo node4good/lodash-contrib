@@ -72,7 +72,7 @@ coordsSecondTick.x = 2;
 console.log(coordsFirstTick.x); // -> 2
 ```
 
-which is now what you might want. So you could do
+which is not what you might want. So you could do
 
 ```javascript
 var coordsFirstTick = {x: 1, y: 1};
@@ -118,7 +118,7 @@ _.updatePath(nested, _.always(3), ['one', 'two', 'three']).one.two.three; // -> 
 nested.one.two.three; // -> 4
 ```
 
-from here one could go wild and, for example, obtain under the same parent node, the updated branch
+from here one could go wild and, for example, obtain under the same parent node the updated branch
 and the original one, which might be useful for undo-like tasks
 
 ```javascript
@@ -145,15 +145,15 @@ Given `_.updatePath` this is just syntactic sugar that allows you to pass a valu
 parameter, without having to wrap it into a function by yourself.
 
 
-frequencies: _.curry2(_.countBy)(_.identity)
-__________________________________________
+_.curry2(_.countBy)(_.identity)
+------------------------------
 
 Returns an object where each element of an array is keyed to the number of times that 
 it occurred in said array.
 
 Given
 
-a first parameter it returns an object with the values as keys and the occurrencies
+* a first parameter it returns an object with the values as keys and the occurrencies
 of these as values
 
 ```javascript
