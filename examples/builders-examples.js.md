@@ -145,7 +145,7 @@ Given `_.updatePath` this is just syntactic sugar that allows you to pass a valu
 parameter, without having to wrap it into a function by yourself.
 
 
-_.curry2(_.countBy)(_.identity)
+\_.curry2(\_.countBy)(_.identity)
 ------------------------------
 
 Returns an object where each element of an array is keyed to the number of times that 
