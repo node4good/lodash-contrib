@@ -145,7 +145,7 @@ Given `_.updatePath` this is just syntactic sugar that allows you to pass a valu
 parameter, without having to wrap it into a function by yourself.
 
 
-\_.curry2(\_.countBy)(_.identity)
+_.frequencies(obj)
 ------------------------------
 
 Returns an object where each element of an array is keyed to the number of times that 
@@ -153,8 +153,7 @@ it occurred in said array.
 
 Given
 
-* a first parameter it returns an object with the values as keys and the occurrencies
-of these as values
+* `obj` as array or object it returns an object with the values as keys and the occurrencies of these as values
 
 ```javascript
 _.frequencies([0, 2, 2, 7, 7, 7]); // -> { 0: 1, 2: 2, 7: 3}
