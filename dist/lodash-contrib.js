@@ -1,4 +1,4 @@
-// lodash-contrib v241.4.13
+// lodash-contrib v241.4.14
 // =========================
 
 // > 
@@ -276,6 +276,30 @@
     };
   }());
 
+  // Right curry variants
+  // ---------------------
+  var curryRight = function (func) {
+    return curry.call(this, func, true);
+  };
+
+  var curryRight2 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (first) {
+        return fun.call(this, first, last);
+      });
+    });
+  };
+
+  var curryRight3 = function (fun) {
+    return enforcesUnary(function (last) {
+      return enforcesUnary(function (second) {
+        return enforcesUnary(function (first) {
+          return fun.call(this, first, second, last);
+        });
+      });
+    });
+  };
+
   // Mixing in the arity functions
   // -----------------------------
 
@@ -335,9 +359,8 @@
     curry: curry,
 
     // Flexible right to left curry with strict arity.
-    rCurry: function (func) {
-      return curry.call(this, func, true);
-    },
+    curryRight: curryRight,
+    rCurry: curryRight, // alias for backwards compatibility
 
 
     curry2: function (fun) {
@@ -358,24 +381,13 @@
       });
     },
 
-      // reverse currying for functions taking two arguments.
-    rcurry2: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (first) {
-          return fun.call(this, first, last);
-        });
-      });
-    },
+    // reverse currying for functions taking two arguments.
+    curryRight2: curryRight2,
+    rcurry2: curryRight2, // alias for backwards compatibility
 
-    rcurry3: function (fun) {
-      return enforcesUnary(function (last) {
-        return enforcesUnary(function (second) {
-          return enforcesUnary(function (first) {
-            return fun.call(this, first, second, last);
-          });
-        });
-      });
-    },
+    curryRight3: curryRight3,
+    rcurry3: curryRight3, // alias for backwards compatibility
+
     // Dynamic decorator to enforce function arity and defeat varargs.
     enforce: enforce
   });
@@ -1981,6 +1993,15 @@ module.exports = function(_) {
   var truthy = function(x) { return (x !== false) && existy(x); };
   var isSeq = function(x) { return (_.isArray(x)) || (_.isArguments(x)); };
 
+  function nths(array, indices) {
+    if (array == null) return void 0;
+
+    if (isSeq(indices))
+      return _(indices).map(function(i){return array[i];}).valueOf();
+    else
+      return nths(array, slice.call(arguments, 1));
+  }
+
   // Mixing in the array selectors
   // ----------------------------
 
@@ -2004,6 +2025,22 @@ module.exports = function(_) {
     // A function to get at an index into an array
     nth: function(array, index, guard) {
       if ((index != null) && !guard) return array[index];
+    },
+
+    // A function to get values via indices into an array
+    nths: nths,
+    valuesAt: nths,
+
+    // A function to get at "truthily" indexed values
+    // bin refers to "binary" nature of true/false values in binIndices
+    // but can also be thought of as putting array values into either "take" or "don't" bins
+    binPick: function binPick(array, binIndices) {
+      if (array == null) return void 0;
+
+      if (isSeq(binIndices))
+        return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
+      else
+        return binPick(array, slice.call(arguments, 1));
     },
 
     // Takes all items in an array while a given predicate returns truthy.

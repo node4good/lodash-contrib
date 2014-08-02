@@ -7,6 +7,15 @@ module.exports = function(_) {
   var truthy = function(x) { return (x !== false) && existy(x); };
   var isSeq = function(x) { return (_.isArray(x)) || (_.isArguments(x)); };
 
+  function nths(array, indices) {
+    if (array == null) return void 0;
+
+    if (isSeq(indices))
+      return _(indices).map(function(i){return array[i];}).valueOf();
+    else
+      return nths(array, slice.call(arguments, 1));
+  }
+
   // Mixing in the array selectors
   // ----------------------------
 
@@ -33,14 +42,7 @@ module.exports = function(_) {
     },
 
     // A function to get values via indices into an array
-    nths: nths = function(array, indices) {
-      if (array == null) return void 0;
-
-      if (isSeq(indices))
-        return _(indices).map(function(i){return array[i];});
-      else
-        return nths(array, slice.call(arguments, 1));
-    },
+    nths: nths,
     valuesAt: nths,
 
     // A function to get at "truthily" indexed values
