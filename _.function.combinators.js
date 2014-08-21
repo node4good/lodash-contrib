@@ -58,7 +58,8 @@
                         seed);
       };
     },
-
+    composeLeft: _.pipeline,
+    
     // Composes a bunch of predicates into a single predicate that
     // checks all elements of an array for conformance to all of the
     // original predicates.
