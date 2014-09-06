@@ -20,7 +20,7 @@
     "grunt-mocha-test": "",
     "grunt-tocdoc": ""
   },
-  "repository": "Empeeric/lodash-contrib",
+  "repository": "TheNodeILs/lodash-contrib",
   "license": "MIT",
   "author": "Refael Ackermann <refael@empeeric.com> (http://www.empeeric.com)",
   "contributors": [
