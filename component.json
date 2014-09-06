@@ -1,0 +1,14 @@
+{
+    "name": "lodash-contrib",
+    "description": "The brass buckles on lodash's utility belt",
+    "repo": "TheNodeILs/lodash-contrib",
+    "version": "241.4.15",
+    "dependencies": {
+        "lodash/lodash": "2.4.1"
+    },
+    "main": "dist/lodash-contrib.js",
+    "scripts": [
+        "dist/lodash-contrib.js"
+    ],
+    "license": "MIT"
+}
