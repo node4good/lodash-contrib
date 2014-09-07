@@ -6,9 +6,9 @@
     "dependencies": {
         "lodash/lodash": "2.4.1"
     },
-    "main": "dist/lodash-contrib.js",
+    "main": "lodash-contrib.js",
     "scripts": [
-        "dist/lodash-contrib.js"
+        "lodash-contrib.js"
     ],
     "license": "MIT"
 }
