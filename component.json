@@ -8,7 +8,21 @@
     },
     "main": "lodash-contrib.js",
     "scripts": [
-        "lodash-contrib.js"
+        "lodash-contrib.js",
+        "_.collections.walk.js",
+        "_.function.arity.js",
+        "_.function.combinators.js",
+        "_.function.dispatch.js",
+        "_.function.iterators.js",
+        "_.function.predicates.js",
+        "_.object.builders.js",
+        "_.object.selectors.js",
+        "_.util.operators.js",
+        "_.util.strings.js",
+        "_.util.trampolines.js",
+        "common-js/_.array.builders.js",
+        "common-js/_.array.selectors.js",
+        "common-js/_.util.existential.js"
     ],
     "license": "MIT"
 }
