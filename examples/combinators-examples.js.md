@@ -6,24 +6,23 @@ the application of smaller functions.
 
 Each section gives use cases showing how a given function could be used.
 
- * [_.bound](#)
- * [_.comparator](#)
- * [_.complement](#)
- * [_.conjoin](#)
- * [_.disjoin](#)
- * [_.flip](#)
- * [_.flip2](#)
- * [_.fnull](#)
- * [_.functionalize](#)
- * [_.juxt](#)
- * [_.mapArgs](#)
- * [_.mapArgsWith](#)
- * [_.methodize](#)
- * [_.pipeline](#)
- * [_.splat](#)
- * [_.unsplat](#)
- * [_.unsplatl](#)
- * [_.unsplatr](#)
+ * [_.bound](#_boundobj-fname)
+ * [_.comparator](#_comparatorfun)
+ * [_.complement](#_complementpred)
+ * [_.conjoin](#_conjoinpredicates)
+ * [_.disjoin](#_disjoinpredicates)
+ * [_.flip](#_flipfun)
+ * [_.flip2](#_flip2fun)
+ * [_.fnull](#_fnullfun--defaults)
+ * [_.functionalize](#_functionalizemethod)
+ * [_.juxt](#_juxtfuns)
+ * [_.mapArgs](#_mapargs)
+ * [_.mapArgsWith](#_mapargswith)
+ * [_.methodize](#_methodizefunc)
+ * [_.pipeline](#_pipelinefunctions)
+ * [_.splat](#_splatfun)
+ * [_.unsplat](#_unsplatfun)
+ * [_.unsplatl](#_unsplatlfun)
 
 For some more insights have a look at [the tests](https://github.com/TheNodeILs/lodash-contrib/blob/master/test/function.combinators.js).
 
@@ -41,7 +40,21 @@ Returns the function property of `obj` by `fname`, bound to `obj`.
 **Results**
 
 (Function): Returns a function bound to `obj`.
-    
+
+**Example**
+
+``javascript
+var obj = {
+  fun: function(b) {
+    return this.a + b;
+  },
+  a: 'hello ',
+  nofun: null
+};
+var f = _.bound(obj, 'fun');
+f('there') // → 'hello there'
+```
+
 
 _.comparator(fun)
 -----------------
@@ -56,6 +69,8 @@ Takes a predicate-like and returns a comparator (-1, 0, 1).
 
 (integer): Returns `-1` if `fun(x, y)` evaluates to a truthy value, `1` if `fun(y, x)` evaluates
 to a falsy value, 0 otherwise.
+
+**Example**
 
 ```javascript
 var lessThan = _.comparator(function(x, y) { return x < y });
@@ -78,6 +93,8 @@ Returns a function that reverses the sense of a given predicate-like.
 
 (boolean): Returns the negation of the result that `pred` would have returned.
 
+**Example**
+
 ```javascript
 // every value is ok except String
 _.filter(['removeme', 1, true], _.complement(_.isString));
@@ -98,6 +115,8 @@ original predicates.
 **Returns**
 
 (boolean): Rerturns `true` if all elements satisfy the `predicates`, `false` otherwise.
+
+**Example**
 
 ```javascript
 function isBlue(o) { return o.color == 'blue' }
@@ -133,6 +152,8 @@ original predicates.
 
 (boolean): Returns true if any array elements satisfy any of the `predicates`, false otherwise.
 
+**Example**
+
 ```javascript
 function isBlue(o) { return o.color == 'blue' }
 function isSquare(o) { return o.shape == 'square' }
@@ -164,6 +185,8 @@ Flips an arbitrary number of args of a function.
 
 Result of `fun` applied to the arguments.
 
+**Example**
+
 ```javascript
 var echo = function() { return Array.prototype.slice.call(arguments, 0); };
 deepEqual(_.flip(echo)(1, 2, 3, 4), [4, 3, 2, 1]
@@ -182,6 +205,8 @@ Flips the first two arguments of a function.
 **Returns**
 
 Result of `fun` applied to the arguments.
+
+**Example**
 
 ```javascript
 var div = function(n, d) { return n/d; };
@@ -206,6 +231,8 @@ should a call receive non-existy values in the defaulted arg slots.
 Result of `fun` applied to the arguments, using the provided defaults if any non-existy values
 are found.
 
+**Example**
+
 ```javascript
 var a = [1, 2, 3, null, 5];
 var safeMult = _.fnull(function(total, n) { return total * n; }, 1, 1);
@@ -228,6 +255,8 @@ of the arguments are used as the original's entire argument list.
 **Returns**
 
 Result of `method` applied to the arguments.
+
+**Example**
 
 ```javascript
 var rect = {
@@ -255,6 +284,8 @@ Returns a function that returns an array of the calls to each given function for
 
 (Array): containing the results of the application of each function to the passed arguments.
 
+**Example**
+
 ```javascript
 var run = _.juxt(function(s, n) { return s.length + n; }, parseInt);
 run('42', 10) // → [12, 42]
@@ -266,14 +297,13 @@ _.mapArgs()
 
 Maps the arguments of a function, takes the mapping function first so it can be used as a combinator.
 
-// TODO finish 
+// TODO
 
     
 _.mapArgsWith()
 ---------------
 
-// TODO finish 
-
+// TODO 
 
 
 _.methodize(func)
@@ -292,6 +322,17 @@ is called with a receiver of `null`.
 
 Returns the result of `method` applied to the arguments.
 
+**Example**
+
+```javascript
+function area(rect) { return rect.x * rect.y; }
+var rect = {
+  x: 2,
+  y: 3,
+  area: _.methodize(area)
+};
+rect.area() // → 6
+```
 
 _.pipeline(functions)
 ---------------------------
@@ -339,6 +380,8 @@ uses its elements as the args to the original function
 
 Result of `fun` applied to the arguments.
 
+**Example**
+
 ```javascript
 var sumArgs = function () {
   return _.reduce(arguments, function (a, b) { return a + b; }, 0);
@@ -366,6 +409,8 @@ in an array that is passed to the original function.
 
 Result of `fun` applied to the arguments.
 
+**Example**
+
 ```javascript
 var echo3 = _.unsplat(function (first, second, rest) { return [first, second, rest]; });
 echo3(1, 2, 3, 4) // → [1, 2, [3, 4]]
@@ -384,6 +429,8 @@ Same as unsplat, but the rest of the arguments are collected in the first parame
 **Returns**
 
 Result of `fun` applied to the arguments.
+
+**Example**
 
 ```javascript
 var echo3 = _.unsplatl(function (rest, penultimate, ultimate) { return [rest, penultimate, ultimate]; });
