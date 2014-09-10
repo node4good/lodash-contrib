@@ -43,7 +43,7 @@ Returns the function property of `obj` by `fname`, bound to `obj`.
 
 **Example**
 
-``javascript
+```javascript
 var obj = {
   fun: function(b) {
     return this.a + b;
