@@ -1,18 +1,16 @@
 {
-  "name": "underscore-contrib",
-  "version": "0.3.0",
-  "main": "dist/underscore-contrib.min.js",
-  "homepage": "https://github.com/documentcloud/underscore-contrib",
+  "name": "lodash-contrib",
+  "main": "dist/lodash-contrib.js",
+  "version": "241.4.15",
+  "homepage": "https://github.com/TheNodeILs/lodash-contrib",
   "authors": [
-    "fogus <me@fogus.me>"
+    "Fogus <me@fogus.me>"
   ],
-  "description": "The brass buckles on Underscore's utility belt",
-  "keywords": [
-    "underscore",
-    "underscorejs",
-    "documentcloud",
-    "functional",
-    "javascript"
+  "description": "The brass buckles on lodash's utility belt",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
   ],
   "license": "MIT",
   "ignore": [
@@ -20,9 +18,18 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "gh-pages",
+    "examples",
+    "docs",
+    "CHANGELOG.md",
+    "component.json",
+    "package.json",
+    "Gruntfile.js",
+    "lodash-contrib.js",
+    "tocdoc.css",
+    "_.*.js"
   ],
-  "dependencies"  : {
-    "underscore"  : ">=1.6.0"
+  "dependencies": {
+    "lodash": "~2.4.1"
   }
 }
