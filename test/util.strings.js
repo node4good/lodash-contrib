@@ -70,4 +70,12 @@ $(document).ready(function() {
     equal(_.humanize("LastUpdateDateInt"), "Last Update Date Int");
     equal(_.humanize("LastUpdate_date_IntHTML"), "Last Update date Int HTML");
   });
+
+  test( 'slugify', function () {
+    equal( _.slugify( 'String' ), 'string', 'lower-cases strings for slugs' );
+    equal( _.slugify( 'string with spaces' ), 'string-with-spaces', 'converts a string with spaces into a slug' );
+    equal( _.slugify( 'string.with.dots' ), 'string-with-dots', 'converts a string with dots into a slug' );
+    equal( _.slugify( 'TitleCase' ), 'title-case', 'converts TitleCase strings into slugs' );
+    equal( _.slugify( 'i-am-a-slug' ), 'i-am-a-slug', 'leaves strings that are already slugs alone' );
+  });
 });
