@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "browserify": "",
+    "chai": "^1.9.2",
     "grunt": "",
     "grunt-browserify": "",
     "grunt-cli": "",

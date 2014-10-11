@@ -18,7 +18,7 @@
       boundary: /(\b.)/g,
       bracket: /(?:([^\[]+))|(?:\[(.*?)\])/g,
       capitalLetters: /([A-Z])/g,
-      dot: /\./,
+      dot: /\./g,
       htmlTags: /<\/?[^<>]*>/gi,
       lowerThenUpper: /([a-z])([A-Z])/g,
       nonCamelCase: /[-_\s](\w)/g,
@@ -26,7 +26,7 @@
       regex: /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
       space: / /g,
       underscore: /_/g,
-      upperThenLower: /\b([A-Z]+)([A-Z])([a-z])/
+      upperThenLower: /\b([A-Z]+)([A-Z])([a-z])/g
   };
 
   var urlDecode = function (s) {
@@ -152,7 +152,10 @@
 
     // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
     slugify: function (urlString) {
-      return urlString.replace(REGEX.space, '-').replace(REGEX.dot, '').toLowerCase();
+      return urlString.replace(REGEX.lowerThenUpper, '$1-$2')
+                      .replace(REGEX.space, '-')
+                      .replace(REGEX.dot, '-')
+                      .toLowerCase();
     },
 
     // Escape regular expressions in a string
