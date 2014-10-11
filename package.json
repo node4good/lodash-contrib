@@ -7,6 +7,7 @@
     "lodash": "3.10.0"
   },
   "devDependencies": {
+    "chai": "^1.9.2",
     "grunt": "",
     "grunt-browserify": "",
     "grunt-cli": "",
