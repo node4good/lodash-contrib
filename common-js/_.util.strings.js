@@ -4,11 +4,23 @@ module.exports = function (_) {
   // -------
 
   // No reason to create regex more than once
-  var plusRegex = /\+/g;
-  var bracketRegex = /(?:([^\[]+))|(?:\[(.*?)\])/g;
+  var REGEX = {
+      boundary: /(\b.)/g,
+      bracket: /(?:([^\[]+))|(?:\[(.*?)\])/g,
+      capitalLetters: /([A-Z])/g,
+      dot: /\./,
+      htmlTags: /<\/?[^<>]*>/gi,
+      lowerThenUpper: /([a-z])([A-Z])/g,
+      nonCamelCase: /[-_\s](\w)/g,
+      plus: /\+/g,
+      regex: /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
+      space: / /g,
+      underscore: /_/g,
+      upperThenLower: /\b([A-Z]+)([A-Z])([a-z])/
+  };
 
   var urlDecode = function (s) {
-    return decodeURIComponent(s.replace(plusRegex, '%20'));
+    return decodeURIComponent(s.replace(REGEX.plus, '%20'));
   };
 
   var buildParams = function (prefix, val, top) {
@@ -54,10 +66,10 @@ module.exports = function (_) {
         depth = obj;
 
         // Reset so we don't have issues when matching the same string
-        bracketRegex.lastIndex = 0;
+        REGEX.bracket.lastIndex = 0;
 
         // Attempt to extract nested values
-        while ((match = bracketRegex.exec(key)) !== null) {
+        while ((match = REGEX.bracket.exec(key)) !== null) {
           if (!_.isUndefined(match[1])) {
 
             // If we're at the top nested level, no new object needed
@@ -90,19 +102,19 @@ module.exports = function (_) {
 
     // Converts a string to camel case
     camelCase: function (string) {
-      return  string.replace(/[-_\s](\w)/g, function ($1) { return $1[1].toUpperCase(); });
+      return  string.replace(REGEX.nonCamelCase, function ($1) { return $1[1].toUpperCase(); });
     },
 
     // Converts camel case to dashed (opposite of _.camelCase)
     toDash: function (string) {
-      string = string.replace(/([A-Z])/g, function ($1) {return "-" + $1.toLowerCase();});
+      string = string.replace(REGEX.capitalLetters, function ($1) {return "-" + $1.toLowerCase();});
       // remove first dash
       return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
     },
 
     // Converts camel case to snake_case
     snakeCase: function (string) {
-      string = string.replace(/([A-Z])/g, function ($1) {return "_" + $1.toLowerCase();});
+      string = string.replace(REGEX.capitalLetters, function ($1) {return "_" + $1.toLowerCase();});
       // remove first underscore
       return  ( string.charAt(0) == '_' ) ? string.substr(1) : string;
     },
@@ -125,32 +137,34 @@ module.exports = function (_) {
 
     // Upper case first letter in every word.
     titleCase: function capitalize(string) {
-      return string.replace(/(\b.)/g, function ($1) {return $1.toUpperCase();});
+      return string.replace(REGEX.boundary, function ($1) {return $1.toUpperCase();});
     },
 
     // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
     slugify: function (urlString) {
-      return urlString.replace(/ /g, '-').replace(/\./, '').toLowerCase();
+      return urlString.replace(REGEX.space, '-').replace(REGEX.dot, '').toLowerCase();
     },
 
-    // Slugify a string. Makes lowercase, and converts dots and spaces to dashes.
+    // Escape regular expressions in a string
     regexEscape: function (regexCandidate) {
-      return regexCandidate.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      return regexCandidate.replace(REGEX.regex, "\\$&");
     },
 
+    // Humanize a slug by adding spaces in place of underscores and between words
     humanize: function (slugish) {
       return _.capitalize(slugish
           // Replace _ with a space
-          .replace(/_/g, ' ')
+          .replace(REGEX.underscore, ' ')
           // insert a space between lower & upper
-          .replace(/([a-z])([A-Z])/g, '$1 $2')
+          .replace(REGEX.lowerThenUpper, '$1 $2')
           // space before last upper in a sequence followed by lower
-          .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+          .replace(REGEX.upperThenLower, '$1 $2$3')
       );
     },
 
+    // Strip HTML-ish tags from string
     stripTags: function (suspectString) {
-      var str = suspectString.replace(/<\/?[^<>]*>/gi, '');
+      var str = suspectString.replace(REGEX.htmlTags, '');
       return str;
     }
 
