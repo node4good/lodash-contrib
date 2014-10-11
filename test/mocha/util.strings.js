@@ -37,26 +37,26 @@ describe("util.string", function () {
     });
   });
 
-  describe( 'slugify', function () {
+  describe('slugify', function () {
 
-    it( 'lower-cases strings for slugs', function () {
-      expect( _.slugify( 'String' ) ).to.equal( 'string' );
+    it('lower-cases strings for slugs', function () {
+      expect(_.slugify('String')).to.equal('string');
     });
 
-    it( 'converts a string with spaces into a slug', function () {
-      expect( _.slugify( 'string with spaces' ) ).to.equal( 'string-with-spaces' );
+    it('converts a string with spaces into a slug', function () {
+      expect(_.slugify('string with spaces')).to.equal('string-with-spaces');
     });
 
-    it( 'converts a string with dots into a slug', function () {
-      expect( _.slugify( 'string.with.dots' ) ).to.equal( 'string-with-dots' );
+    it('converts a string with dots into a slug', function () {
+      expect(_.slugify('string.with.dots')).to.equal('string-with-dots');
     });
 
-    it( 'converts TitleCase strings into slugs', function () {
-      expect( _.slugify( 'TitleCase' ) ).to.equal( 'title-case' );
+    it('converts TitleCase strings into slugs', function () {
+      expect(_.slugify('TitleCase')).to.equal('title-case');
     });
 
-    it( 'leaves strings that are already slugs alone', function () {
-      expect( _.slugify( 'i-am-a-slug' ) ).to.equal( 'i-am-a-slug' );
+    it('leaves strings that are already slugs alone', function () {
+      expect(_.slugify('i-am-a-slug')).to.equal('i-am-a-slug');
     });
 
   });
