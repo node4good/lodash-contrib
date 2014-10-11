@@ -124,7 +124,7 @@
 
     // Reports whether a string contains a search string.
     strContains: function (str, search) {
-      if (typeof str != 'string') throw new TypeError;
+      if (typeof str != 'string') throw new TypeError( 'First argument to strContains must be a string' );
       return (str.indexOf(search) != -1);
     },
 
@@ -166,4 +166,3 @@
 
   });
 })(this);
-
