@@ -128,6 +128,16 @@
       return (str.indexOf(search) != -1);
     },
 
+    // Reports whether a string ends with a search string.
+    strEndsWith: function(subjectStr, searchStr, position) {
+      if (position === undefined || position > subjectStr.length) {
+        position = subjectStr.length;
+      }
+      position -= searchStr.length;
+      var lastIndex = subjectStr.indexOf(searchStr, position);
+      return lastIndex !== -1 && lastIndex === position;
+    },
+
     // Upper case first letter.
     capitalize: function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);

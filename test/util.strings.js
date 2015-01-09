@@ -52,6 +52,13 @@ $(document).ready(function() {
     throws(thrower, TypeError, 'Throws TypeError if first argument is not a string.');
   });
 
+  test('strEndsWith', function() {
+    equal(_.strEndsWith('Foo.bar', 'bar'), true, 'Should return true if the string contains the search string.');
+    equal(_.strEndsWith('Foo.bar', 'baz'), false, 'Should return false if the string does not contain the search string');
+    equal(_.strEndsWith('Foo.bar', 'Foo', 3), true, 'Should return true if the string contains the search string with a limit on the string length.');
+    equal(_.strEndsWith('Foo.bar', 'Foo', 4), false, 'Should return false if the string does not contain the search string with a wrong limit on the string length.');
+  });
+
   var preRegex1 = '/__value__/i.test(this.email)||/__value__/i.test(this.fb_uniq)||/__value__/i';
   var postRegex1 = '\\/__value__\\/i\\.test\\(this\\.email\\)\\|\\|\\/__value__\\/i\\.test\\(this\\.fb_uniq\\)\\|\\|\\/__value__\\/i';
   test('strContains', function() {
