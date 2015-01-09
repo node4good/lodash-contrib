@@ -278,6 +278,7 @@ module.exports.regexEscape         = inNewContext.regexEscape;
 module.exports.slugify             = inNewContext.slugify;
 module.exports.snakeCase           = inNewContext.snakeCase;
 module.exports.strContains         = inNewContext.strContains;
+module.exports.strEndsWith         = inNewContext.strEndsWith;
 module.exports.stripTags           = inNewContext.stripTags;
 module.exports.titleCase           = inNewContext.titleCase;
 module.exports.toDash              = inNewContext.toDash;
