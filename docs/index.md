@@ -43,19 +43,19 @@ lodash-contrib is open sourced under the [MIT license](https://github.com/Empeer
 
 The lodash-contrib library currently contains a number of related capabilities, aggregated into the following files.
 
-  - [_.array.builders](_.array.builders.js.html) - functions to build arrays
-  - [_.array.selectors](_.array.selectors.js.html) - functions to take things from arrays
-  - [_.collections.walk](_.collections.walk.js.html) - functions to walk and transform nested JavaScript objects
-  - [_.function.arity](_.function.arity.js.html) - functions to manipulate and fix function argument arity
-  - [_.function.combinators](_.function.combinators.js.html) - functions to combine functions to make new functions
-  - [_.function.iterators](_.function.iterators.js.html) - functions to lazily produce, manipulate and consume sequence iterators
-  - [_.function.predicates](_.function.predicates.js.html) - functions that return `true` or `false` based on some criteria
-  - [_.object.builders](_.object.builders.js.html) - functions to build JavaScript objects
-  - [_.object.selectors](_.object.selectors.js.html) - functions to pick things from JavaScript objects
-  - [_.util.existential](_.util.existential.js.html) - functions that check for the existence or truthiness of JavaScript data types
-  - [_.util.operators](_.util.operators.js.html) - functions that wrap common (or missing) JavaScript operators
-  - [_.util.strings](_.util.strings.js.html) - functions to work with strings
-  - [_.util.trampolines](_.util.trampolines.js.html) - functions to facilitate calling functions recursively without blowing the stack
+  - [_.array.builders](_.array.builders.js.md) - functions to build arrays
+  - [_.array.selectors](_.array.selectors.js.md) - functions to take things from arrays
+  - [_.collections.walk](_.collections.walk.js.md) - functions to walk and transform nested JavaScript objects
+  - [_.function.arity](_.function.arity.js.md) - functions to manipulate and fix function argument arity
+  - [_.function.combinators](_.function.combinators.js.md) - functions to combine functions to make new functions
+  - [_.function.iterators](_.function.iterators.js.md) - functions to lazily produce, manipulate and consume sequence iterators
+  - [_.function.predicates](_.function.predicates.js.md) - functions that return `true` or `false` based on some criteria
+  - [_.object.builders](_.object.builders.js.md) - functions to build JavaScript objects
+  - [_.object.selectors](_.object.selectors.js.md) - functions to pick things from JavaScript objects
+  - [_.util.existential](_.util.existential.js.md) - functions that check for the existence or truthiness of JavaScript data types
+  - [_.util.operators](_.util.operators.js.md) - functions that wrap common (or missing) JavaScript operators
+  - [_.util.strings](_.util.strings.js.md) - functions to work with strings
+  - [_.util.trampolines](_.util.trampolines.js.md) - functions to facilitate calling functions recursively without blowing the stack
 
 The links above are to the annotated source code.  Full-blown _.contrib documentation is in the works.  Contributors welcomed.
 
