@@ -4,7 +4,7 @@
   "version": "241.4.15",
   "main": "lodash-contrib.js",
   "dependencies": {
-    "lodash": "2.4.1"
+    "lodash": "3.9.3"
   },
   "devDependencies": {
     "browserify": "",
