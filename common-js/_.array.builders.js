@@ -91,7 +91,7 @@ module.exports = function(_) {
       if (!_.some(arguments)) return [];
       if (arguments.length == 1) return arguments[0];
 
-      return _.filter(_.flatten(_.zip.apply(null, arguments), true), function(elem) {
+      return _.filter(_.flatten(_.zip.apply(null, arguments), false), function(elem) {
         return elem != null;
       });
     },
