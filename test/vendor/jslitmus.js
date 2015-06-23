@@ -1,29 +1,7 @@
 // JSLitmus.js
 //
-// History:
-//   2008-10-27: Initial release
-//   2008-11-09: Account for iteration loop overhead
-//   2008-11-13: Added OS detection
-//   2009-02-25: Create tinyURL automatically, shift-click runs tests in reverse
-//
-// Copyright (c) 2008-2009, Robert Kieffer
-// All Rights Reserved
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the
-// Software), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
+// Copyright (c) 2010, Robert Kieffer, http://broofa.com
+// Available under MIT license (http://en.wikipedia.org/wiki/MIT_License)
 
 (function() {
   // Private methods and state
@@ -129,19 +107,19 @@
   /**
   * Test manages a single test (created with
   * JSLitmus.test())
-  * 
+  *
   * @private
   */
   var Test = function (name, f) {
     if (!f) throw new Error('Undefined test function');
-    if (!(/function[^\(]*\(([^,\)]*)/).test(f.toString())) {
+    if (!/function[^\(]*\(([^,\)]*)/.test(f.toString())) {
       throw new Error('"' + name + '" test: Test is not a valid Function object');
     }
     this.loopArg = RegExp.$1;
     this.name = name;
     this.f = f;
   };
-  
+
   jsl.extend(Test, /** @lends Test */ {
     /** Calibration tests for establishing iteration loop overhead */
     CALIBRATIONS: [
@@ -155,7 +133,7 @@
     * onCalibrated - Callback to invoke when calibrations have finished
     */
     calibrate: function(onCalibrated) {
-      for (var i = 0; i < Test.CALIBRATIONS.length; i++) { 
+      for (var i = 0; i < Test.CALIBRATIONS.length; i++) {
         var cal = Test.CALIBRATIONS[i];
         if (cal.running) return true;
         if (!cal.count) {
@@ -272,7 +250,7 @@
 
     /**
     * Get the number of operations per second for this test.
-    * 
+    *
     * @param normalize if true, iteration loop overhead taken into account
     */
     getHz: function(/**Boolean*/ normalize) {
@@ -516,7 +494,7 @@
 
       if (test.error) {
         cns.push('test_error');
-        cell.innerHTML = 
+        cell.innerHTML =
         '<div class="error_head">' + test.error + '</div>' +
         '<ul class="error_body"><li>' +
           jsl.join(test.error, ': ', '</li><li>') +
@@ -532,6 +510,7 @@
           cns.push('test_done');
           var hz = test.getHz(jsl.$('test_normalize').checked);
           cell.innerHTML = hz != Infinity ? hz : '&infin;';
+          cell.title = 'Looped ' + test.count + ' times in ' + test.time + ' seconds';
         } else {
           cell.innerHTML = 'ready';
         }
@@ -663,7 +642,7 @@
         chs: w + 'x' + h
       };
       return 'http://chart.apis.google.com/chart?' + jsl.join(params, '=', '&');
-    } 
+    }
   };
 
   JSLitmus._init();
