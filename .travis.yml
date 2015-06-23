@@ -8,7 +8,7 @@ deploy:
   provider: npm
   email: me@refack.com
   api_key:
-    secure: LW/jmPVX5PQHuMopKeeUjBysSYNrCd+8Xe+RTKyuuISpv+7tBvgJNpq2a6pSVcXC1gJDlAvTWed37JgsCKMi5vonScC45zwsWoH2HhMX/fVofn5M7AiIuozFkCbvzXm9R9aVL8lkbZEFEHhrw/ktmCg3XGNoua5+puunGrcQ4cw=
+    secure: emop6MuWZ2yglRFlq9dpALSRM71S/FFxj8+34PeeWE5T2pTmCKi3f6G6giZm9/pbat30Fgk5GQg3sc3AiPFf8k9xnOS7ihy6nm0lH1Q/orNRUCJDVhy9UaLlT/GwCAvGvHw7yNNzNA3+r7Tv0dSbLcCwNdnyYTs/B9XB5gxRui8=
   on:
     tags: true
     node: '0.12'
