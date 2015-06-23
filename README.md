@@ -29,26 +29,23 @@ Use
 
 ####Web
 
-First, you’ll need lodash. Then you can grab the relevant lodash-contrib libraries and simply add
-something
-like the following to your pages:
+First, you’ll need lodash. Then you can grab the relevant lodash-contrib libraries and simply add something like the following to your pages:
 ```html
 <script src="lodash.js"></script>
 <script src="lodash.object.builders.js"></script>
 ```
 
-You could also use [browserify](http://browserify.org/) to bundle your code into a JavaScript
-file that you can include in a web page. 
-Given a simple file called `test.js` which contains:
+You could also use [browserify](http://browserify.org/) to bundle your code into a JavaScript file that you can include in a web page. 
+Require `lodash-contrib` in your main script file (e.g. `test.js`) like so:
 
 ```javascript
 var _ = require('lodash-contrib');
 
+// YOUR CODE COMES HERE
 console.log(_.truthyAll(0, 1, 2, 'lodash-contrib!'));
 ```
 
-and a local installation of `lodash-contrib`, you could run `browserify test.js -o browserified.js` to
-have `lodash` itself, `lodash-contrib` and your code into `browserified.js`.
+then you could run `browserify test.js -o browserified.js` to get `lodash`, `lodash-contrib` and your code into `browserified.js`.
     
 ####Node
 
