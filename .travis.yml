@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- "0.11"
+- "0.12"
 - "0.10"
 
 notifications:
@@ -14,5 +14,5 @@ deploy:
   on:
     all_branches: true
     tags: true
-    node: "0.10"
-    repo: TheNodeIls/lodash-contrib
+    node: "0.12"
+    repo: TheNodeILs/lodash-contrib
