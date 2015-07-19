@@ -1,15 +1,4 @@
-// lodash-contrib (lodash.collections.walk.js 0.0.1)
-// (c) 2013 Patrick Dubroy
-// lodash-contrib may be freely distributed under the MIT license.
-
-(function(root) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('lodash');
-
+module.exports = function (_) {
   // Helpers
   // -------
 
@@ -179,7 +168,7 @@
   // traversed. Given an object, it returns the object to be recursively
   // walked. The default strategy is equivalent to `_.identity` for regular
   // objects, and for DOM nodes it returns the node's DOM children.
-  _.walk = function(traversalStrategy) {
+  function walk(traversalStrategy) {
     var walker = _.clone(exports);
 
     // Bind all of the public functions in the walker to itself. This allows
@@ -188,9 +177,11 @@
 
     walker._traversalStrategy = traversalStrategy || defaultTraversal;
     return walker;
-  };
+  }
 
   // Use `_.walk` as a namespace to hold versions of the walk functions which
   // use the default traversal strategy.
-  _.extend(_.walk, _.walk());
-})(this);
+  _.extend(walk, walk());
+
+  _.mixin({walk: walk});
+};

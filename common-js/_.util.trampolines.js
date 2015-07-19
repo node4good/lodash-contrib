@@ -1,14 +1,4 @@
-// lodash-contrib (lodash.util.trampolines.js 0.0.1)
-// (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors
-// lodash-contrib may be freely distributed under the MIT license.
-
-(function(root) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('lodash');
+module.exports = function (_) {
 
   // Helpers
   // -------
@@ -36,4 +26,4 @@
     }
   });
 
-})(this);
+};

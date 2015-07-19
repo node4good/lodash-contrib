@@ -1,14 +1,4 @@
-// lodash-contrib (lodash.function.iterators.js 0.0.1)
-// (c) 2013 Michael Fogus and DocumentCloud Inc.
-// lodash-contrib may be freely distributed under the MIT license.
-
-(function(root, undefined) {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `global` on the server.
-  var _ = root._ || require('lodash');
+module.exports = function (_) {
 
   // Helpers
   // -------
@@ -331,4 +321,4 @@
     range: range
   };
 
-})(this, void 0);
+};

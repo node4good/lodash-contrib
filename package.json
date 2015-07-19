@@ -1,24 +1,24 @@
 {
   "name": "lodash-contrib",
   "description": "The brass buckles on lodash's utility belt",
-  "version": "393.0.1",
-  "main": "lodash-contrib.js",
+  "version": "31000.0.0",
+  "main": "dist/lodash-contrib.commonjs.js",
   "dependencies": {
-    "lodash": "3.9.3"
+    "lodash": "3.10.0"
   },
   "devDependencies": {
-    "browserify": "",
     "grunt": "",
     "grunt-browserify": "",
     "grunt-cli": "",
     "grunt-contrib-concat": "",
+    "grunt-contrib-copy": "",
     "grunt-contrib-jshint": "",
     "grunt-contrib-qunit": "",
     "grunt-contrib-uglify": "",
-    "grunt-contrib-watch": "",
     "grunt-docco": "",
     "grunt-mocha-test": "",
-    "grunt-tocdoc": ""
+    "grunt-tocdoc": "",
+    "mocha": ""
   },
   "repository": "TheNodeILs/lodash-contrib",
   "license": "MIT",
@@ -28,8 +28,8 @@
     "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)"
   ],
   "scripts": {
-    "test": "grunt test",
     "dist": "grunt dist",
-    "mypublish": "npm run dist && npm version patch && git push --follow-tags"
+    "mypublish": "npm run dist && npm version patch && git push --follow-tags",
+    "test": "grunt test"
   }
 }
