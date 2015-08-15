@@ -72,6 +72,8 @@ module.exports = function (_) {
 
       if (obj == null && numKeys > 0) return false;
 
+      if (_.contains(['boolean', 'string', 'number'], typeof obj)) return false;
+
       if (!(ks[0] in obj)) return false;
 
       if (numKeys === 1) return true;

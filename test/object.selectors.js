@@ -46,7 +46,7 @@ $(document).ready(function() {
   });
 
   test("hasPath", function() {
-    var deepObject = { a: { b: { c: "c" } }, falseVal: false, nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
+    var deepObject = { a: { b: { c: "c" } }, falseVal: false, numberVal: 123, stringVal: 'str', nullVal: null, undefinedVal: undefined, arrayVal: ["arr"] };
     var ks = ["a", "b", "c"];
 
     strictEqual(_.hasPath(deepObject, ["notHere", "notHereEither"]), false, "should return false if the path doesn't exist");
@@ -61,6 +61,9 @@ $(document).ready(function() {
 
     strictEqual(_.hasPath(deepObject, ["nullVal", "notHere"]), false, "should return false for descendants of null properties");
     strictEqual(_.hasPath(deepObject, ["undefinedVal", "notHere"]), false, "should return false for descendants of undefined properties");
+    strictEqual(_.hasPath(deepObject, ["falseVal", "notHere"]), false, "should return false for descendants of a boolean literal");
+    strictEqual(_.hasPath(deepObject, ["stringVal", "notHere"]), false, "should return false for descendants of a string literal");
+    strictEqual(_.hasPath(deepObject, ["numberVal", "notHere"]), false, "should return false for descendants of a number literal");
 
     strictEqual(_.hasPath(deepObject, "a.b.c"), true, "should work with keys written in dot notation.");
   });
