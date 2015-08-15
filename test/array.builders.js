@@ -65,6 +65,8 @@ $(document).ready(function() {
 
     deepEqual(_.chunk(c, 3, [7,8]), [[0,1,2],[3,4,5],[6,7,8]], 'should allow one to specify a padding array');
     deepEqual(_.chunk(b, 3, 9), [[0,1,2],[3,4,9]], 'should allow one to specify a padding value');
+    deepEqual(_.chunk(a, 3, 9), [[0,1,2],[3,9,9]], 'should repeat the padding value');
+    deepEqual(_.chunk(a, 3, undefined), [[0,1,2],[3,undefined,undefined]], 'should allow padding with undefined');
   });
 
   test("chunkAll", function() {

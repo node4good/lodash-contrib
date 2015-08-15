@@ -35,6 +35,7 @@ module.exports = function(_) {
     // the third argument to fill in the tail chunk when n is
     // not sufficient to build chunks of the same size.
     chunk: function(array, n, pad) {
+      var args = arguments;
       var p = function(array) {
         if (array == null) return [];
 
@@ -43,8 +44,12 @@ module.exports = function(_) {
         if (n === _.size(part)) {
           return _.cons(part, p(_.drop(array, n)));
         }
+        else if (args.length === 3) {
+          pad = _.isArray(pad) ? pad : _.repeat(n, pad);
+          return [_.take(_.cat(part, pad), n)];
+        }
         else {
-          return pad ? [_.take(_.cat(part, pad), n)] : [];
+            return [];
         }
       };
 
