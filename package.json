@@ -29,7 +29,7 @@
     "John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)"
   ],
   "scripts": {
-    "dist": "grunt dist",
+    "dist": "grunt gen",
     "mypublish": "npm run dist && npm version patch && git push --follow-tags",
     "test": "grunt default"
   }
