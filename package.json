@@ -31,6 +31,6 @@
   "scripts": {
     "dist": "grunt dist",
     "mypublish": "npm run dist && npm version patch && git push --follow-tags",
-    "test": "grunt test"
+    "test": "grunt default"
   }
 }
