@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,16 +114,157 @@
 <blockquote>
 <p>Functions to build objects.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<hr>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>merge: <span class="function"><span class="keyword">function</span><span class="params">(<span class="comment">/* objs */</span>)</span>{</span>
-renameKeys: <span class="function"><span class="keyword">function</span><span class="params">(obj, kobj)</span> {</span>
-snapshot: <span class="function"><span class="keyword">function</span><span class="params">(obj)</span> {</span>
-updatePath: <span class="function"><span class="keyword">function</span><span class="params">(obj, fun, ks)</span> {</span>
-setPath: <span class="function"><span class="keyword">function</span><span class="params">(obj, value, ks)</span> {</span>
-frequencies: curry2(_.countBy)(_.identity)</pre></div></div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="frequencies">frequencies</h4>
+<p><strong>Signature:</strong> <code>_.frequencies(arr:Array)</code></p>
+<p>Returns an object whose property keys are the values of <code>arr</code>‘s elements. The
+property values are a count of how many times that value appeared in <code>arr</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> citations = [<span class="hljs-string">"Plato"</span>, <span class="hljs-string">"Aristotle"</span>, <span class="hljs-string">"Plotinus"</span>, <span class="hljs-string">"Plato"</span>];
+
+_.frequencies(citations);
+<span class="hljs-comment">// =&gt; { Plato: 2, Aristotle: 1, Plotinus: 1 }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="merge">merge</h4>
+<p><strong>Signature:</strong> <code>_.merge(obj1:Object[, obj:Object...])</code></p>
+<p>Merges two or more objects starting with the left-most and applying the keys
+rightward.</p>
+<pre><code class="lang-javascript">_.merge({ a: <span class="hljs-string">"alpha"</span> }, { b: <span class="hljs-string">"beta"</span> });
+<span class="hljs-comment">// =&gt; { a: "alpha", b: "beta" }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="renamekeys">renameKeys</h4>
+<p><strong>Signature:</strong> <code>_.renameKeys(obj:Object, keyMap:Object)</code></p>
+<p>Takes an object (<code>obj</code>) and a map of keys (<code>keyMap</code>) and returns a new object
+where the keys of <code>obj</code> have been renamed as specified in <code>keyMap</code>.</p>
+<pre><code class="lang-javascript">_.renameKeys({ a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span> }, { a: <span class="hljs-string">"alpha"</span>, b: <span class="hljs-string">"beta"</span> });
+<span class="hljs-comment">// =&gt; { alpha: 1, beta: 2 }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="setpath">setPath</h4>
+<p><strong>Signature:</strong> <code>_.setPath(obj:Object, value:Any, ks:Array, defaultValue:Any)</code></p>
+<p>Sets the value of a property at any depth in <code>obj</code> based on the path described
+by the <code>ks</code> array. If any of the properties in the <code>ks</code> path don’t exist, they
+will be created with <code>defaultValue</code>.</p>
+<p>See <code>_.updatePath</code> about <code>obj</code> not being mutated in the process by cloning it.</p>
+<pre><code class="lang-javascript">_.setPath({}, <span class="hljs-string">"Plotinus"</span>, [<span class="hljs-string">"Platonism"</span>, <span class="hljs-string">"Neoplatonism"</span>], {});
+<span class="hljs-comment">// =&gt; { Platonism: { Neoplatonism: "Plotinus" } }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="snapshot">snapshot</h4>
+<p><strong>Signature:</strong> <code>_.snapshot(obj:Object)</code></p>
+<p>Snapshots/clones an object deeply.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> schools = { plato: <span class="hljs-string">"Academy"</span>, aristotle: <span class="hljs-string">"Lyceum"</span> };
+
+_.snapshot(schools);
+<span class="hljs-comment">// =&gt; { plato: "Academy", aristotle: "Lyceum" }</span>
+
+schools === _.snapshot(schools);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p><strong>Signature:</strong> <code>_.updatePath(obj:Object, fun:Function, ks:Array, defaultValue:Any)</code></p>
+<p>Updates the value at any depth in a nested object based on the path described by
+the <code>ks</code> array.  The function <code>fun</code> is called with the current value and is
+expected to return a replacement value.  If no keys are provided, then the
+object itself is presented to <code>fun</code>. If a property in the path is missing, then
+it will be created with <code>defaultValue</code>.</p>
+<p>Note that the original object will <em>not</em> be mutated. Instead, <code>obj</code> will
+be cloned deeply.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> imperialize = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>{
+    <span class="hljs-keyword">if</span> (val == <span class="hljs-string">"Republic"</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"Empire"</span>;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> val;
+};
+
+_.updatePath({ rome: <span class="hljs-string">"Republic"</span> }, imperialize,  [<span class="hljs-string">"rome"</span>]);
+<span class="hljs-comment">// =&gt; { rome: "Empire" }</span>
+
+<span class="hljs-keyword">var</span> obj = { earth: { rome: <span class="hljs-string">"Republic"</span> } };
+<span class="hljs-keyword">var</span> imperialObj = _.updatePath(obj, imperialize, [<span class="hljs-string">"earth"</span>, <span class="hljs-string">"rome"</span>]);
+
+imperialObj;
+<span class="hljs-comment">// =&gt; { earth: { rome: "Empire" }}</span>
+
+obj;
+<span class="hljs-comment">// =&gt; { earth: { rome: "Republic" }}</span>
+
+obj === imperialObj;
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+
+            </div>
             
         </li>
         

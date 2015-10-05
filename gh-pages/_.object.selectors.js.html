@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,18 +114,237 @@
 <blockquote>
 <p>Functions to select values from an object.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<hr>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>accessor: <span class="function"><span class="keyword">function</span><span class="params">(field)</span> {</span>
-dictionary: <span class="function"><span class="keyword">function</span> <span class="params">(obj)</span> {</span>
-selectKeys: <span class="function"><span class="keyword">function</span> <span class="params">(obj, ks)</span> {</span>
-kv: <span class="function"><span class="keyword">function</span><span class="params">(obj, key)</span> {</span>
-getPath: <span class="function"><span class="keyword">function</span> <span class="title">getPath</span> <span class="params">(obj, ks)</span> {</span>
-hasPath: <span class="function"><span class="keyword">function</span> <span class="title">hasPath</span> <span class="params">(obj, ks)</span> {</span>
-pickWhen: <span class="function"><span class="keyword">function</span><span class="params">(obj, pred)</span> {</span>
-omitWhen: <span class="function"><span class="keyword">function</span><span class="params">(obj, pred)</span> {</span></pre></div></div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="accessor">accessor</h4>
+<p><strong>Signature:</strong> <code>_.accessor(field:String)</code></p>
+<p>Returns a function that will attempt to look up a named field in any object
+that it is given.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> getName = _.accessor(<span class="hljs-string">'name'</span>);
+
+getName({ name: <span class="hljs-string">'Seneca'</span> });
+<span class="hljs-comment">// =&gt; 'Seneca'</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="dictionary">dictionary</h4>
+<p><strong>Signature:</strong> <code>_.dictionary(obj:Object)</code></p>
+<p>Given an object, returns a function that will attempt to look up a field that
+it is given.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> generals = {
+    rome: <span class="hljs-string">"Scipio"</span>,
+    carthage: <span class="hljs-string">"Hannibal"</span>
+};
+
+<span class="hljs-keyword">var</span> getGeneralOf = _.dictionary(generals);
+
+getGeneralOf(<span class="hljs-string">"rome"</span>);
+<span class="hljs-comment">// =&gt; "Scipio"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="getpath">getPath</h4>
+<p><strong>Signature:</strong> <code>_.getPath(obj:Object, ks:String|Array)</code></p>
+<p>Gets the value at any depth in a nested object based on the path described by
+the keys given. Keys may be given as an array or as a dot-separated string.
+Returns <code>undefined</code> if the path cannot be reached.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> countries = {
+        greece: {
+            athens: {
+                playwright:  <span class="hljs-string">"Sophocles"</span>
+            }
+        }
+    }
+};
+
+_.getPath(countries, <span class="hljs-string">"greece.athens.playwright"</span>);
+<span class="hljs-comment">// =&gt; "Sophocles"</span>
+
+_.getPath(countries, <span class="hljs-string">"greece.sparta.playwright"</span>);
+<span class="hljs-comment">// =&gt; undefined</span>
+
+_.getPath(countries, [<span class="hljs-string">"greece"</span>, <span class="hljs-string">"athens"</span>, <span class="hljs-string">"playwright"</span>]);
+<span class="hljs-comment">// =&gt; "Sophocles"</span>
+
+_.getPath(countries, [<span class="hljs-string">"greece"</span>, <span class="hljs-string">"sparta"</span>, <span class="hljs-string">"playwright"</span>]);
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="haspath">hasPath</h4>
+<p><strong>Signature:</strong> <code>_.hasPath(obj:Object, ks:String|Array)</code></p>
+<p>Returns a boolean indicating whether there is a property at the path described
+by the keys given. Keys may be given as an array or as a dot-separated string.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> countries = {
+        greece: {
+            athens: {
+                playwright:  <span class="hljs-string">"Sophocles"</span>
+            }
+        }
+    }
+};
+
+_.hasPath(countries, <span class="hljs-string">"greece.athens.playwright"</span>);
+<span class="hljs-comment">// =&gt; true</span>
+
+_.hasPath(countries, <span class="hljs-string">"greece.sparta.playwright"</span>);
+<span class="hljs-comment">// =&gt; false</span>
+
+_.hasPath(countries, [<span class="hljs-string">"greece"</span>, <span class="hljs-string">"athens"</span>, <span class="hljs-string">"playwright"</span>]);
+<span class="hljs-comment">// =&gt; true</span>
+
+_.hasPath(countries, [<span class="hljs-string">"greece"</span>, <span class="hljs-string">"sparta"</span>, <span class="hljs-string">"playwright"</span>]);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="kv">kv</h4>
+<p><strong>Signature:</strong> <code>_.kv(obj:Object, key:String)</code></p>
+<p>Returns the key/value pair for a given property in an object, undefined if not found.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> playAuthor = {
+    <span class="hljs-string">"Medea"</span>: <span class="hljs-string">"Aeschylus"</span>
+};
+
+_.kv(playAuthor, <span class="hljs-string">"Medea"</span>);
+<span class="hljs-comment">// =&gt; ["Medea", "Aeschylus"]</span>
+
+_.kv(playAuthor, <span class="hljs-string">"Hamlet"</span>);
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4 id="omitwhen">omitWhen</h4>
+<p><strong>Signature:</strong> <code>_.omitWhen(obj, pred:Function)</code></p>
+<p>Returns a copy of <code>obj</code> omitting any properties that the predicate (<code>pred</code>)
+function returns <code>true</code> for. The predicat function is invoked with each
+property value, like so: <code>pred(propValue)</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> playwrights = {
+    euripedes: <span class="hljs-string">"Greece"</span>,
+    shakespere: <span class="hljs-string">"England"</span>
+};
+
+_.omitWhen(obj, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">country</span>) </span>{ <span class="hljs-keyword">return</span> country == <span class="hljs-string">"England"</span> });
+<span class="hljs-comment">// =&gt; { euripedes: "Greece" }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4 id="pickwhen">pickWhen</h4>
+<p><strong>Signature:</strong> <code>_.pickWhen(obj:Object, pred:Function)</code></p>
+<p>Returns a copy of <code>obj</code> containing only properties that the predicate (<code>pred</code>)
+function returns <code>true</code> for. The predicate function is invoked with each
+property value, like so: <code>pred(propValue)</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> playwrights = {
+    euripedes: <span class="hljs-string">"Greece"</span>,
+    shakespere: <span class="hljs-string">"England"</span>
+};
+
+_.pickWhen(obj, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">country</span>) </span>{ <span class="hljs-keyword">return</span> country == <span class="hljs-string">"England"</span> });
+<span class="hljs-comment">// =&gt; { shakespeare: "England" }</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="selectkeys">selectKeys</h4>
+<p><strong>Signature:</strong> `_.selectKeys(obj:Object, ks:Array);</p>
+<p>Returns a copy of <code>obj</code> containing only the properties listed in the <code>ks</code> array.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> philosopherCities = {
+    Philo: <span class="hljs-string">"Alexandria"</span>,
+    Plato: <span class="hljs-string">"Athens"</span>,
+    Plotinus: <span class="hljs-string">"Rome"</span>
+}
+
+_.selectKeys(philosopherCities, [<span class="hljs-string">"Plato"</span>, <span class="hljs-string">"Plotinus"</span>]);
+<span class="hljs-comment">// =&gt; { Plato: "Athens", Plotinus: "Rome" }</span>
+</code></pre>
+
+            </div>
             
         </li>
         

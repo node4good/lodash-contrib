@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,12 +114,82 @@
 <blockquote>
 <p>Trampoline functions.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<hr>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>done: <span class="function"><span class="keyword">function</span><span class="params">(value)</span> {</span>
-trampoline: <span class="function"><span class="keyword">function</span><span class="params">(fun <span class="comment">/*, args */</span>)</span> {</span></pre></div></div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="done">done</h4>
+<p><strong>Signature:</strong> <code>_.done(value:Any)</code></p>
+<p>A utility for wrapping a function’s return values so they can be used by
+<code>_.trampoline</code>. <a href="#trampoline">See below</a>.</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="trampoline">trampoline</h4>
+<p><strong>Signature:</strong> <code>_.trampoline(fun:Function[, args:Any...])</code></p>
+<p>Provides a way of creating recursive functions that won’t exceed a JavaScript
+engine’s maximum recursion depth. Rather than writing a naive recursive
+function, the function’s base cases must return <code>_.done(someValue)</code>, and
+recursive calls must be wrapped in a returned function.</p>
+<p>In order to create a trampolined function that can be used in the same way as
+a naive recursive function, use <code>_.partial</code> as illustrated below.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEvenNaive</span> (<span class="hljs-params">num</span>) </span>{
+    <span class="hljs-keyword">if</span> (num === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span> (num === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">return</span> isEvenNaive(num - <span class="hljs-number">2</span>);
+}
+
+isEvenNaive(<span class="hljs-number">99999</span>);
+<span class="hljs-comment">// =&gt; InternalError: too much recursion</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEvenInner</span> (<span class="hljs-params">num</span>) </span>{
+    <span class="hljs-keyword">if</span> (num === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> _.done(<span class="hljs-literal">true</span>);
+    <span class="hljs-keyword">if</span> (num === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> _.done(<span class="hljs-literal">false</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> isEvenInner(<span class="hljs-built_in">Math</span>.abs(num) - <span class="hljs-number">2</span>); };
+}
+
+_.trampoline(isEvenInner, <span class="hljs-number">99999</span>);
+<span class="hljs-comment">// =&gt; false</span>
+
+<span class="hljs-keyword">var</span> isEven = _.partial(_.trampoline, isEvenInner);
+
+isEven(<span class="hljs-number">99999</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              
+            </div>
             
         </li>
         

@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,31 +114,523 @@
 <blockquote>
 <p>Functions to iterate over collections.</p>
 </blockquote>
-<p>Documentation should use <a href="https://github.com/jashkenas/journo">Journo</a> formats and standards.</p>
+<hr>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  _.iterators = {
-  accumulate: accumulate,
-  accumulateWithReturn: accumulateWithReturn,
-  foldl: foldl,
-  reduce: foldl,
-  unfold: unfold,
-  unfoldWithReturn: unfoldWithReturn,
-  map: map,
-  select: select,
-  reject: reject,
-  filter: select,
-  find: find,
-  slice: slice,
-  drop: drop,
-  take: take,
-  List: List,
-  Tree: Tree,
-  constant: K,
-  K: K,
-  numbers: numbers,
-  range: range</pre></div></div>
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h4 id="iterators-accumulate">iterators.accumulate</h4>
+<p><strong>Signature:</strong> <code>_.iterators.accumulate(iter:Function, binaryFn:Function, initial:Any)</code></p>
+<p>Returns a function that when called will iterate one step with <code>iter</code> and return
+the value currently accumulated by using <code>binaryFn</code>. The function will return <code>undefined</code> once all values have been iterated over.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> generalsIterator = _.iterators.List([<span class="hljs-string">"Hannibal"</span>, <span class="hljs-string">"Scipio"</span>]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">countLetters</span>(<span class="hljs-params">memo, element</span>) </span>{
+     <span class="hljs-keyword">return</span> memo + element.length;
+}
+
+<span class="hljs-keyword">var</span> generalsAcc = _.iterators.accumulate(generalsIterator, countLetters, <span class="hljs-number">0</span>);
+
+generalsAcc();
+<span class="hljs-comment">// =&gt; 8</span>
+
+generalsAcc();
+<span class="hljs-comment">// =&gt; 14</span>
+
+generalsAcc();
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h4 id="iterators-accumulatewithreturn">iterators.accumulateWithReturn</h4>
+<p><strong>Signature:</strong> <code>_.iterators.accumulateWithReturn(iter:Function, binaryFn:Function, initial:Any)</code></p>
+<p>Acts similarly to accumulate, except that <code>binaryFn</code> is expected to return an
+array of two elements. The value of the first element is given to the next run
+of <code>binaryFn</code>. The value of the second element is yielded by the iterator.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> fiveIter = _.iterators.List([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">adderWithMessage</span> (<span class="hljs-params">state, element</span>) </span>{
+    <span class="hljs-keyword">return</span> [state + element, <span class="hljs-string">'Total is '</span> + (state + element)];
+}
+
+<span class="hljs-keyword">var</span> i = _.iterators.accumulateWithReturn(fiveIter, adderWithMessage, <span class="hljs-number">0</span>);
+
+i();
+<span class="hljs-comment">// =&gt; "Total is 1"</span>
+
+i();
+<span class="hljs-comment">// =&gt; "Total is 3"</span>
+
+i();
+<span class="hljs-comment">// =&gt; "Total is 6"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h4 id="iterators-drop">iterators.drop</h4>
+<p><strong>Signature:</strong> <code>_.iterators.drop(iter:Function[, numberToDrop:Number])</code></p>
+<p>Given an iterator function <code>iter</code>, will return a new iterator which iterates
+over the same values as <code>iter</code>, except that the first <code>numberToDrop</code> values
+will be omitted. If <code>numberToDrop</code> is not provided, it will default to <code>1</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> deityIter = _.iterators.List([<span class="hljs-string">"Zeus"</span>, <span class="hljs-string">"Apollo"</span>, <span class="hljs-string">"Athena"</span>, <span class="hljs-string">"Aphrodite"</span>]);
+
+<span class="hljs-keyword">var</span> goddessIter = _.iterators.drop(deityIter, <span class="hljs-number">2</span>);
+
+goddessIter();
+<span class="hljs-comment">// =&gt; "Athena"</span>
+
+goddessIter();
+<span class="hljs-comment">// =&gt; "Aphrodite"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h4 id="iterators-foldl">iterators.foldl</h4>
+<p><strong>Signature:</strong> <code>_.iterators.foldl(iter:Function, binaryFn:Function[, seed:Any])</code></p>
+<p><strong>Aliases:</strong> <code>iterators.reduce</code></p>
+<p>Boils down the values given by <code>iter</code> into a single value. The <code>seed</code> is the
+initial state. The <code>binaryFn</code> is given two arguments: the <code>seed</code> and the
+current value yielded by <code>iter</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> sybylIter = _.iterators.List([<span class="hljs-string">"cumaean"</span>, <span class="hljs-string">"tiburtine"</span>]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">commaString</span> (<span class="hljs-params">a, b</span>) </span>{ <span class="hljs-keyword">return</span> a + <span class="hljs-string">", "</span> + b; }
+
+_.iterators.foldl(sybylIter, commaString);
+<span class="hljs-comment">// =&gt; "cumaean, tiburtine"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h4 id="iterators-k">iterators.K</h4>
+<p><strong>Signature:</strong> <code>_.iterators.K(value:Any)</code></p>
+<p><strong>Aliases:</strong> <code>iterators.constant</code></p>
+<p>Returns a function that when invoked will always return <code>value</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> ceasar = _.iterators.K(<span class="hljs-string">"Ceasar"</span>);
+
+ceasar();
+<span class="hljs-comment">// =&gt; "ceasar"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h4 id="iterators-list">iterators.List</h4>
+<p><strong>Signature:</strong> <code>_.iterators.List(array:Array)</code></p>
+<p>Returns an iterator that when invoked will iterate over the contents of <code>array</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> triumvirIter = _.iterators.List([<span class="hljs-string">"Ceasar"</span>, <span class="hljs-string">"Pompey"</span>, <span class="hljs-string">"Crassus"</span>]);
+
+triumvirIter();
+<span class="hljs-comment">// =&gt; "Ceasar"</span>
+
+triumvirIter();
+<span class="hljs-comment">// =&gt; "Pompey"</span>
+
+triumvirIter();
+<span class="hljs-comment">// =&gt; "Crassus"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h4 id="iterators-map">iterators.map</h4>
+<p><strong>Signature:</strong> <code>_.iterators.map(iter:Function, unaryFn:Function)</code></p>
+<p>Returns a new iterator function which on each iteration will return the result
+of running <code>iter</code>‘s current value through <code>unaryFn</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> notablesIter = _.iterators.List([<span class="hljs-string">"Socrates"</span>, <span class="hljs-string">"Plato"</span>]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postfixAthenian</span> (<span class="hljs-params">val</span>) </span>{
+    <span class="hljs-keyword">return</span> val + <span class="hljs-string">", Athenian"</span>;
+}
+
+<span class="hljs-keyword">var</span> notableAtheniansIter = _.iterators.map(notablesIter, postfixAthenian);
+
+notableAtheniansIter();
+<span class="hljs-comment">// =&gt; "Socrates, Athenian"</span>
+
+notableAtheniansIter();
+<span class="hljs-comment">// =&gt; "Plato, Athenian"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h4 id="iterators-mapcat">iterators.mapcat</h4>
+<p><strong>Signature:</strong> <code>_.iterators.mapcat(iter:Function, unaryFn:Function)</code></p>
+<p>Returns an iterator which is the result of flattening the contents of <code>iter</code>,
+and mapping the results with <code>unaryFn</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">naturalSmallerThan</span> (<span class="hljs-params">x</span>)  </span>{
+    <span class="hljs-keyword">return</span> _.iterators.List(_.range(<span class="hljs-number">0</span>, x));
+}
+
+<span class="hljs-keyword">var</span> treeIter = _.iterators.Tree([<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>]]);
+
+<span class="hljs-keyword">var</span> smallerThanIter = _.iterators.mapcat(treeIter, naturalSmallerThan);
+
+smallerThanIter();
+<span class="hljs-comment">// =&gt; 0</span>
+
+smallerThanIter();
+<span class="hljs-comment">// =&gt; 0</span>
+
+smallerThanIter();
+<span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h4 id="iterators-numbers">iterators.numbers</h4>
+<p><strong>Signature:</strong> <code>_.iterators.numbers([start:Number])</code></p>
+<p>Returns an iterator of integers which will begin with <code>start</code> and increment by
+one for each invocation. If <code>start</code> is not provided it will default to <code>1</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> twoAndUp = _.iterators.numbers(<span class="hljs-number">2</span>);
+
+twoAndUp();
+<span class="hljs-comment">// =&gt; 2</span>
+
+twoAndUp();
+<span class="hljs-comment">// =&gt; 3</span>
+
+twoAndUp();
+<span class="hljs-comment">// =&gt; 4</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4 id="iterators-range">iterators.range</h4>
+<p><strong>Signature:</strong> <code>_.iterators.range([from:Number, to:Number, by:Number])</code></p>
+<p>Returns an iterator whose values consist of numbers beginning with <code>from</code>, ending with <code>to</code>, in steps of size <code>by</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> by5 = _.iterators.range(<span class="hljs-number">5</span>, <span class="hljs-literal">Infinity</span>, <span class="hljs-number">5</span>);
+
+by5();
+<span class="hljs-comment">// =&gt; 5</span>
+
+by5();
+<span class="hljs-comment">// =&gt; 10</span>
+
+by5();
+<span class="hljs-comment">// =&gt; 15</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h4 id="iterators-reject">iterators.reject</h4>
+<p><strong>Signature:</strong> <code>_.iterators.reject(iter:Function, unaryPredicatFn:Function)</code></p>
+<p>Returns an iterator consisting of the values of <code>iter</code> which are not flagged
+<code>true</code> by <code>unaryPredicateFn</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> philosophers = [<span class="hljs-string">"Anaximander"</span>, <span class="hljs-string">"Socrates"</span>, <span class="hljs-string">"Heraclitus"</span>];
+
+<span class="hljs-keyword">var</span> philosophersIter = _.iterators.List(philosophers);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSocrates</span> (<span class="hljs-params">val</span>) </span>{
+    <span class="hljs-keyword">return</span> val === <span class="hljs-string">"Socrates"</span>;
+}
+
+<span class="hljs-keyword">var</span> preSocraticsIter = _.iterators.reject(philosophersIter, isSocrates);
+
+preSocraticsIter()
+<span class="hljs-comment">// =&gt; "Anaximander"</span>
+
+preSocraticsIter()
+<span class="hljs-comment">// =&gt; "Heraclitus"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h4 id="iterators-select">iterators.select</h4>
+<p><strong>Signature:</strong> <code>_.iterators.select(iter:Function, unaryPredicatFn:Function)</code></p>
+<p><strong>Aliases:</strong> <code>iterators.find</code>, <code>iteraters.filter</code></p>
+<p>Returns an iterator consisting of the values of <code>iter</code> which are flagged
+<code>true</code> by <code>unaryPredicateFn</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> philosophers = [<span class="hljs-string">"Anaximander"</span>, <span class="hljs-string">"Socrates"</span>, <span class="hljs-string">"Heraclitus"</span>];
+
+<span class="hljs-keyword">var</span> philosophersIter = _.iterators.List(philosophers);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSocrates</span> (<span class="hljs-params">val</span>) </span>{
+    <span class="hljs-keyword">return</span> val === <span class="hljs-string">"Socrates"</span>;
+}
+
+<span class="hljs-keyword">var</span> socraticIter = _.iterators.select(philosophersIter, isSocrates);
+
+socraticIter()
+<span class="hljs-comment">// =&gt; "Socrates"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h4 id="iterators-slice">iterators.slice</h4>
+<p><strong>Signature:</strong> <code>_.iterators.slice(iter:Function, numberToDrop:Number, numberToTake:Number)</code></p>
+<p>Returns an iterator whose values consist of <code>iter</code>‘s after removing
+<code>numberToDrop</code> from the head, and a maxiumum of <code>numberToTake</code> of the remaining.
+If <code>numberToTake</code> is not specified, all of <code>iter</code>‘s remaining values will be
+used.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> emperors = [<span class="hljs-string">"Augustus"</span>, <span class="hljs-string">"Tiberius"</span>, <span class="hljs-string">"Caligula"</span>, <span class="hljs-string">"Claudius"</span>];
+
+<span class="hljs-keyword">var</span> emperorsIter = _.iterators.List(emperors);
+
+<span class="hljs-keyword">var</span> middleEmperorsIter = _.iterators.slice(emperorsIter, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+
+middleEmperorsIter();
+<span class="hljs-comment">// =&gt; "Tiberius"</span>
+
+middleEmperorsIter();
+<span class="hljs-comment">// =&gt; "Caligula"</span>
+
+middleEmperorsIter();
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h4 id="iterators-take">iterators.take</h4>
+<p><strong>Signature:</strong> <code>_.iterators.take(iter:Function[, numberToTake:Number])</code></p>
+<p>Returns an iterator consisting of the first <code>numberToTake</code> values yielded by
+<code>iter</code>. If <code>numberToTake</code> is not provided, it will default to <code>1</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> byzantineEmperors = [<span class="hljs-string">"Constantine"</span>, <span class="hljs-string">"Constantius"</span>, <span class="hljs-string">"Constans"</span>];
+
+<span class="hljs-keyword">var</span> byzantineEmperorsIter = _.iterators.List(byzantineEmperors);
+
+<span class="hljs-keyword">var</span> firstTwoEmperorsIter = _.iterators.take(byzantineEmperorsIter, <span class="hljs-number">2</span>);
+
+firstTwoEmperorsIter();
+<span class="hljs-comment">// =&gt; "Constantine"</span>
+
+firstTwoEmperorsIter();
+<span class="hljs-comment">// =&gt; "Constantius"</span>
+
+firstTwoEmperorsIter();
+<span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h4 id="iterators-tree">iterators.Tree</h4>
+<p><strong>Signature:</strong> <code>_.iterators.Tree(array:Array);</code></p>
+<p>Returns an iterator that yields the individual values of a tree <code>array</code>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> rulers = [<span class="hljs-string">"Augustus"</span>, [<span class="hljs-string">"Constantine"</span>], [<span class="hljs-string">"Leo"</span>, [<span class="hljs-string">"Charlemagne"</span>]]];
+
+<span class="hljs-keyword">var</span> rulersIter = _.iterators.Tree(rulers);
+
+rulersIter();
+<span class="hljs-comment">// =&gt; "Augustus"</span>
+
+rulersIter();
+<span class="hljs-comment">// =&gt; "Constantine"</span>
+
+rulersIter();
+<span class="hljs-comment">// =&gt; "Leo"</span>
+
+rulersIter();
+<span class="hljs-comment">// =&gt; "Charlemagne"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h4 id="iterators-unfold">iterators.unfold</h4>
+<p><strong>Signature:</strong> <code>_.iterators.unfold(seed:Any, unaryFn:Function)</code></p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">greatify</span> (<span class="hljs-params">val</span>) </span>{
+    <span class="hljs-keyword">return</span> val + <span class="hljs-string">" the Great"</span>;
+}
+
+<span class="hljs-keyword">var</span> greatIter = _.iterators.unfold(<span class="hljs-string">"Constantine"</span>, greatify);
+
+greatIter();
+<span class="hljs-comment">// =&gt; "Constantine the Great"</span>
+
+greatIter();
+<span class="hljs-comment">// =&gt; "Constantine the Great the Great"</span>
+
+greatIter();
+<span class="hljs-comment">// =&gt; "Constantine the Great the Great the Great"</span>
+</code></pre>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h4 id="iterators-unfoldwithreturn">iterators.unfoldWithReturn</h4>
+<p><strong>Signature:</strong> <code>_.iterators.unfold(seed:Any, unaryFn:Function)</code></p>
+<p>Acts similarly to unfold, except that <code>unaryFn</code> is expected to return an array
+with two elements. The value of the first element is given to the next run of
+<code>unaryFn</code>. The value of the second element is yielded by the iterator.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> i = _.iterators.unfoldWithReturn(<span class="hljs-number">1</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>{
+    <span class="hljs-keyword">return</span> [n + <span class="hljs-number">1</span>, n * n];
+});
+
+i();
+<span class="hljs-comment">// =&gt; 1</span>
+
+i();
+<span class="hljs-comment">// =&gt; 4</span>
+
+i();
+<span class="hljs-comment">// =&gt; 9</span>
+</code></pre>
+
+            </div>
             
         </li>
         

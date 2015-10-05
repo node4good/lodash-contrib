@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -130,11 +132,12 @@
 <p>Returns a boolean indicating whether or not the value is an associative object.
 An associative object is one where its elements can be accessed via a key or
 index (e.g. arrays, <code>arguments</code>, objects).</p>
-<pre><code class="lang-javascript">_.isAssociative([&quot;Athens&quot;, &quot;Sparta&quot;]);
-// =&gt; true
+<pre><code class="lang-javascript">_.isAssociative([<span class="hljs-string">"Athens"</span>, <span class="hljs-string">"Sparta"</span>]);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isAssociative(42);
-// =&gt; false</code></pre>
+_.isAssociative(<span class="hljs-number">42</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -152,14 +155,15 @@ _.isAssociative(42);
 <p><strong>Signature:</strong> <code>_.isDecreasing(values:Any...)</code></p>
 <p>Checks whether the arguments are monotonically decreasing values (i.e. whether
 each argument is less than the previous argument.)</p>
-<pre><code class="lang-javascript">_.isDecreasing(3, 2, 1);
-// =&gt; true
+<pre><code class="lang-javascript">_.isDecreasing(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isDecreasing(15, 12, 2);
-// =&gt; true
+_.isDecreasing(<span class="hljs-number">15</span>, <span class="hljs-number">12</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isDecreasing(2, 3);
-// =&gt; false</code></pre>
+_.isDecreasing(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -176,14 +180,15 @@ _.isDecreasing(2, 3);
               <h4 id="iseven">isEven</h4>
 <p><strong>Signature:</strong> <code>_.isEven(value:Any)</code></p>
 <p>Checks whether the value is an even number.</p>
-<pre><code class="lang-javascript">_.isEven(12);
-// =&gt; true
+<pre><code class="lang-javascript">_.isEven(<span class="hljs-number">12</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isEven(3);
-// =&gt; false
+_.isEven(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
 _.isEven({});
-// =&gt; false</code></pre>
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -199,22 +204,23 @@ _.isEven({});
               </div>
               <h4 id="isfloat">isFloat</h4>
 <p><strong>Signature:</strong> <code>_.isFloat(value:Any)</code></p>
-<p>Checks whether the value is a &quot;float.&quot; For the purposes of this function, a float
+<p>Checks whether the value is a “float.” For the purposes of this function, a float
 is a numeric value that is not an integer. A numeric value may be a number, a
 string containing a number, a <code>Number</code> object, etc.</p>
 <p><strong>NOTE:</strong> JavaScript itself makes no distinction between integers and floats. For
 the purposes of this function both <code>1</code> and <code>1.0</code> are considered integers.</p>
-<pre><code class="lang-javascript">_.isFloat(1.1);
-// =&gt; true
+<pre><code class="lang-javascript">_.isFloat(<span class="hljs-number">1.1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isFloat(1);
-// =&gt; false
+_.isFloat(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.isFloat(1.0);
-// =&gt; false
+_.isFloat(<span class="hljs-number">1.0</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.isFloat(&quot;2.15&quot;);
-// =&gt; true</code></pre>
+_.isFloat(<span class="hljs-string">"2.15"</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -232,14 +238,15 @@ _.isFloat(&quot;2.15&quot;);
 <p><strong>Signature:</strong> <code>_.isIncreasing(value:Any...)</code></p>
 <p>Checks whether the arguments are monotonically increasing values (i.e. each
 argument is greater than the previous argument.)</p>
-<pre><code class="lang-javascript">_.isIncreasing(1, 12, 15);
-// =&gt; true
+<pre><code class="lang-javascript">_.isIncreasing(<span class="hljs-number">1</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isIncreasing(1);
-// =&gt; true
+_.isIncreasing(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isIncreasing(5, 4);
-// =&gt; false</code></pre>
+_.isIncreasing(<span class="hljs-number">5</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -255,16 +262,17 @@ _.isIncreasing(5, 4);
               </div>
               <h4 id="isindexed">isIndexed</h4>
 <p><strong>Signature:</strong> <code>_.isIndexed(value:Any)</code></p>
-<p>Checks whether the value is &quot;indexed.&quot; An indexed value is one which accepts a
+<p>Checks whether the value is “indexed.” An indexed value is one which accepts a
 numerical index to access its elements. (e.g. arrays and strings)</p>
 <p><strong>NOTE:</strong> lodash does not support cross-browser consistent use of strings as
 array-like values, so be wary in IE 8 when using string objects and in IE7 and
 earlier when using string literals &amp; objects.</p>
-<pre><code class="lang-javascript">_.isIndexed(&quot;Socrates&quot;);
-// =&gt; true
+<pre><code class="lang-javascript">_.isIndexed(<span class="hljs-string">"Socrates"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isIndexed({poison: &quot;hemlock&quot;});
-// =&gt; false</code></pre>
+_.isIndexed({poison: <span class="hljs-string">"hemlock"</span>});
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -281,11 +289,12 @@ _.isIndexed({poison: &quot;hemlock&quot;});
               <h4 id="isinstanceof">isInstanceOf</h4>
 <p><strong>Signature:</strong> <code>_.isInstanceOf(value:Any, constructor:Function)</code></p>
 <p>Checks whether the value is an instance of the constructor.</p>
-<pre><code class="lang-javascript">_.isInstanceOf(new Date(), Date);
-// =&gt; true
+<pre><code class="lang-javascript">_.isInstanceOf(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(), <span class="hljs-built_in">Date</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isInstanceOf(&quot;Hippocrates&quot;, RegExp);
-// =&gt; false</code></pre>
+_.isInstanceOf(<span class="hljs-string">"Hippocrates"</span>, <span class="hljs-built_in">RegExp</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -303,17 +312,18 @@ _.isInstanceOf(&quot;Hippocrates&quot;, RegExp);
 <p><strong>Signature:</strong> <code>_.isInteger(value:Any)</code></p>
 <p>Checks whether the value is a numeric integer. A numeric value can be a string
 containing a number, a <code>Number</code> object, etc.</p>
-<pre><code class="lang-javascript">_.isInteger(18);
-// =&gt; true
+<pre><code class="lang-javascript">_.isInteger(<span class="hljs-number">18</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isInteger(&quot;18&quot;);
-// =&gt; true
+_.isInteger(<span class="hljs-string">"18"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isInteger(2.5);
-// =&gt; false
+_.isInteger(<span class="hljs-number">2.5</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.isInteger(-1);
-// =&gt; true</code></pre>
+_.isInteger(-<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -333,11 +343,12 @@ _.isInteger(-1);
 more information on what constitutes valid JSON.</p>
 <p><strong>NOTE:</strong> This function relies on <code>JSON.parse</code> which is not available in IE7 and
 earlier.</p>
-<pre><code class="lang-javascript">_.isJSON(&#39;{ &quot;name&quot;: &quot;Crockford&quot; }&#39;);
-// =&gt; true
+<pre><code class="lang-javascript">_.isJSON(<span class="hljs-string">'{ "name": "Crockford" }'</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isJSON({ name: &quot;Crocket&quot; });
-// =&gt; false</code></pre>
+_.isJSON({ name: <span class="hljs-string">"Crocket"</span> });
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -354,11 +365,12 @@ _.isJSON({ name: &quot;Crocket&quot; });
               <h4 id="isnegative">isNegative</h4>
 <p><strong>Signature:</strong> <code>_.isNegative(value:Any)</code></p>
 <p>Checks whether the value is a negative number.</p>
-<pre><code class="lang-javascript">_.isNegative(-2);
-// =&gt; true
+<pre><code class="lang-javascript">_.isNegative(-<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isNegative(5);
-// =&gt; false</code></pre>
+_.isNegative(<span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -377,11 +389,12 @@ _.isNegative(5);
 <p>A numeric is something that contains a numeric value, regardless of its type. It
 can be a string containing a numeric value, exponential notation, a <code>Number</code>
 object, etc.</p>
-<pre><code class="lang-javascript">_.isNumeric(&quot;14&quot;);
-// =&gt; true
+<pre><code class="lang-javascript">_.isNumeric(<span class="hljs-string">"14"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isNumeric(&quot;fourteen&quot;);
-// =&gt; false</code></pre>
+_.isNumeric(<span class="hljs-string">"fourteen"</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -398,14 +411,15 @@ _.isNumeric(&quot;fourteen&quot;);
               <h4 id="isodd">isOdd</h4>
 <p><strong>Signature:</strong> <code>_.isOdd(value:Any)</code></p>
 <p>Checks whether the value is an odd number.</p>
-<pre><code class="lang-javascript">_.isOdd(3);
-// =&gt; true
+<pre><code class="lang-javascript">_.isOdd(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isOdd(2);
-// =&gt; false
+_.isOdd(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
 _.isOdd({});
-// =&gt; false</code></pre>
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -421,17 +435,18 @@ _.isOdd({});
               </div>
               <h4 id="isplainobject">isPlainObject</h4>
 <p><strong>Signature:</strong> <code>_.isPlainObject(value:Any);</code></p>
-<p>Checks whether the value is a &quot;plain&quot; object created as an object literal (<code>{}</code>)
+<p>Checks whether the value is a “plain” object created as an object literal (<code>{}</code>)
 or explicitly constructed with <code>new Object()</code>. Instances of other constructors
 are <strong>not</strong> plain objects.</p>
 <pre><code class="lang-javascript">_.isPlainObject({});
-// =&gt; true
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isPlainObject(new Date());
-// =&gt; false
+_.isPlainObject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>());
+<span class="hljs-comment">// =&gt; false</span>
 
 _.isPlainObject([]);
-// =&gt; false</code></pre>
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -448,11 +463,12 @@ _.isPlainObject([]);
               <h4 id="ispositive">isPositive</h4>
 <p><strong>Signature:</strong> <code>_.isPositive(value:Any)</code></p>
 <p>Checks whether the value is a positive number.</p>
-<pre><code class="lang-javascript">_.isPositive(21);
-// =&gt; true
+<pre><code class="lang-javascript">_.isPositive(<span class="hljs-number">21</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isPositive(-3);
-// =&gt; false</code></pre>
+_.isPositive(-<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -470,11 +486,12 @@ _.isPositive(-3);
 <p><strong>Signature:</strong> <code>_.isSequential(value:Any)</code></p>
 <p>Checks whether the value is a sequential composite type (i.e. arrays and
 <code>arguments</code>).</p>
-<pre><code class="lang-javascript">_.isSequential([&quot;Herodotus&quot;, &quot;Thucidydes&quot;);
-// =&gt; true
+<pre><code class="lang-javascript">_.isSequential([<span class="hljs-string">"Herodotus"</span>, <span class="hljs-string">"Thucidydes"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isSequential(new Date);
-// =&gt; false</code></pre>
+_.isSequential(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -492,11 +509,17 @@ _.isSequential(new Date);
 <p><strong>Signature:</strong> <code>_.isValidDate(value:Any)</code></p>
 <p>Checks whether the value is a valid date. That is, the value is both an instance
 of <code>Date</code> and it represents an actual date.</p>
-<pre><code class="lang-javascript">_.isValidDate(new Date(&quot;January 1, 1900&quot;));
-// =&gt; true
+<p><span class="label label-danger">Warning:</span> This function does not verify
+whether the original input to <code>Date</code> is a real date. For instance,
+<code>new Date(&quot;02/30/2014&quot;)</code> is considered a valid date because <code>Date</code> coerces that
+into a representation of 03/02/2014. To validate strings representing a date,
+consider using a date/time library like [Moment.js.][momentjs]</p>
+<pre><code class="lang-javascript">_.isValidDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"January 1, 1900"</span>));
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isValidDate(new Date(&quot;The Last Great Time War&quot;));
-// =&gt; false</code></pre>
+_.isValidDate(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">"The Last Great Time War"</span>));
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -513,12 +536,26 @@ _.isValidDate(new Date(&quot;The Last Great Time War&quot;));
               <h4 id="iszero">isZero</h4>
 <p><strong>Signature:</strong> <code>_.isZero(value:Any)</code></p>
 <p>Checks whether the value is <code>0</code>.</p>
-<pre><code class="lang-javascript">_.isZero(0);
-// =&gt; true
+<pre><code class="lang-javascript">_.isZero(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.isZero(&quot;Pythagoras&quot;);
-// =&gt; false</code></pre>
+_.isZero(<span class="hljs-string">"Pythagoras"</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<hr>
 
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              
             </div>
             
         </li>

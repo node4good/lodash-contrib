@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -110,7 +112,7 @@
               </div>
               <h3 id="util-existential">util.existential</h3>
 <blockquote>
-<p>Functions which deal with whether a value &quot;exists.&quot;</p>
+<p>Functions which deal with whether a value “exists.”</p>
 </blockquote>
 <hr>
 
@@ -127,19 +129,20 @@
               </div>
               <h4 id="exists">exists</h4>
 <p><strong>Signature:</strong> <code>_.exists(value:Any)</code></p>
-<p>Checks whether or not the value is &quot;existy.&quot; Both <code>null</code> and <code>undefined</code> are
+<p>Checks whether or not the value is “existy.” Both <code>null</code> and <code>undefined</code> are
 considered non-existy values. All other values are existy.</p>
-<pre><code class="lang-javascript">_.exists(null);
-// =&gt; false
+<pre><code class="lang-javascript">_.exists(<span class="hljs-literal">null</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.exists(undefined);
-// =&gt; false
+_.exists(<span class="hljs-literal">undefined</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
 _.exists({});
-// = &gt; true
+<span class="hljs-comment">// = &gt; true</span>
 
-_.exists(&quot;Sparta&quot;);
-// =&gt; true</code></pre>
+_.exists(<span class="hljs-string">"Sparta"</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -157,17 +160,18 @@ _.exists(&quot;Sparta&quot;);
 <p><strong>Signature:</strong> <code>_.falsey(value:Any)</code></p>
 <p>Checks whether the value is falsey. A falsey value is one which coerces to
 <code>false</code> in a boolean context.</p>
-<pre><code class="lang-javascript">_.falsey(0);
-// =&gt; true
+<pre><code class="lang-javascript">_.falsey(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.falsey(&quot;&quot;);
-// =&gt; true
+_.falsey(<span class="hljs-string">""</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
 _.falsey({});
-// =&gt; false
+<span class="hljs-comment">// =&gt; false</span>
 
-_.falsey(&quot;Corinth&quot;);
-// =&gt; false</code></pre>
+_.falsey(<span class="hljs-string">"Corinth"</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -184,11 +188,12 @@ _.falsey(&quot;Corinth&quot;);
               <h4 id="firstexisting">firstExisting</h4>
 <p><strong>Signature:</strong> <code>_.firstExisting(value:Any[, value:Any...])</code></p>
 <p>Returns the first existy argument from the argument list.</p>
-<pre><code class="lang-javascript">_.firstExisting(&quot;Socrates&quot;, &quot;Plato&quot;);
-// =&gt; &quot;Socrates&quot;
+<pre><code class="lang-javascript">_.firstExisting(<span class="hljs-string">"Socrates"</span>, <span class="hljs-string">"Plato"</span>);
+<span class="hljs-comment">// =&gt; "Socrates"</span>
 
-_.firstExisting(null, undefined, &quot;Heraclitus&quot;);
-// =&gt; &quot;Heraclitus&quot;</code></pre>
+_.firstExisting(<span class="hljs-literal">null</span>, <span class="hljs-literal">undefined</span>, <span class="hljs-string">"Heraclitus"</span>);
+<span class="hljs-comment">// =&gt; "Heraclitus"</span>
+</code></pre>
 <hr>
 
             </div>
@@ -205,23 +210,24 @@ _.firstExisting(null, undefined, &quot;Heraclitus&quot;);
               <h4 id="not">not</h4>
 <p><strong>Signature:</strong> <code>_.not(value:Any)</code></p>
 <p>Returns a boolean which is the opposite of the truthiness of the original value.</p>
-<pre><code class="lang-javascript">_.not(0);
-// =&gt; true
+<pre><code class="lang-javascript">_.not(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.not(1);
-// =&gt; false
+_.not(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(true);
-// =&gt; false
+_.not(<span class="hljs-literal">true</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(false);
-// =&gt; true
+_.not(<span class="hljs-literal">false</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
 _.not({});
-// =&gt; false
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(null);
-// =&gt; true</code></pre>
+_.not(<span class="hljs-literal">null</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -240,16 +246,17 @@ _.not(null);
 <p>Checks whether the value is truthy. A truthy value is one which coerces to
 <code>true</code> in a boolean context.</p>
 <pre><code class="lang-javascript">_.truthy({});
-// =&gt; true
+<span class="hljs-comment">// =&gt; true</span>
 
-_.truthy(&quot;Athens&quot;);
-// =&gt; true
+_.truthy(<span class="hljs-string">"Athens"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.truthy(0);
-// =&gt; false
+_.truthy(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.truthy(&quot;&quot;);
-// =&gt; false</code></pre>
+_.truthy(<span class="hljs-string">""</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>

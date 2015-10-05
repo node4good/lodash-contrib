@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,31 +114,65 @@
 <blockquote>
 <p>Functions for working with strings.</p>
 </blockquote>
+<hr>
 <h4 id="camelcase">camelCase</h4>
 <p><strong>Signature:</strong> <code>_.camelCase(string:String)</code></p>
 <p>Converts a dash-separated string to camel case. Opposite of <a href="#todash">toDash</a>.</p>
-<pre><code class="lang-javascript">_.camelCase(&quot;ancient-greece&quot;);
-// =&gt; &quot;ancientGreece&quot;</code></pre>
+<pre><code class="lang-javascript">_.camelCase(<span class="hljs-string">"ancient-greece"</span>);
+<span class="hljs-comment">// =&gt; "ancientGreece"</span>
+</code></pre>
+<hr>
 <h4 id="explode">explode</h4>
 <p><strong>Signature:</strong> <code>_.explode(s:String)</code></p>
 <p>Explodes a string into an array of characters. Opposite of <a href="#implode">implode</a>.</p>
-<pre><code class="lang-javascript">_.explode(&quot;Plato&quot;);
-// =&gt; [&quot;P&quot;, &quot;l&quot;, &quot;a&quot;, &quot;t&quot;, &quot;o&quot;]</code></pre>
+<pre><code class="lang-javascript">_.explode(<span class="hljs-string">"Plato"</span>);
+<span class="hljs-comment">// =&gt; ["P", "l", "a", "t", "o"]</span>
+</code></pre>
+<hr>
+<h4 id="fromquery">fromQuery</h4>
+<p><strong>Signature:</strong> <code>_.fromQuery(str:String)</code></p>
+<p>Takes a URL query string and converts it into an equivalent JavaScript object.
+Opposite of <a href="#toquery">toQuery</a></p>
+<pre><code class="lang-javascript">_.fromQuery(<span class="hljs-string">"forms%5Bperfect%5D=circle&amp;forms%5Bimperfect%5D=square"</span>);
+<span class="hljs-comment">// =&gt; { forms: { perfect: "circle", imperfect: "square" } }</span>
+</code></pre>
+<hr>
 <h4 id="implode">implode</h4>
 <p><strong>Signature:</strong> <code>_.implode(a:Array)</code></p>
 <p>Implodes an array of strings into a single string. Opposite of <a href="#explode">explode</a>.</p>
-<pre><code class="lang-javascript">_.implode([&quot;H&quot;, &quot;o&quot;, &quot;m&quot;, &quot;e&quot;, &quot;r&quot;]);
-// =&gt; &quot;Homer&quot;</code></pre>
+<pre><code class="lang-javascript">_.implode([<span class="hljs-string">"H"</span>, <span class="hljs-string">"o"</span>, <span class="hljs-string">"m"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"r"</span>]);
+<span class="hljs-comment">// =&gt; "Homer"</span>
+</code></pre>
+<hr>
+<h4 id="slugify">slugify</h4>
+<p><strong>Signature:</strong> <code>_.slugify(str:String)</code></p>
+<p>Slugifies a string, converting spaces and dots to dashes and inserting dashes between words.</p>
+<pre><code class="lang-javascript">_.slugify(<span class="hljs-string">"ExampleString.that-covers-it.all"</span>);
+<span class="hljs-comment">// =&gt; "example-string-that-covers-it-all"</span>
+</code></pre>
+<hr>
 <h4 id="strcontains">strContains</h4>
 <p><strong>Signature:</strong> <code>_.strContains(str:String, search:String)</code></p>
 <p>Reports whether a string contains a search string.</p>
-<pre><code class="lang-javascript">_.strContains(&quot;Acropolis&quot;, &quot;polis&quot;);
-// =&gt; true</code></pre>
+<pre><code class="lang-javascript">_.strContains(<span class="hljs-string">"Acropolis"</span>, <span class="hljs-string">"polis"</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<hr>
 <h4 id="todash">toDash</h4>
 <p><strong>Signature:</strong> <code>_.toDash(string:String)</code></p>
 <p>Converts a camel case string to a dashed string. Opposite of <a href="#camelcase">camelCase</a>.</p>
-<pre><code class="lang-javascript">_.toDash(&quot;thisIsSparta&quot;);
-// =&gt; &quot;this-is-sparta&quot;</code></pre>
+<pre><code class="lang-javascript">_.toDash(<span class="hljs-string">"thisIsSparta"</span>);
+<span class="hljs-comment">// =&gt; "this-is-sparta"</span>
+</code></pre>
+<hr>
+<h4 id="toquery">toQuery</h4>
+<p><strong>Signature:</strong> <code>_.toQuery(obj:Object)</code></p>
+<p>Takes an object and converts it into an equivalent URL query string. Opposite
+of <a href="#fromquery">fromQuery</a>.</p>
+<pre><code class="lang-javascript">_.toQuery({ forms: { perfect: <span class="hljs-string">"circle"</span>, imperfect: <span class="hljs-string">"square"</span> } });
+<span class="hljs-comment">// =&gt; "forms%5Bperfect%5D=circle&amp;forms%5Bimperfect%5D=square"</span>
+</code></pre>
+<hr>
 
             </div>
             

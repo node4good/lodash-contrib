@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -112,12 +114,9 @@
 <blockquote>
 <p>Functions to take things from arrays. <a href="docs/lodash.array.selectors.js.html" class="btn btn-primary btn-xs">View Annotated Source</a></p>
 </blockquote>
-<h4 id="second">second</h4>
-<p>The <code>_.second</code> function is a convenience for the equivalent <code>array[1]</code>:</p>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.second([<span class="string">'a'</span>,<span class="string">'b'</span>]);</pre></div></div>
             
         </li>
         
@@ -128,11 +127,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>=&gt; &#39;b&#39;</p>
+              <h4 id="best">best</h4>
+<p><strong>Signature:</strong> <code>_.best(array:Array, fun:Function)</code></p>
+<p>Returns the “best” value in an array based on the result of a given function.</p>
+<pre><code class="lang-javascript">_.best([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) </span>{
+  <span class="hljs-keyword">return</span> x &gt; y;
+});
+<span class="hljs-comment">//=&gt; 5</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.map([[<span class="string">'a'</span>,<span class="string">'b'</span>], _.range(<span class="number">10</span>,<span class="number">20</span>)], _.second);</pre></div></div>
             
         </li>
         
@@ -143,12 +148,15 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>=&gt; [&#39;b&#39;,11]</p>
-<p>You can also pass an optional number to the <code>_.second</code> function to take a number of elements from an array starting with the second element and ending at the given index:</p>
+              <h4 id="dropwhile">dropWhile</h4>
+<p><strong>Signature:</strong> <code>_.dropWhile(array:Array, pred:Function)</code></p>
+<p>Drops elements for which the given function returns a truthy value.</p>
+<pre><code class="lang-javascript">_.dropWhile([-<span class="hljs-number">2</span>,-<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], isNeg);
+<span class="hljs-comment">//=&gt; [0,1,2]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.second(_.range(<span class="number">10</span>), <span class="number">5</span>)</pre></div></div>
             
         </li>
         
@@ -159,13 +167,19 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>=&gt; [1, 2, 3, 4]</p>
-<h4 id="third">third</h4>
-<p>The <code>_.third</code> function is a convenience for the equivalent <code>array[2]</code>:</p>
+              <h4 id="keep">keep</h4>
+<p><strong>Signature:</strong> <code>_.keep(array:Array, fun:Function)</code></p>
+<p>Returns an array of existy results of a function over a source array.</p>
+<pre><code class="lang-javascript">_.keep([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>) </span>{
+  <span class="hljs-keyword">if</span> (val % <span class="hljs-number">3</span> === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">return</span> val;
+  }
+});
+<span class="hljs-comment">// =&gt; [3]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.third([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>]);</pre></div></div>
             
         </li>
         
@@ -176,11 +190,28 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>=&gt; &#39;c&#39;</p>
+              <h4 id="nth">nth</h4>
+<p><strong>Signature:</strong> <code>_.nth(array:Array, index:Number[, guard:Any])</code></p>
+<p>The <code>_.nth</code> function is a convenience for the equivalent <code>array[n]</code>. The
+optional <code>guard</code> value allows <code>_.nth</code> to work correctly as a callback for
+<code>_.map</code>.</p>
+<pre><code class="lang-javascript">_.nth([<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>], <span class="hljs-number">2</span>);
+<span class="hljs-comment">//=&gt; 'c'</span>
+</code></pre>
+<p>If given an index out of bounds then <code>_.nth</code> will return <code>undefined</code>:</p>
+<pre><code class="lang-javascript">_.nth([<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>], <span class="hljs-number">2000</span>);
+<span class="hljs-comment">//=&gt; undefined</span>
+</code></pre>
+<p>The <code>_.nth</code> function can also be used in conjunction with <code>_.map</code> and <code>_.compact</code> like so:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> b = [[<span class="hljs-string">'a'</span>],[<span class="hljs-string">'b'</span>],[]];
+
+_.compact(_.map(b, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{ <span class="hljs-keyword">return</span> _.nth(e,<span class="hljs-number">0</span>) }));
+<span class="hljs-comment">//=&gt; ['a','b']</span>
+</code></pre>
+<p>If wrapping a function around <code>_.nth</code> is too tedious or you’d like to partially apply the index then Underscore-contrib offers any of <code>_.flip2</code>, <code>_.fix</code> or <code>_.curryRight2</code> to solve this.</p>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.map([[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], _.range(<span class="number">10</span>,<span class="number">20</span>)], _.third);</pre></div></div>
             
         </li>
         
@@ -191,12 +222,19 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>=&gt; [&#39;c&#39;,12]</p>
-<p>You can also pass an optional number to the <code>_.third</code> function to take a number of elements from an array starting with the third element and ending at the given index:</p>
+              <h4 id="partitionby">partitionBy</h4>
+<p><strong>Signature:</strong> <code>_.keep(array:Array, fun:Function)</code></p>
+<p>Takes an array and partitions it into sub-arrays as the given predicate changes
+truth sense.</p>
+<pre><code class="lang-javascript">_.partitionBy([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>], _.isEven);
+<span class="hljs-comment">// =&gt; [[1],[2,2],[3,1,1,5]]</span>
+
+_.partitionBy([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>], _.identity);
+<span class="hljs-comment">// =&gt; [[1],[2,2],[3],[1,1],[5]]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.third(_.range(<span class="number">10</span>), <span class="number">5</span>)</pre></div></div>
             
         </li>
         
@@ -207,13 +245,24 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>=&gt; [2, 3, 4]</p>
-<h4 id="nth">nth</h4>
-<p>The <code>_.nth</code> function is a convenience for the equivalent <code>array[n]</code>:</p>
+              <h4 id="second">second</h4>
+<p><strong>Signature:</strong> <code>_.second(array:Array, index:Number[, guard:Any])</code></p>
+<p>The <code>_.second</code> function is a convenience for the equivalent <code>array[1]</code>. The
+optional <code>guard</code> value allows <code>_.second</code> to work correctly as a callback for
+<code>_.map</code>.</p>
+<pre><code class="lang-javascript">_.second([<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>]);
+<span class="hljs-comment">//=&gt; 'b'</span>
+
+_.map([[<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>], _.range(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>)], _.second);
+<span class="hljs-comment">//=&gt; ['b',11]</span>
+</code></pre>
+<p>You can also pass an optional number to the <code>_.second</code> function to take a number of elements from an array starting with the second element and ending at the given index:</p>
+<pre><code class="lang-javascript">_.second(_.range(<span class="hljs-number">10</span>), <span class="hljs-number">5</span>)
+<span class="hljs-comment">//=&gt; [1, 2, 3, 4]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.nth([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], <span class="number">2</span>);</pre></div></div>
             
         </li>
         
@@ -224,12 +273,17 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>=&gt; &#39;c&#39;</p>
-<p>If given an index out of bounds then <code>_.nth</code> will return <code>undefined</code>:</p>
+              <h4 id="takewhile">takeWhile</h4>
+<p><strong>Signature:</strong> <code>_.takeWhile(array:Array, pred:Function)</code></p>
+<p>The <code>_.takeWhile</code> function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> isNeg = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) </span>{ <span class="hljs-keyword">return</span> n &lt; <span class="hljs-number">0</span>; };
+
+_.takeWhile([-<span class="hljs-number">2</span>,-<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>], isNeg);
+<span class="hljs-comment">//=&gt; [-2,-1]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>_.nth([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>], <span class="number">2000</span>);</pre></div></div>
             
         </li>
         
@@ -240,14 +294,24 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>=&gt; undefined</p>
-<p>The <code>_.nth</code> function can also be used in conjunction with <code>_.map</code> and <code>_.compact</code> like so:</p>
+              <h4 id="third">third</h4>
+<p><strong>Signature:</strong> <code>_.third(array:Array, index:Number[, guard:Any])</code></p>
+<p>The <code>_.third</code> function is a convenience for the equivalent <code>array[2]</code>. The
+optional <code>guard</code> value allows <code>_.third</code> to work correctly as a callback for
+<code>_.map</code>.</p>
+<pre><code class="lang-javascript">_.third([<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>]);
+<span class="hljs-comment">//=&gt; 'c'</span>
+
+_.map([[<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-string">'c'</span>], _.range(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>)], _.third);
+<span class="hljs-comment">//=&gt; ['c',12]</span>
+</code></pre>
+<p>You can also pass an optional number to the <code>_.third</code> function to take a number of elements from an array starting with the third element and ending at the given index:</p>
+<pre><code class="lang-javascript">_.third(_.range(<span class="hljs-number">10</span>), <span class="hljs-number">5</span>)
+<span class="hljs-comment">//=&gt; [2, 3, 4]</span>
+</code></pre>
+<hr>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> b = [[<span class="string">'a'</span>],[<span class="string">'b'</span>],[]];
-
-_.compact(_.map(b, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> {</span> <span class="keyword">return</span> _.nth(e,<span class="number">0</span>) }));</pre></div></div>
             
         </li>
         
@@ -258,45 +322,7 @@ _.compact(_.map(b, <span class="function"><span class="keyword">function</span><
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>=&gt; [&#39;a&#39;,&#39;b&#39;]</p>
-<p>If wrapping a function around <code>_.nth</code> is too tedious or you&#39;d like to partially apply the index then lodash-contrib offers any of <code>_.flip2</code>, <code>_.fix</code> or <code>rcurry2</code> to solve this.</p>
-<h4 id="takewhile">takeWhile</h4>
-<p>The <code>_.takeWhile</code> function takes an array and a function and returns a new array containing the first n elements in the original array for which the given function returns a truthy value:</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> isNeg = <span class="function"><span class="keyword">function</span><span class="params">(n)</span> {</span> <span class="keyword">return</span> n &lt; <span class="number">0</span>; };
-
-_.takeWhile([-<span class="number">2</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>], isNeg);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
-              <p>=&gt; [-2,-1]</p>
-<h4 id="dropwhile">dropWhile</h4>
-<p>The <code>_.dropWhile</code> function works similarly except that it <em>drops</em> elements from the original array for which the given function returns a truthy value:</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>_.dropWhile([-<span class="number">2</span>,-<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>], isNeg);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>=&gt; [0,1,2]</p>
-
             </div>
             
         </li>

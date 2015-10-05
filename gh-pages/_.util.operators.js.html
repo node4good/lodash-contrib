@@ -16,78 +16,80 @@
           <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
-          <div id="jump_page">
-            
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
               
-              <a class="source" href="_.array.builders.js.html">
-                _.array.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.builders.js.html">
+                  _.array.builders.js.md
+                </a>
               
-              <a class="source" href="_.array.selectors.js.html">
-                _.array.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.array.selectors.js.html">
+                  _.array.selectors.js.md
+                </a>
               
-              <a class="source" href="_.collections.walk.js.html">
-                _.collections.walk.js.md
-              </a>
-            
+                
+                <a class="source" href="_.collections.walk.js.html">
+                  _.collections.walk.js.md
+                </a>
               
-              <a class="source" href="_.function.arity.js.html">
-                _.function.arity.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.arity.js.html">
+                  _.function.arity.js.md
+                </a>
               
-              <a class="source" href="_.function.combinators.js.html">
-                _.function.combinators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.combinators.js.html">
+                  _.function.combinators.js.md
+                </a>
               
-              <a class="source" href="_.function.iterators.js.html">
-                _.function.iterators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.iterators.js.html">
+                  _.function.iterators.js.md
+                </a>
               
-              <a class="source" href="_.function.predicates.js.html">
-                _.function.predicates.js.md
-              </a>
-            
+                
+                <a class="source" href="_.function.predicates.js.html">
+                  _.function.predicates.js.md
+                </a>
               
-              <a class="source" href="_.object.builders.js.html">
-                _.object.builders.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.builders.js.html">
+                  _.object.builders.js.md
+                </a>
               
-              <a class="source" href="_.object.selectors.js.html">
-                _.object.selectors.js.md
-              </a>
-            
+                
+                <a class="source" href="_.object.selectors.js.html">
+                  _.object.selectors.js.md
+                </a>
               
-              <a class="source" href="_.util.existential.js.html">
-                _.util.existential.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.existential.js.html">
+                  _.util.existential.js.md
+                </a>
               
-              <a class="source" href="_.util.operators.js.html">
-                _.util.operators.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.operators.js.html">
+                  _.util.operators.js.md
+                </a>
               
-              <a class="source" href="_.util.strings.js.html">
-                _.util.strings.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.strings.js.html">
+                  _.util.strings.js.md
+                </a>
               
-              <a class="source" href="_.util.trampolines.js.html">
-                _.util.trampolines.js.md
-              </a>
-            
+                
+                <a class="source" href="_.util.trampolines.js.html">
+                  _.util.trampolines.js.md
+                </a>
               
-              <a class="source" href="index.html">
-                index.md
-              </a>
-            
+                
+                <a class="source" href="index.html">
+                  index.md
+                </a>
+              
+            </div>
           </div>
         </li>
       </ul>
@@ -110,7 +112,7 @@
               </div>
               <h3 id="util-operators">util.operators</h3>
 <blockquote>
-<p>Functions which wrap JavaScript&#39;s operators.</p>
+<p>Functions which wrap JavaScript’s operators.</p>
 </blockquote>
 <hr>
 
@@ -128,8 +130,9 @@
               <h4 id="add">add</h4>
 <p><strong>Signature:</strong> <code>_.add(value:Number, value:Number[, value:Number...])</code></p>
 <p>Returns the sum of the arguments.</p>
-<pre><code class="lang-javascript">_.add(1, 2, 3, 4);
-// =&gt; 10</code></pre>
+<pre><code class="lang-javascript">_.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 10</span>
+</code></pre>
 <hr>
 
             </div>
@@ -146,11 +149,12 @@
               <h4 id="bitwiseand">bitwiseAnd</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseAnd(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>&amp;</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseAnd(1, 3);
-// =&gt; 1
+<pre><code class="lang-javascript">_.bitwiseAnd(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 1</span>
 
-_.bitwiseAnd(1, 3, 2);
-// =&gt; 0</code></pre>
+_.bitwiseAnd(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
 <hr>
 
             </div>
@@ -167,11 +171,12 @@ _.bitwiseAnd(1, 3, 2);
               <h4 id="bitwiseleft">bitwiseLeft</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseLeft(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>&lt;&lt;</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseLeft(1, 3);
-// =&gt; 8
+<pre><code class="lang-javascript">_.bitwiseLeft(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 8</span>
 
-_.bitwiseLeft(1, 3, 2);
-// =&gt; 32</code></pre>
+_.bitwiseLeft(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 32</span>
+</code></pre>
 <hr>
 
             </div>
@@ -188,11 +193,12 @@ _.bitwiseLeft(1, 3, 2);
               <h4 id="bitwiseright">bitwiseRight</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseRight(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>&gt;&gt;</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseRight(3, 1);
-// =&gt; 1
+<pre><code class="lang-javascript">_.bitwiseRight(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; 1</span>
 
-_.bitwiseRight(3, 1, 3);
-// =&gt; 0</code></pre>
+_.bitwiseRight(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
 <hr>
 
             </div>
@@ -209,11 +215,12 @@ _.bitwiseRight(3, 1, 3);
               <h4 id="bitwisenot">bitwiseNot</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseNot(value:Any)</code></p>
 <p>Returns the result of using the <code>~</code> operator on the value.</p>
-<pre><code class="lang-javascript">_.bitwiseNot(1);
-// =&gt; -2
+<pre><code class="lang-javascript">_.bitwiseNot(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; -2</span>
 
-_.bitwiseOr(2);
-// =&gt; -3</code></pre>
+_.bitwiseOr(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; -3</span>
+</code></pre>
 <hr>
 
             </div>
@@ -230,11 +237,12 @@ _.bitwiseOr(2);
               <h4 id="bitwiseor">bitwiseOr</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseOr(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>|</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseOr(1, 3);
-// =&gt; 3
+<pre><code class="lang-javascript">_.bitwiseOr(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 3</span>
 
-_.bitwiseOr(1, 3, 4);
-// =&gt; 7</code></pre>
+_.bitwiseOr(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 7</span>
+</code></pre>
 <hr>
 
             </div>
@@ -251,11 +259,12 @@ _.bitwiseOr(1, 3, 4);
               <h4 id="bitwisexor">bitwiseXor</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseXor(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>^</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseXor(1, 3);
-// =&gt; 2
+<pre><code class="lang-javascript">_.bitwiseXor(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 2</span>
 
-_.bitwiseXor(1, 3, 3);
-// =&gt; 1</code></pre>
+_.bitwiseXor(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
 <hr>
 
             </div>
@@ -272,11 +281,12 @@ _.bitwiseXor(1, 3, 3);
               <h4 id="bitwisez">bitwiseZ</h4>
 <p><strong>Signature:</strong> <code>_.bitwiseZ(value:Any, value:Any[, value:Any...])</code></p>
 <p>Returns the result of using the <code>&gt;&gt;&gt;</code> operator on the arguments.</p>
-<pre><code class="lang-javascript">_.bitwiseZ(72, 32);
-// =&gt; 72
+<pre><code class="lang-javascript">_.bitwiseZ(<span class="hljs-number">72</span>, <span class="hljs-number">32</span>);
+<span class="hljs-comment">// =&gt; 72</span>
 
-_.bitwiseZ(72, 32, 2);
-// =&gt; 18</code></pre>
+_.bitwiseZ(<span class="hljs-number">72</span>, <span class="hljs-number">32</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 18</span>
+</code></pre>
 <hr>
 
             </div>
@@ -293,8 +303,9 @@ _.bitwiseZ(72, 32, 2);
               <h4 id="dec">dec</h4>
 <p><strong>Signature:</strong> <code>_.dec(value:Number)</code></p>
 <p>Returns the result of decrementing the value by <code>1</code>.</p>
-<pre><code class="lang-javascript">_.dec(2);
-// =&gt; 1</code></pre>
+<pre><code class="lang-javascript">_.dec(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
 <hr>
 
             </div>
@@ -311,11 +322,12 @@ _.bitwiseZ(72, 32, 2);
               <h4 id="div">div</h4>
 <p><strong>Signature:</strong> <code>_.div(value:Number, value:Number[, value:Number...])</code></p>
 <p>Returns the quotient of the arguments.</p>
-<pre><code class="lang-javascript">_.div(8, 2);
-// =&gt; 4
+<pre><code class="lang-javascript">_.div(<span class="hljs-number">8</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 4</span>
 
-_.div(8, 2, 2);
-// =&gt; 2</code></pre>
+_.div(<span class="hljs-number">8</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
 <hr>
 
             </div>
@@ -332,17 +344,18 @@ _.div(8, 2, 2);
               <h4 id="eq">eq</h4>
 <p><strong>Signature:</strong> <code>_.eq(value:Any, value:Any[, value:Any...])</code></p>
 <p>Compares the arguments with loose equality (<code>==</code>).</p>
-<pre><code class="lang-javascript">_.eq(1, &quot;1&quot;);
-// =&gt; true
+<pre><code class="lang-javascript">_.eq(<span class="hljs-number">1</span>, <span class="hljs-string">"1"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.eq(1, 15);
-// =&gt; false
+_.eq(<span class="hljs-number">1</span>, <span class="hljs-number">15</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.eq(1, true, &quot;1&quot;);
-// =&gt; true
+_.eq(<span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, <span class="hljs-string">"1"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.eq(1, 1, 15);
-// =&gt; false</code></pre>
+_.eq(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">15</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -359,14 +372,15 @@ _.eq(1, 1, 15);
               <h4 id="gt">gt</h4>
 <p><strong>Signature:</strong> <code>_.gt(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether each argument is greater than the previous argument.</p>
-<pre><code class="lang-javascript">_.gt(1, 2);
-// =&gt; true
+<pre><code class="lang-javascript">_.gt(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.gt(1, 2, 3);
-// =&gt; true
+_.gt(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.gt(1, 6, 2);
-// =&gt; false</code></pre>
+_.gt(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -383,14 +397,15 @@ _.gt(1, 6, 2);
               <h4 id="gte">gte</h4>
 <p><strong>Signature:</strong> <code>_.gte(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether each argument is greater than or equal to the previous argument.</p>
-<pre><code class="lang-javascript">_.gte(1, 2);
-// =&gt; true
+<pre><code class="lang-javascript">_.gte(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.gte(1, 1, 3);
-// =&gt; true
+_.gte(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.gte(1, 6, 2);
-// =&gt; false</code></pre>
+_.gte(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -407,8 +422,9 @@ _.gte(1, 6, 2);
               <h4 id="inc">inc</h4>
 <p><strong>Signature:</strong> <code>_.inc(value:Number)</code></p>
 <p>Returns the result of incrementing the value by <code>1</code>.</p>
-<pre><code class="lang-javascript">_.inc(2);
-// =&gt; 3</code></pre>
+<pre><code class="lang-javascript">_.inc(<span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
 <hr>
 
             </div>
@@ -425,14 +441,15 @@ _.gte(1, 6, 2);
               <h4 id="lt">lt</h4>
 <p><strong>Signature:</strong> <code>_.lt(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether each argument is less than the previous argument.</p>
-<pre><code class="lang-javascript">_.lt(2, 1);
-// =&gt; true
+<pre><code class="lang-javascript">_.lt(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.lt(2, 1, 0);
-// =&gt; true
+_.lt(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.lt(2, 1, 12);
-// =&gt; false</code></pre>
+_.lt(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">12</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -449,14 +466,15 @@ _.lt(2, 1, 12);
               <h4 id="lte">lte</h4>
 <p><strong>Signature:</strong> <code>_.lte(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether each argument is less than or equal to the previous argument.</p>
-<pre><code class="lang-javascript">_.lte(2, 1);
-// =&gt; true
+<pre><code class="lang-javascript">_.lte(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.lte(2, 1, 1);
-// =&gt; true
+_.lte(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.lte(2, 1, 12);
-// =&gt; false</code></pre>
+_.lte(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">12</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -473,8 +491,9 @@ _.lte(2, 1, 12);
               <h4 id="mul">mul</h4>
 <p><strong>Signature:</strong> <code>_.mul(value:Number, value:Number[, value:Number...])</code></p>
 <p>Returns the product of the arguments.</p>
-<pre><code class="lang-javascript">_.mul(1, 2, 3, 4);
-// =&gt; 24</code></pre>
+<pre><code class="lang-javascript">_.mul(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// =&gt; 24</span>
+</code></pre>
 <hr>
 
             </div>
@@ -491,11 +510,12 @@ _.lte(2, 1, 12);
               <h4 id="mod">mod</h4>
 <p><strong>Signature:</strong> <code>_.mod(dividend:Number, divisor:Number)</code></p>
 <p>Returns the remainder of dividing <code>dividend</code> by <code>divisor</code>.</p>
-<pre><code class="lang-javascript">_.mod(26, 5);
-// =&gt; 1
+<pre><code class="lang-javascript">_.mod(<span class="hljs-number">26</span>, <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; 1</span>
 
-_.mod(14, 3);
-// =&gt; 2</code></pre>
+_.mod(<span class="hljs-number">14</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
 <hr>
 
             </div>
@@ -512,11 +532,12 @@ _.mod(14, 3);
               <h4 id="neg">neg</h4>
 <p><strong>Signature:</strong> <code>_.neg(num:Number)</code></p>
 <p>Returns a new number with the opposite sign value of <code>num</code>.</p>
-<pre><code class="lang-javascript">_.neg(5);
-// =&gt; -5
+<pre><code class="lang-javascript">_.neg(<span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; -5</span>
 
-_.neg(-3);
-// =&gt; 3</code></pre>
+_.neg(-<span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
 <hr>
 
             </div>
@@ -534,14 +555,15 @@ _.neg(-3);
 <p><strong>Signature:</strong> <code>_.neq(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether each argument is not equal to the previous argument, using loose
 inequality (<code>!=</code>).</p>
-<pre><code class="lang-javascript">_.neq(2, 1);
-// =&gt; true
+<pre><code class="lang-javascript">_.neq(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.neq(2, 1, 1);
-// =&gt; true
+_.neq(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.neq(1, 1);
-// =&gt; false</code></pre>
+_.neq(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -558,23 +580,24 @@ _.neq(1, 1);
               <h4 id="not">not</h4>
 <p><strong>Signature:</strong> <code>_.not(value:Any)</code></p>
 <p>Returns a boolean which is the opposite of the truthiness of the original value.</p>
-<pre><code class="lang-javascript">_.not(0);
-// =&gt; true
+<pre><code class="lang-javascript">_.not(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.not(1);
-// =&gt; false
+_.not(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(true);
-// =&gt; false
+_.not(<span class="hljs-literal">true</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(false);
-// =&gt; true
+_.not(<span class="hljs-literal">false</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
 _.not({});
-// =&gt; false
+<span class="hljs-comment">// =&gt; false</span>
 
-_.not(null);
-// =&gt; true</code></pre>
+_.not(<span class="hljs-literal">null</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -591,14 +614,15 @@ _.not(null);
               <h4 id="seq">seq</h4>
 <p><strong>Signature:</strong> <code>_.seq(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether the arguments are strictly equal (<code>===</code>) to each other.</p>
-<pre><code class="lang-javascript">_.seq(2, 2);
-// =&gt; true
+<pre><code class="lang-javascript">_.seq(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.seq(2, &quot;2&quot;);
-// =&gt; false
+_.seq(<span class="hljs-number">2</span>, <span class="hljs-string">"2"</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.seq(2, 2, 2);
-// =&gt; true</code></pre>
+_.seq(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; true</span>
+</code></pre>
 <hr>
 
             </div>
@@ -615,14 +639,15 @@ _.seq(2, 2, 2);
               <h4 id="sneq">sneq</h4>
 <p><strong>Signature:</strong> <code>_.sneq(value:Any, value:Any[, value:Any...])</code></p>
 <p>Checks whether the arguments are strictly not equal (<code>!==</code>) to each other.</p>
-<pre><code class="lang-javascript">_.sneq(2, 2);
-// =&gt; false
+<pre><code class="lang-javascript">_.sneq(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; false</span>
 
-_.sneq(2, &quot;2&quot;);
-// =&gt; true
+_.sneq(<span class="hljs-number">2</span>, <span class="hljs-string">"2"</span>);
+<span class="hljs-comment">// =&gt; true</span>
 
-_.sneq(2, 2, 2);
-// =&gt; false</code></pre>
+_.sneq(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// =&gt; false</span>
+</code></pre>
 <hr>
 
             </div>
@@ -639,11 +664,12 @@ _.sneq(2, 2, 2);
               <h4 id="sub">sub</h4>
 <p><strong>Signature:</strong> <code>_.sub(value:Number, value:Number[, value:Number...])</code></p>
 <p>Returns the difference of the arguments.</p>
-<pre><code class="lang-javascript">_.sub(10, 3);
-// =&gt; 7
+<pre><code class="lang-javascript">_.sub(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>);
+<span class="hljs-comment">// =&gt; 7</span>
 
-_.sub(10, 3, 5);
-// =&gt; 2</code></pre>
+_.sub(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>);
+<span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
 
             </div>
             
