@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-- '0.12'
-- '0.10'
+- '4'
 notifications:
   slack: empeeric:Hsm2xE5SNniMiUAEgM0Ngcnb
 deploy:
@@ -11,5 +10,4 @@ deploy:
     secure: emop6MuWZ2yglRFlq9dpALSRM71S/FFxj8+34PeeWE5T2pTmCKi3f6G6giZm9/pbat30Fgk5GQg3sc3AiPFf8k9xnOS7ihy6nm0lH1Q/orNRUCJDVhy9UaLlT/GwCAvGvHw7yNNzNA3+r7Tv0dSbLcCwNdnyYTs/B9XB5gxRui8=
   on:
     tags: true
-    node: '0.12'
     repo: TheNodeILs/lodash-contrib

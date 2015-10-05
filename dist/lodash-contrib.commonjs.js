@@ -270,7 +270,6 @@ module.exports.rearg               = _.rearg;
 module.exports.reduce              = _.reduce;
 module.exports.reduceRight         = _.reduceRight;
 module.exports.reductions          = _.reductions;
-module.exports.regexEscape         = _.regexEscape;
 module.exports.reject              = _.reject;
 module.exports.remove              = _.remove;
 module.exports.renameKeys          = _.renameKeys;

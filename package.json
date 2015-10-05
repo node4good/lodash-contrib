@@ -1,10 +1,10 @@
 {
   "name": "lodash-contrib",
   "description": "The brass buckles on lodash's utility belt",
-  "version": "31000.0.2",
+  "version": "31001.0.0",
   "main": "dist/lodash-contrib.commonjs.js",
   "dependencies": {
-    "lodash": "3.10.0"
+    "lodash": "3.10.1"
   },
   "devDependencies": {
     "chai": "",

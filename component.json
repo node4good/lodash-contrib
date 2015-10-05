@@ -2,9 +2,9 @@
     "name": "lodash-contrib",
     "description": "The brass buckles on lodash's utility belt",
     "repo": "TheNodeILs/lodash-contrib",
-    "version": "393.0.0",
+    "version": "31001.0.0",
     "dependencies": {
-        "lodash/lodash": "3.9.3"
+        "lodash/lodash": "3.10.1"
     },
     "main": "dist/lodash-contrib.js",
     "scripts": [
