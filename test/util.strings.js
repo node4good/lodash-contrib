@@ -30,10 +30,6 @@ $(document).ready(function() {
     equal(_.implode(['H','o','m','e','r']), 'Homer', 'Should implode an array of characters into a single string.');
   });
 
-  test('camelCase', function() {
-    equal(_.camelCase('punic-wars'), 'punicWars', 'Should convert a dashed-format string to camelCase.');
-  });
-
   test('toDash', function() {
     equal(_.toDash('trojanWar'), 'trojan-war', 'Should convert a camelCase string to dashed-format.');
     equal(_.toDash('PersianWar'), 'persian-war', 'Should convert a PascalCase string to dashed-format.');
@@ -50,13 +46,6 @@ $(document).ready(function() {
 
     var thrower = function() { _.strContains([], ''); };
     throws(thrower, TypeError, 'Throws TypeError if first argument is not a string.');
-  });
-
-  var preRegex1 = '/__value__/i.test(this.email)||/__value__/i.test(this.fb_uniq)||/__value__/i';
-  var postRegex1 = '\\/__value__\\/i\\.test\\(this\\.email\\)\\|\\|\\/__value__\\/i\\.test\\(this\\.fb_uniq\\)\\|\\|\\/__value__\\/i';
-  test('strContains', function() {
-    equal(_.regexEscape('Metaphysics'), 'Metaphysics', 'Should not change strings without special chars.');
-    equal(_.regexEscape(preRegex1), postRegex1, 'Should escape a string wirh char that have special meaning within a Regex.');
   });
 
   test('humanize', function() {

@@ -19,15 +19,6 @@ describe("util.string", function () {
     });
   });
 
-  describe("snake_case", function () {
-    it('can convert camelCase to a snake_case', function (done) {
-      assert.equal(_.snakeCase('AllTheYoungDudes'), 'all_the_young_dudes');
-      assert.equal(_.snakeCase('carryTheNews'), 'carry_the_news');
-      assert.equal(_.snakeCase('Boogaloo dudes'), 'boogaloo dudes');
-      done();
-    });
-  });
-
   describe("Title Case", function () {
     it('can convert a sentance to a Title Case', function (done) {
       assert.equal(_.titleCase('Hey, dudes!'), 'Hey, Dudes!');
