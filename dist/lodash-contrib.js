@@ -1947,23 +1947,11 @@ module.exports = function (_) {
       return a.join('');
     },
 
-    // Converts a string to camel case
-    camelCase: function (string) {
-      return  string.replace(REGEX.nonCamelCase, function ($1) { return $1[1].toUpperCase(); });
-    },
-
     // Converts camel case to dashed (opposite of _.camelCase)
     toDash: function (string) {
       string = string.replace(REGEX.capitalLetters, function ($1) {return "-" + $1.toLowerCase();});
       // remove first dash
       return  ( string.charAt(0) == '-' ) ? string.substr(1) : string;
-    },
-
-    // Converts camel case to snake_case
-    snakeCase: function (string) {
-      string = string.replace(REGEX.capitalLetters, function ($1) {return "_" + $1.toLowerCase();});
-      // remove first underscore
-      return  ( string.charAt(0) == '_' ) ? string.substr(1) : string;
     },
 
     // Creates a query string from a hash
@@ -1977,11 +1965,6 @@ module.exports = function (_) {
       return (str.indexOf(search) != -1);
     },
 
-    // Upper case first letter.
-    capitalize: function capitalize(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    },
-
     // Upper case first letter in every word.
     titleCase: function capitalize(string) {
       return string.replace(REGEX.boundary, function ($1) {return $1.toUpperCase();});
@@ -1993,11 +1976,6 @@ module.exports = function (_) {
                       .replace(REGEX.space, '-')
                       .replace(REGEX.dot, '-')
                       .toLowerCase();
-    },
-
-    // Escape regular expressions in a string
-    regexEscape: function (regexCandidate) {
-      return regexCandidate.replace(REGEX.regex, "\\$&");
     },
 
     // Humanize a slug by adding spaces in place of underscores and between words
