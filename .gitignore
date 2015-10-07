@@ -10,3 +10,4 @@ examples/*.css
 examples/*.html
 examples/public
 *.log
+bower_components/
