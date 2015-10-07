@@ -3,8 +3,8 @@ module.exports = function (_) {
   // Helpers
   // -------
 
-  function enforcesUnary (fn) {
-    return function mustBeUnary () {
+  function enforcesUnary(fn) {
+    return function mustBeUnary() {
       if (arguments.length === 1) {
         return fn.apply(this, arguments);
       }
@@ -30,7 +30,8 @@ module.exports = function (_) {
         });
       }
     }
-    return function curry (func, reverse) {
+
+    return function curry(func, reverse) {
       var that = this;
       return enforcesUnary(function () {
         return collectArgs(func, that, func.length, [], arguments[0], reverse);
@@ -42,7 +43,7 @@ module.exports = function (_) {
   // --------------------
   var enforce = (function () {
     var CACHE = [];
-    return function enforce (func) {
+    return function enforce(func) {
       if (typeof func !== 'function') {
         throw new Error('Argument 1 must be a function.');
       }
@@ -93,15 +94,15 @@ module.exports = function (_) {
 
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
-    fix: function(fun) {
+    fix: function (fun) {
       var fixArgs = _.rest(arguments);
 
-      var f = function() {
+      var f = function () {
         var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < (args.length || arg < arguments.length); i++ ) {
-          if ( args[i] === _ ) {
+        for (var i = 0; i < (args.length || arg < arguments.length); i++) {
+          if (args[i] === _) {
             args[i] = arguments[arg++];
           }
         }
@@ -115,41 +116,33 @@ module.exports = function (_) {
     },
 
     unary: function (fun) {
-      return function unary (a) {
+      return function unary(a) {
         return fun.call(this, a);
       };
     },
 
     binary: function (fun) {
-      return function binary (a, b) {
+      return function binary(a, b) {
         return fun.call(this, a, b);
       };
     },
 
     ternary: function (fun) {
-      return function ternary (a, b, c) {
+      return function ternary(a, b, c) {
         return fun.call(this, a, b, c);
       };
     },
 
     quaternary: function (fun) {
-      return function quaternary (a, b, c, d) {
+      return function quaternary(a, b, c, d) {
         return fun.call(this, a, b, c, d);
       };
     },
 
-    // Flexible curry function with strict arity.
-    // Argument application left to right.
-    // source: https://github.com/eborden/js-curry
-    curry: curry,
-
-    // Flexible right to left curry with strict arity.
-    curryRight: curryRight,
     rCurry: curryRight, // alias for backwards compatibility
 
-
     curry2: function (fun) {
-      return enforcesUnary(function curried (first) {
+      return enforcesUnary(function curried(first) {
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
@@ -174,29 +167,30 @@ module.exports = function (_) {
     rcurry3: curryRight3, // alias for backwards compatibility
 
     // Dynamic decorator to enforce function arity and defeat varargs.
-    enforce: enforce
+    enforce: enforce,
+
+    arity: (function () {
+      // Allow 'new Function', as that is currently the only reliable way
+      // to manipulate function.length
+      /* jshint -W054 */
+      var FUNCTIONS = {};
+      return function arity(numberOfArgs, fun) {
+        if (FUNCTIONS[numberOfArgs] == null) {
+          var parameters = new Array(numberOfArgs);
+          for (var i = 0; i < numberOfArgs; ++i) {
+            parameters[i] = "__" + i;
+          }
+          var pstr = parameters.join();
+          var code = "return function (" + pstr + ") { return fun.apply(this, arguments); };";
+          FUNCTIONS[numberOfArgs] = new Function(['fun'], code);
+        }
+        if (fun == null) {
+          return function (fun) { return arity(numberOfArgs, fun); };
+        }
+        else return FUNCTIONS[numberOfArgs](fun);
+      };
+    })()
   });
 
-  _.arity = (function () {
-    // Allow 'new Function', as that is currently the only reliable way
-    // to manipulate function.length
-    /* jshint -W054 */
-    var FUNCTIONS = {};
-    return function arity (numberOfArgs, fun) {
-      if (FUNCTIONS[numberOfArgs] == null) {
-        var parameters = new Array(numberOfArgs);
-        for (var i = 0; i < numberOfArgs; ++i) {
-          parameters[i] = "__" + i;
-        }
-        var pstr = parameters.join();
-        var code = "return function ("+pstr+") { return fun.apply(this, arguments); };";
-        FUNCTIONS[numberOfArgs] = new Function(['fun'], code);
-      }
-      if (fun == null) {
-        return function (fun) { return arity(numberOfArgs, fun); };
-      }
-      else return FUNCTIONS[numberOfArgs](fun);
-    };
-  })();
 
 };

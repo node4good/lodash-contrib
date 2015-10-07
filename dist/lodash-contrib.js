@@ -35,7 +35,7 @@ module.exports = function(_) {
     // sub-arrays of size n.  Allows and optional padding array as
     // the third argument to fill in the tail chunk when n is
     // not sufficient to build chunks of the same size.
-    chunk: function(array, n, pad) {
+    chunkContrib: function(array, n, pad) {
       var args = arguments;
       var p = function(array) {
         if (array == null) return [];
@@ -46,7 +46,7 @@ module.exports = function(_) {
           return _.cons(part, p(_.drop(array, n)));
         }
         else if (args.length === 3) {
-          pad = _.isArray(pad) ? pad : _.repeat(n, pad);
+          pad = _.isArray(pad) ? pad : _.repeatContrib(n, pad);
           return [_.take(_.cat(part, pad), n)];
         }
         else {
@@ -105,7 +105,7 @@ module.exports = function(_) {
 
     // Returns an array of a value repeated a certain number of
     // times.
-    repeat: function(t, elem) {
+    repeatContrib: function(t, elem) {
       return _.times(t, function() { return elem; });
     },
 
@@ -277,35 +277,6 @@ module.exports = function(_) {
         return _.nths(array, _.range(binIndices.length).filter(function(i){return binIndices[i];}));
       else
         return binPick(array, slice.call(arguments, 1));
-    },
-
-    // Takes all items in an array while a given predicate returns truthy.
-    takeWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index]))) {
-          break;
-        }
-      }
-
-      return _.take(array, index);
-    },
-
-    // Drops all items from an array while a given predicate returns truthy.
-    dropWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index])))
-          break;
-      }
-
-      return _.drop(array, index);
     },
 
     // Returns an array with two internal arrays built from
@@ -544,8 +515,8 @@ module.exports = function (_) {
   // Helpers
   // -------
 
-  function enforcesUnary (fn) {
-    return function mustBeUnary () {
+  function enforcesUnary(fn) {
+    return function mustBeUnary() {
       if (arguments.length === 1) {
         return fn.apply(this, arguments);
       }
@@ -571,7 +542,8 @@ module.exports = function (_) {
         });
       }
     }
-    return function curry (func, reverse) {
+
+    return function curry(func, reverse) {
       var that = this;
       return enforcesUnary(function () {
         return collectArgs(func, that, func.length, [], arguments[0], reverse);
@@ -583,7 +555,7 @@ module.exports = function (_) {
   // --------------------
   var enforce = (function () {
     var CACHE = [];
-    return function enforce (func) {
+    return function enforce(func) {
       if (typeof func !== 'function') {
         throw new Error('Argument 1 must be a function.');
       }
@@ -634,15 +606,15 @@ module.exports = function (_) {
 
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
-    fix: function(fun) {
+    fix: function (fun) {
       var fixArgs = _.rest(arguments);
 
-      var f = function() {
+      var f = function () {
         var args = fixArgs.slice();
         var arg = 0;
 
-        for ( var i = 0; i < (args.length || arg < arguments.length); i++ ) {
-          if ( args[i] === _ ) {
+        for (var i = 0; i < (args.length || arg < arguments.length); i++) {
+          if (args[i] === _) {
             args[i] = arguments[arg++];
           }
         }
@@ -656,41 +628,33 @@ module.exports = function (_) {
     },
 
     unary: function (fun) {
-      return function unary (a) {
+      return function unary(a) {
         return fun.call(this, a);
       };
     },
 
     binary: function (fun) {
-      return function binary (a, b) {
+      return function binary(a, b) {
         return fun.call(this, a, b);
       };
     },
 
     ternary: function (fun) {
-      return function ternary (a, b, c) {
+      return function ternary(a, b, c) {
         return fun.call(this, a, b, c);
       };
     },
 
     quaternary: function (fun) {
-      return function quaternary (a, b, c, d) {
+      return function quaternary(a, b, c, d) {
         return fun.call(this, a, b, c, d);
       };
     },
 
-    // Flexible curry function with strict arity.
-    // Argument application left to right.
-    // source: https://github.com/eborden/js-curry
-    curry: curry,
-
-    // Flexible right to left curry with strict arity.
-    curryRight: curryRight,
     rCurry: curryRight, // alias for backwards compatibility
 
-
     curry2: function (fun) {
-      return enforcesUnary(function curried (first) {
+      return enforcesUnary(function curried(first) {
         return enforcesUnary(function (last) {
           return fun.call(this, first, last);
         });
@@ -715,30 +679,31 @@ module.exports = function (_) {
     rcurry3: curryRight3, // alias for backwards compatibility
 
     // Dynamic decorator to enforce function arity and defeat varargs.
-    enforce: enforce
+    enforce: enforce,
+
+    arity: (function () {
+      // Allow 'new Function', as that is currently the only reliable way
+      // to manipulate function.length
+      /* jshint -W054 */
+      var FUNCTIONS = {};
+      return function arity(numberOfArgs, fun) {
+        if (FUNCTIONS[numberOfArgs] == null) {
+          var parameters = new Array(numberOfArgs);
+          for (var i = 0; i < numberOfArgs; ++i) {
+            parameters[i] = "__" + i;
+          }
+          var pstr = parameters.join();
+          var code = "return function (" + pstr + ") { return fun.apply(this, arguments); };";
+          FUNCTIONS[numberOfArgs] = new Function(['fun'], code);
+        }
+        if (fun == null) {
+          return function (fun) { return arity(numberOfArgs, fun); };
+        }
+        else return FUNCTIONS[numberOfArgs](fun);
+      };
+    })()
   });
 
-  _.arity = (function () {
-    // Allow 'new Function', as that is currently the only reliable way
-    // to manipulate function.length
-    /* jshint -W054 */
-    var FUNCTIONS = {};
-    return function arity (numberOfArgs, fun) {
-      if (FUNCTIONS[numberOfArgs] == null) {
-        var parameters = new Array(numberOfArgs);
-        for (var i = 0; i < numberOfArgs; ++i) {
-          parameters[i] = "__" + i;
-        }
-        var pstr = parameters.join();
-        var code = "return function ("+pstr+") { return fun.apply(this, arguments); };";
-        FUNCTIONS[numberOfArgs] = new Function(['fun'], code);
-      }
-      if (fun == null) {
-        return function (fun) { return arity(numberOfArgs, fun); };
-      }
-      else return FUNCTIONS[numberOfArgs](fun);
-    };
-  })();
 
 };
 
@@ -1002,31 +967,6 @@ module.exports = function (_) {
 };
 
 },{}],6:[function(require,module,exports){
-module.exports = function (_) {
-
-  // Helpers
-  // -------
-
-  // Create quick reference variable for speed.
-  var slice   = Array.prototype.slice;
-
-  // Mixing in the attempt function
-  // ------------------------
-
-  _.mixin({
-    // If object is not undefined or null then invoke the named `method` function
-    // with `object` as context and arguments; otherwise, return undefined.
-    attempt: function(object, method) {
-      if (object == null) return void 0;
-      var func = object[method];
-      var args = slice.call(arguments, 2);
-      return _.isFunction(func) ? func.apply(object, args) : void 0;
-    }
-  });
-
-};
-
-},{}],7:[function(require,module,exports){
 module.exports = function (_) {
 
   // Helpers
@@ -1352,7 +1292,7 @@ module.exports = function (_) {
 
 };
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = function (_) {
 
   // Mixing in the predicate functions
@@ -1449,7 +1389,7 @@ module.exports = function (_) {
 
 };
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = function (_) {
 
   // Helpers
@@ -1474,19 +1414,6 @@ module.exports = function (_) {
   // ----------------------------
 
   _.mixin({
-    // Merges two or more objects starting with the left-most and
-    // applying the keys right-word
-    // {any:any}* -> {any:any}
-    merge: function(/* objs */){
-      var dest = _.some(arguments) ? {} : null;
-
-      if (truthy(dest)) {
-        _.extend.apply(null, concat.call([dest], _.toArray(arguments)));
-      }
-
-      return dest;
-    },
-
     // Takes an object and another object of strings to strings where the second
     // object describes the key renaming to occur in the first object.
     renameKeys: function(obj, kobj) {
@@ -1561,7 +1488,7 @@ module.exports = function (_) {
 
 };
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = function (_) {
 
   // Helpers
@@ -1663,7 +1590,7 @@ module.exports = function (_) {
 
 };
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = function(_) {
 
   // Mixing in the truthiness
@@ -1688,7 +1615,7 @@ module.exports = function(_) {
 };
 
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = function (_) {
 
   // Setup for variadic operators
@@ -1817,7 +1744,6 @@ module.exports = function (_) {
   // -----------------------------
 
   _.mixin({
-    add: variadicMath(add),
     sub: variadicMath(sub),
     mul: variadicMath(mul),
     div: variadicMath(div),
@@ -1825,15 +1751,10 @@ module.exports = function (_) {
     inc: inc,
     dec: dec,
     neg: neg,
-    eq: variadicComparator(eq),
     seq: variadicComparator(seq),
     neq: invert(variadicComparator(eq)),
     sneq: invert(variadicComparator(seq)),
     not: not,
-    gt: variadicComparator(gt),
-    lt: variadicComparator(lt),
-    gte: variadicComparator(gte),
-    lte: variadicComparator(lte),
     bitwiseAnd: variadicMath(bitwiseAnd),
     bitwiseOr: variadicMath(bitwiseOr),
     bitwiseXor: variadicMath(bitwiseXor),
@@ -1844,7 +1765,7 @@ module.exports = function (_) {
   });
 };
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = function (_) {
 
   // Helpers
@@ -1999,7 +1920,7 @@ module.exports = function (_) {
   });
 };
 
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = function (_) {
 
   // Helpers
@@ -2030,13 +1951,12 @@ module.exports = function (_) {
 
 };
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require("../common-js/_.array.builders.js")(_);
 require("../common-js/_.array.selectors.js")(_);
 require("../common-js/_.collections.walk.js")(_);
 require("../common-js/_.function.arity.js")(_);
 require("../common-js/_.function.combinators.js")(_);
-require("../common-js/_.function.dispatch.js")(_);
 require("../common-js/_.function.iterators.js")(_);
 require("../common-js/_.function.predicates.js")(_);
 require("../common-js/_.object.builders.js")(_);
@@ -2046,4 +1966,4 @@ require("../common-js/_.util.operators.js")(_);
 require("../common-js/_.util.strings.js")(_);
 require("../common-js/_.util.trampolines.js")(_);
 
-},{"../common-js/_.array.builders.js":1,"../common-js/_.array.selectors.js":2,"../common-js/_.collections.walk.js":3,"../common-js/_.function.arity.js":4,"../common-js/_.function.combinators.js":5,"../common-js/_.function.dispatch.js":6,"../common-js/_.function.iterators.js":7,"../common-js/_.function.predicates.js":8,"../common-js/_.object.builders.js":9,"../common-js/_.object.selectors.js":10,"../common-js/_.util.existential.js":11,"../common-js/_.util.operators.js":12,"../common-js/_.util.strings.js":13,"../common-js/_.util.trampolines.js":14}]},{},[15]);
+},{"../common-js/_.array.builders.js":1,"../common-js/_.array.selectors.js":2,"../common-js/_.collections.walk.js":3,"../common-js/_.function.arity.js":4,"../common-js/_.function.combinators.js":5,"../common-js/_.function.iterators.js":6,"../common-js/_.function.predicates.js":7,"../common-js/_.object.builders.js":8,"../common-js/_.object.selectors.js":9,"../common-js/_.util.existential.js":10,"../common-js/_.util.operators.js":11,"../common-js/_.util.strings.js":12,"../common-js/_.util.trampolines.js":13}]},{},[14]);

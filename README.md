@@ -1,4 +1,4 @@
-The brass buckles on lodash's utility belt 
+The brass buckles on lodash's utility belt
 
 Basically a [`lodash`](http://lodash.com/) compatible fork of [`underscore-contrib`](https://github.com/documentcloud/underscore-contrib)
 
@@ -35,7 +35,7 @@ First, you’ll need lodash. Then you can grab the relevant lodash-contrib libra
 <script src="lodash.object.builders.js"></script>
 ```
 
-You could also use [browserify](http://browserify.org/) to bundle your code into a JavaScript file that you can include in a web page. 
+You could also use [browserify](http://browserify.org/) to bundle your code into a JavaScript file that you can include in a web page.
 Require `lodash-contrib` in your main script file (e.g. `test.js`) like so:
 
 ```javascript
@@ -46,16 +46,15 @@ console.log(_.truthyAll(0, 1, 2, 'lodash-contrib!'));
 ```
 
 then you could run `browserify test.js -o browserified.js` to get `lodash`, `lodash-contrib` and your code into `browserified.js`.
-    
+
 ####Node
 
 Just run `npm install lodash-contrib`, you don't need to have lodash as it will be grabbed as a dependency.
 
-At the moment there are no cross-contrib dependencies (i.e. each library can stand by itself), but that may
-change in the future.
-
 Contributing
 ------------
+
+**We need some docs sync** since rebasing to version 3 (some methods renamed xxxContrib)
 
 There is still a lot of work to do around perf, documentation, examples, testing and distribution so any help
 in those areas is welcomed. Pull requests are accepted, but please search the [issues](https://github.com/empeeric/lodash-contrib/issues)

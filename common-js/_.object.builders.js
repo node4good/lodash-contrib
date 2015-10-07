@@ -22,19 +22,6 @@ module.exports = function (_) {
   // ----------------------------
 
   _.mixin({
-    // Merges two or more objects starting with the left-most and
-    // applying the keys right-word
-    // {any:any}* -> {any:any}
-    merge: function(/* objs */){
-      var dest = _.some(arguments) ? {} : null;
-
-      if (truthy(dest)) {
-        _.extend.apply(null, concat.call([dest], _.toArray(arguments)));
-      }
-
-      return dest;
-    },
-
     // Takes an object and another object of strings to strings where the second
     // object describes the key renaming to occur in the first object.
     renameKeys: function(obj, kobj) {

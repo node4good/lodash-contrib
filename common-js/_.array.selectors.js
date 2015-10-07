@@ -57,35 +57,6 @@ module.exports = function(_) {
         return binPick(array, slice.call(arguments, 1));
     },
 
-    // Takes all items in an array while a given predicate returns truthy.
-    takeWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index]))) {
-          break;
-        }
-      }
-
-      return _.take(array, index);
-    },
-
-    // Drops all items from an array while a given predicate returns truthy.
-    dropWhile: function(array, pred) {
-      if (!isSeq(array)) throw new TypeError;
-
-      var sz = _.size(array);
-
-      for (var index = 0; index < sz; index++) {
-        if(!truthy(pred(array[index])))
-          break;
-      }
-
-      return _.drop(array, index);
-    },
-
     // Returns an array with two internal arrays built from
     // taking an original array and spliting it at the index
     // where a given function goes falsey.

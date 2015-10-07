@@ -34,7 +34,7 @@ module.exports = function(_) {
     // sub-arrays of size n.  Allows and optional padding array as
     // the third argument to fill in the tail chunk when n is
     // not sufficient to build chunks of the same size.
-    chunk: function(array, n, pad) {
+    chunkContrib: function(array, n, pad) {
       var args = arguments;
       var p = function(array) {
         if (array == null) return [];
@@ -45,7 +45,7 @@ module.exports = function(_) {
           return _.cons(part, p(_.drop(array, n)));
         }
         else if (args.length === 3) {
-          pad = _.isArray(pad) ? pad : _.repeat(n, pad);
+          pad = _.isArray(pad) ? pad : _.repeatContrib(n, pad);
           return [_.take(_.cat(part, pad), n)];
         }
         else {
@@ -104,7 +104,7 @@ module.exports = function(_) {
 
     // Returns an array of a value repeated a certain number of
     // times.
-    repeat: function(t, elem) {
+    repeatContrib: function(t, elem) {
       return _.times(t, function() { return elem; });
     },
 
