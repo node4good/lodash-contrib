@@ -1,7 +1,7 @@
 {
   "name": "lodash-contrib",
   "description": "The brass buckles on lodash's utility belt",
-  "version": "31001.0.0",
+  "version": "31001.1.0",
   "main": "dist/lodash-contrib.commonjs.js",
   "dependencies": {
     "lodash": "3.10.1"
