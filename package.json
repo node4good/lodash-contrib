@@ -21,7 +21,7 @@
     "grunt-tocdoc": "",
     "mocha": ""
   },
-  "repository": "TheNodeILs/lodash-contrib",
+  "repository": "node4good/lodash-contrib",
   "license": "MIT",
   "author": "Refael Ackermann <me@refack.com> (http://refack.com)",
   "contributors": [

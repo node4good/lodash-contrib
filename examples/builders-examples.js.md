@@ -13,7 +13,7 @@ Each section gives use cases showing how a given function could be used:
  * [_.setPath](#_setpathobj-value-ks-defaultvalue)
  * [_.frequencies](#_frequenciesobj)
 
-For some more insights have a look at [the tests](https://github.com/TheNodeILs/lodash-contrib/blob/master/test/object.builders.js).
+For some more insights have a look at [the tests](https://github.com/node4good/lodash-contrib/blob/master/test/object.builders.js).
 
 _.merge(/* objs */)
 -------------------
