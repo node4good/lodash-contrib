@@ -24,7 +24,7 @@ Each section gives use cases showing how a given function could be used.
  * [_.unsplat](#_unsplatfun)
  * [_.unsplatl](#_unsplatlfun)
 
-For some more insights have a look at [the tests](https://github.com/TheNodeILs/lodash-contrib/blob/master/test/function.combinators.js).
+For some more insights have a look at [the tests](https://github.com/node4good/lodash-contrib/blob/master/test/function.combinators.js).
 
 
 _.bound(obj, fname)
