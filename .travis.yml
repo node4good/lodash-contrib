@@ -8,7 +8,7 @@ deploy:
   provider: npm
   email: me@refack.com
   api_key:
-    secure: emop6MuWZ2yglRFlq9dpALSRM71S/FFxj8+34PeeWE5T2pTmCKi3f6G6giZm9/pbat30Fgk5GQg3sc3AiPFf8k9xnOS7ihy6nm0lH1Q/orNRUCJDVhy9UaLlT/GwCAvGvHw7yNNzNA3+r7Tv0dSbLcCwNdnyYTs/B9XB5gxRui8=
+    secure: Gq86gEGmI0EG2sub1BKBYyhqfDYpqWUb3/4ms39lcO9H9P109F6WHdjGNeNV/GjNhODk93lE6eYqYTcfpAaomDt4TEY7Q4tns1HOl5FsjgA8fhZMV/K/Q8VgNWBm2W7b2u5KuQWo1/IZYofGcaazEbsoSDn06ifOrjtky9i8zUk=
   on:
     tags: true
     repo: node4good/lodash-contrib
