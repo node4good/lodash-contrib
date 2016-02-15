@@ -160,7 +160,7 @@ module.exports = function (grunt) {
       var arr = new Array(len);
       var aligner = arr.join(' ');
       code += 'module.exports.' + name + aligner + ' = _.' + name + ';\n';
-    }).commit();
+    });
     grunt.file.write(setup.dst, code);
   });
 

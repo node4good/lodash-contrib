@@ -607,7 +607,7 @@ module.exports = function (_) {
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
     fix: function (fun) {
-      var fixArgs = _.rest(arguments);
+      var fixArgs = _.tail(arguments);
 
       var f = function () {
         var args = fixArgs.slice();
@@ -1744,6 +1744,7 @@ module.exports = function (_) {
   // -----------------------------
 
   _.mixin({
+    addContrib: variadicMath(add),
     sub: variadicMath(sub),
     mul: variadicMath(mul),
     div: variadicMath(div),
@@ -1751,10 +1752,15 @@ module.exports = function (_) {
     inc: inc,
     dec: dec,
     neg: neg,
+    eqContrib: variadicComparator(eq),
     seq: variadicComparator(seq),
     neq: invert(variadicComparator(eq)),
     sneq: invert(variadicComparator(seq)),
     not: not,
+    gtContrib: variadicComparator(gt),
+    ltContrib: variadicComparator(lt),
+    gteContrib: variadicComparator(gte),
+    lteContrib: variadicComparator(lte),
     bitwiseAnd: variadicMath(bitwiseAnd),
     bitwiseOr: variadicMath(bitwiseOr),
     bitwiseXor: variadicMath(bitwiseXor),

@@ -24,7 +24,7 @@ Each section gives use cases showing how a given function could be used.
  * [_.unsplat](#_unsplatfun)
  * [_.unsplatl](#_unsplatlfun)
 
-For some more insights have a look at [the tests](https://github.com/TheNodeILs/lodash-contrib/blob/master/test/function.combinators.js).
+For some more insights have a look at [the tests](https://github.com/node4good/lodash-contrib/blob/master/test/function.combinators.js).
 
 
 _.bound(obj, fname)
@@ -77,9 +77,9 @@ var lessThan = _.comparator(function(x, y) { return x < y });
 lessThan(1, 2); // → -1
 lessThan(3, 2); // → 1
 lessThan(2, 2); // → 0
-``` 
+```
 
-    
+
 _.complement(pred)
 -----------------
 
@@ -98,7 +98,7 @@ Returns a function that reverses the sense of a given predicate-like.
 ```javascript
 // every value is ok except String
 _.filter(['removeme', 1, true], _.complement(_.isString));
-``` 
+```
 
 
 _.conjoin(predicates)
@@ -217,8 +217,8 @@ _.flip2(div)(10, 2) // → 0.2
 _.fnull(fun [, defaults])
 ----------------------------
 
-Returns a function that protects a given function from receiving non-existy values. 
-Each subsequent value provided to `fnull` acts as the default to the original function 
+Returns a function that protects a given function from receiving non-existy values.
+Each subsequent value provided to `fnull` acts as the default to the original function
 should a call receive non-existy values in the defaulted arg slots.
 
 **Arguments**
@@ -227,7 +227,7 @@ should a call receive non-existy values in the defaulted arg slots.
  2. `defaults`: a collection of default values
 
 **Returns**
-    
+
 Result of `fun` applied to the arguments, using the provided defaults if any non-existy values
 are found.
 
@@ -299,11 +299,11 @@ Maps the arguments of a function, takes the mapping function first so it can be 
 
 // TODO
 
-    
+
 _.mapArgsWith()
 ---------------
 
-// TODO 
+// TODO
 
 
 _.methodize(func)
@@ -388,7 +388,7 @@ var sumArgs = function () {
 };
 var sumArray = _.splat(sumArgs);
 sumArray([1, 2, 3]) // → 6
-``` 
+```
 
 
 _.unsplat(fun)
@@ -421,7 +421,7 @@ _.unsplatl(fun)
 ---------------
 
 Same as unsplat, but the rest of the arguments are collected in the first parameter.
-    
+
 **Arguments**
 
  1. `fun` (Function): The function that will be applied.

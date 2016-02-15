@@ -1,7 +1,7 @@
 Examples for builder functions
 ===================
 
-`_.object.builders.js` contains functions that are useful when small changes to JavaScript 
+`_.object.builders.js` contains functions that are useful when small changes to JavaScript
 objects are needed.
 
 Each section gives use cases showing how a given function could be used:
@@ -13,7 +13,7 @@ Each section gives use cases showing how a given function could be used:
  * [_.setPath](#_setpathobj-value-ks-defaultvalue)
  * [_.frequencies](#_frequenciesobj)
 
-For some more insights have a look at [the tests](https://github.com/TheNodeILs/lodash-contrib/blob/master/test/object.builders.js).
+For some more insights have a look at [the tests](https://github.com/node4good/lodash-contrib/blob/master/test/object.builders.js).
 
 _.merge(/* objs */)
 -------------------
@@ -40,7 +40,7 @@ merged.c; // → 2
 _.renameKeys(obj, kobj)
 -----------------------
 
-Takes an object and another object of strings to strings where the second object describes 
+Takes an object and another object of strings to strings where the second object describes
 the key renaming to occur in the first object.
 
 **Arguments**
@@ -70,7 +70,7 @@ _.snapshot(obj)
 ---------------
 
 Snapshots an object deeply. Based on the [version by Keith Devens](http://archive.today/FVuq2).
- 
+
 **Arguments**
 
  1. `obj` that will be snapshotted.
@@ -91,9 +91,9 @@ console.log(coordsFirstTick.x); // → 1
 _.updatePath(obj, fun, ks, defaultValue)
 ----------------------------------------
 
-Updates the value at any depth in a nested object based on the path described by 
-the keys given. The function provided is supplied the current value and is expected 
-to return a value for use as the new value. If no keys are provided, then the object 
+Updates the value at any depth in a nested object based on the path described by
+the keys given. The function provided is supplied the current value and is expected
+to return a value for use as the new value. If no keys are provided, then the object
 itself is presented to the given function.
 
 **Arguments**
@@ -132,14 +132,14 @@ _.setPath(obj, value, ks, defaultValue)
 
 Sets the value at any depth in a nested object based on the path described by the keys given.
 
-See [_.updatePath](#_updatepathobj-fun-ks-defaultvalue), this is just syntactic sugar that allows you to pass a value as second 
+See [_.updatePath](#_updatepathobj-fun-ks-defaultvalue), this is just syntactic sugar that allows you to pass a value as second
 parameter, without having to wrap it into a function by yourself.
 
 
 _.frequencies(obj)
 ------------------------------
 
-Returns an object where each element of an array is keyed to the number of times that 
+Returns an object where each element of an array is keyed to the number of times that
 it occurred in said array.
 
 **Arguments**

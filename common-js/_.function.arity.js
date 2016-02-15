@@ -95,7 +95,7 @@ module.exports = function (_) {
     // Fixes the arguments to a function based on the parameter template defined by
     // the presence of values and the `_` placeholder.
     fix: function (fun) {
-      var fixArgs = _.rest(arguments);
+      var fixArgs = _.tail(arguments);
 
       var f = function () {
         var args = fixArgs.slice();
