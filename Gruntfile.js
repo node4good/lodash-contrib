@@ -6,9 +6,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks("grunt-docco");
   grunt.loadNpmTasks("grunt-mocha-test");
-  grunt.loadNpmTasks("grunt-tocdoc");
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -17,7 +15,7 @@ module.exports = function (grunt) {
       "// =========================\n\n" +
       "// > <%= pkg.homepage %>\n" +
       "// > (c) 2013 Michael Fogus, DocumentCloud and Investigative Reporters & Editors\n" +
-      "// > (c) 2013 Refael Ackermann & Empeeric\n" +
+      "// > (c) 2016 Refael Ackermann & node4good.org\n" +
       "// > <%= pkg.name %> may be freely distributed under the <%= pkg.license %> license.\n\n",
 
 
@@ -107,31 +105,6 @@ module.exports = function (grunt) {
           'gen/double.browserified.js': 'gen/lodash-contrib.js'
         },
         browserifyOptions: { debug: true }
-      }
-    },
-
-
-    tocdoc: {
-      api: {
-        files: {
-          'index.html': ['docs/*.md', 'CHANGELOG.md']
-        }
-      }
-    },
-
-
-    docco: {
-      docs: {
-        src: ['docs/*.md'],
-        options: {
-          output: 'gh-pages/'
-        }
-      },
-      examples: {
-        src: ['examples/*.md'],
-        options: {
-          output: 'gh-pages/examples/'
-        }
       }
     }
   });

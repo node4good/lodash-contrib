@@ -1,10 +1,10 @@
 {
   "name": "lodash-contrib",
   "description": "The brass buckles on lodash's utility belt",
-  "version": "43000.0.2",
+  "version": "4.1200.0",
   "main": "dist/lodash-contrib.commonjs.js",
   "dependencies": {
-    "lodash": "4.3.0"
+    "lodash": "4.12.x"
   },
   "devDependencies": {
     "chai": "",
@@ -16,9 +16,7 @@
     "grunt-contrib-jshint": "",
     "grunt-contrib-qunit": "",
     "grunt-contrib-uglify": "",
-    "grunt-docco": "",
     "grunt-mocha-test": "",
-    "grunt-tocdoc": "",
     "mocha": ""
   },
   "repository": "node4good/lodash-contrib",
