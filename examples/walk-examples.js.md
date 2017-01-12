@@ -50,7 +50,7 @@ The \_.walk module provides versions of most of the
 some small differences that make them better suited for operating on trees. For
 example, you can use `_.walk.filter` to get a list of all the strings in a tree:
 
-    _.walk.filter(_.walk.preorder, _.isString);
+    _.walk.filter(tree, _.walk.preorder, _.isString);
 
 Like many other functions in _.walk, the argument to `filter` is a function
 indicating in what order the nodes should be visited. Currently, only
