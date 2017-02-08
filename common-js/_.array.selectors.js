@@ -69,9 +69,9 @@ module.exports = function(_) {
     partitionBy: function(array, fun){
       if (_.isEmpty(array) || !existy(array)) return [];
 
-      var fst    = _.first(array);
+      var fst    = _.head(array);
       var fstVal = fun(fst);
-      var run    = concat.call([fst], _.takeWhile(_.rest(array), function(e) {
+      var run    = concat.call([fst], _.takeWhile(_.tail(array), function(e) {
         return _.isEqual(fstVal, fun(e));
       }));
 

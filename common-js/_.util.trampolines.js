@@ -15,7 +15,7 @@ module.exports = function (_) {
     },
 
     trampoline: function(fun /*, args */) {
-      var result = fun.apply(fun, _.rest(arguments));
+      var result = fun.apply(fun, _.tail(arguments));
 
       while (_.isFunction(result)) {
         result = result();

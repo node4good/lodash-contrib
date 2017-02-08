@@ -181,7 +181,7 @@ module.exports = function (_) {
     // as the default to the original function should a call receive non-existy
     // values in the defaulted arg slots.
     fnull: function(fun /*, defaults */) {
-      var defaults = _.rest(arguments);
+      var defaults = _.tail(arguments);
 
       return function(/*args*/) {
         var args = _.toArray(arguments);
@@ -222,7 +222,7 @@ module.exports = function (_) {
     // of the arguments are used as the original's entire argument list.
     functionalize: function(method) {
       return function(ctx /*, args */) {
-        return method.apply(ctx, _.rest(arguments));
+        return method.apply(ctx, _.tail(arguments));
       };
     },
 

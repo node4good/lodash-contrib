@@ -291,9 +291,9 @@ module.exports = function(_) {
     partitionBy: function(array, fun){
       if (_.isEmpty(array) || !existy(array)) return [];
 
-      var fst    = _.first(array);
+      var fst    = _.head(array);
       var fstVal = fun(fst);
-      var run    = concat.call([fst], _.takeWhile(_.rest(array), function(e) {
+      var run    = concat.call([fst], _.takeWhile(_.tail(array), function(e) {
         return _.isEqual(fstVal, fun(e));
       }));
 
@@ -368,7 +368,7 @@ module.exports = function (_) {
         // as the parent node.
         if (collectResults) subResults = _.isArray(value) ? [] : {};
 
-        var stop = _.any(target, function(obj, key) {
+        var stop = _.some(target, function(obj, key) {
           var result = _walk(obj, key, value);
           if (result === stopWalk) return true;
           if (subResults) subResults[key] = result;
@@ -891,7 +891,7 @@ module.exports = function (_) {
     // as the default to the original function should a call receive non-existy
     // values in the defaulted arg slots.
     fnull: function(fun /*, defaults */) {
-      var defaults = _.rest(arguments);
+      var defaults = _.tail(arguments);
 
       return function(/*args*/) {
         var args = _.toArray(arguments);
@@ -932,7 +932,7 @@ module.exports = function (_) {
     // of the arguments are used as the original's entire argument list.
     functionalize: function(method) {
       return function(ctx /*, args */) {
-        return method.apply(ctx, _.rest(arguments));
+        return method.apply(ctx, _.tail(arguments));
       };
     },
 
@@ -1551,7 +1551,7 @@ module.exports = function (_) {
       // value is null, stop executing and return undefined
       if (obj === null) return void 0;
 
-      return getPath(obj[_.first(ks)], _.rest(ks));
+      return getPath(obj[_.head(ks)], _.tail(ks));
     },
 
     // Returns a boolean indicating whether there is a property
@@ -1563,13 +1563,13 @@ module.exports = function (_) {
 
       if (obj == null && numKeys > 0) return false;
 
-      if (_.contains(['boolean', 'string', 'number'], typeof obj)) return false;
+      if (_.includes(['boolean', 'string', 'number'], typeof obj)) return false;
 
       if (!(ks[0] in obj)) return false;
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[_.first(ks)], _.rest(ks));
+      return hasPath(obj[_.head(ks)], _.tail(ks));
     },
 
     pickWhen: function(obj, pred) {
@@ -1944,7 +1944,7 @@ module.exports = function (_) {
     },
 
     trampoline: function(fun /*, args */) {
-      var result = fun.apply(fun, _.rest(arguments));
+      var result = fun.apply(fun, _.tail(arguments));
 
       while (_.isFunction(result)) {
         result = result();

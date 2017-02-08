@@ -45,7 +45,7 @@ module.exports = function (_) {
         // as the parent node.
         if (collectResults) subResults = _.isArray(value) ? [] : {};
 
-        var stop = _.any(target, function(obj, key) {
+        var stop = _.some(target, function(obj, key) {
           var result = _walk(obj, key, value);
           if (result === stopWalk) return true;
           if (subResults) subResults[key] = result;

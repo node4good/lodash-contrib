@@ -60,7 +60,7 @@ module.exports = function (_) {
       // value is null, stop executing and return undefined
       if (obj === null) return void 0;
 
-      return getPath(obj[_.first(ks)], _.rest(ks));
+      return getPath(obj[_.head(ks)], _.tail(ks));
     },
 
     // Returns a boolean indicating whether there is a property
@@ -72,13 +72,13 @@ module.exports = function (_) {
 
       if (obj == null && numKeys > 0) return false;
 
-      if (_.contains(['boolean', 'string', 'number'], typeof obj)) return false;
+      if (_.includes(['boolean', 'string', 'number'], typeof obj)) return false;
 
       if (!(ks[0] in obj)) return false;
 
       if (numKeys === 1) return true;
 
-      return hasPath(obj[_.first(ks)], _.rest(ks));
+      return hasPath(obj[_.head(ks)], _.tail(ks));
     },
 
     pickWhen: function(obj, pred) {
