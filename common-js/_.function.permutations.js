@@ -89,16 +89,22 @@ module.exports = function (_) {
    * permutations('cat',2)
    * // => [["c","a"],["c","t"],["a","c"],["a","t"],["t","c"],["t","a"]]
    */
-  function permutations(obj, n){
-      if (typeof obj=='string') obj = _.toArray(obj)
-      n = n?n:obj.length
-      // make n copies of keys/indices
-      for (var j = 0, nInds=[]; j < n; j++) {nInds.push(_.keys(obj)) }
-      // get product of the indices, then filter to remove the same key twice
-      var arrangements = product(nInds).filter(pair=>pair[0]!==pair[1])
-      return _.map(arrangements,indices=>_.map(indices,i=>obj[i]))
-  }
-
+    function permutations(obj, n){
+        if (typeof obj=='string') obj = _.toArray(obj)
+        n = n?n:obj.length
+        // make n copies of keys/indices
+        let nInds=[];
+        for (var j = 0; j < n; j++) {nInds.push(_.keys(obj)) }
+        // get product of the indices, then filter to remove the same key twice
+        // var arrangements = product(nInds).filter(pair=>pair[0]!==pair[1]) // this line only removes duplicates from the first two elements.
+        let arrangements = product(nInds);
+        let out=[]
+        for (let j=0; j< arrangements.length;j++ ) {
+            let outt = arrangements[j].filter((value, index, self)=> {return self.indexOf(value) === index})
+            if (outt.length === arrangements[j].length) out.push(outt)
+        }
+        return _.map(out,indices=>_.map(indices,i=>obj[i]))
+    }
 
 
   /**
