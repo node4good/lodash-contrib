@@ -12,8 +12,8 @@ $(document).ready(function () {
     deepEqual(_.combinations([1, 2, 3], 2), [[1, 2], [1, 3], [2, 3]], 'should return combinations of list');
   });
   
-  test("combinations_with_replacement", function () {
-    deepEqual(_.combinations_with_replacement([1, 2, 3], 2), [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]], 'should return combinations_with_replacement of list');
+  test("combinationsWithReplacement", function () {
+    deepEqual(_.combinationsWithReplacement([1, 2, 3], 2), [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]], 'should return combinationsWithReplacement of list');
   });
 
   test("permutations", function () {
