@@ -18,8 +18,8 @@ module.exports = function (_) {
    *   permutations([1,2,3],2)
    *   permutations('cat',2)
    */
-  var _ = require('lodash')
 
+  
   /**
    * Generate all combination of arguments when given arrays or strings
    * e.g. [['Ben','Jade','Darren'],['Smith','Miller']] to [['Ben','Smith'],[..]]
@@ -33,10 +33,10 @@ module.exports = function (_) {
 
       return _.reduce(args, function(a, b) {
           return _.flatten(_.map(a, function(x) {
-              return _.map(b, function(y) {
-                  return _.concat(x,[y]);
+              return _.map(b, function (y) {
+                  return _.cat(x,[y]);
               });
-          }), true);
+          }), false);
       }, [ [] ]);
   }
 
@@ -144,4 +144,12 @@ module.exports = function (_) {
       var arrangements = product(nInds).filter(pair=>pair[0]<=pair[1])
       return _.map(arrangements,indices=>_.map(indices,i=>obj[i]))
   }
+
+    _.mixin({
+        combinations,
+        combinations_with_replacement,
+        product,
+        permutations
+  })
+    
 };
