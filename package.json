@@ -4,7 +4,7 @@
   "version": "4.1200.1",
   "main": "dist/lodash-contrib.commonjs.js",
   "dependencies": {
-    "lodash": "4.12.x"
+    "lodash": "4.17.x"
   },
   "devDependencies": {
     "chai": "",
